@@ -20,9 +20,9 @@ Robust detection of AI-generated images under real-world transformations
 
 | Split | Source | Purpose |
 |---|---|---|
-| Train | CIFAKE + SID_Set | Core training data |
-| Validation | Held out from train sources (~15%) | Checkpoint selection, early stopping, threshold tuning |
-| Test (in-distribution) | Held out from train sources (~15%), touched only once | Final honest accuracy — same distribution as training |
+| Train | CIFAKE + SID_Set (toggle via USE_CIFAKE/USE_SID_SET below) | Core training data |
+| Validation | Carved out of each enabled source's TRAIN pool (VAL_SPLIT_RATIO) | Checkpoint selection, early stopping — never the official test/validation split |
+| Test (in-distribution) | Each source's OFFICIAL test/validation split, touched only in Section 7 | Final honest accuracy — same distribution as training, never touched during training |
 | External benchmark (out-of-distribution) | WildFake subset (COCO val2017 real + DALL·E Advanced fake) | Generalization check + required robustness table. **Never trained on.** |
 
 ### Why three eval numbers, not one
@@ -31,9 +31,10 @@ Robust detection of AI-generated images under real-world transformations
 - **External (WildFake) accuracy** — does it generalize to a completely different generator/photo source?
 
 ### Model
-Two-branch small CNN (EfficientNet-B0), well under the 2B parameter cap:
-- **RGB branch** — standard image input.
-- **Frequency branch** — log-magnitude FFT spectrum of the grayscale image.
+Two-branch design (see Section 4 for full detail), well under the 2B parameter cap:
+- **RGB branch** — frozen CLIP ViT-L/14 (~304M params, never updated during training).
+- **Frequency branch** — trainable ConvNeXt-Tiny on the log-magnitude FFT spectrum.
+- **Fusion** — a small cross-modal attention block combining both branches' features.
 
 ### Robustness strategy
 Augmentation-in-the-loop: every training sample gets one randomly sampled transform from the
@@ -59,6 +60,20 @@ load_dotenv()  # reads .env in the current working directory into environment va
 # pipeline on CIFAKE alone while SID_Set's network streaming is being flaky).
 USE_CIFAKE = True
 USE_SID_SET = False
+SKIP_TRAINING = False  # set True to skip straight to inference/eval using an
+                       # existing checkpoints/best_model.pt, without building
+                       # the full training DataLoaders or downloading more
+                       # than Section 7's small eval pool needs.
+
+# Fraction of each source's TRAIN pool held back as the early-stopping
+# validation set. The source's OFFICIAL test/validation split is reserved
+# entirely for Section 7 — it is never touched during training or checkpoint
+# selection, so it's a genuine "touched once" test set, matching the plan
+# above (previously, the official test/validation split was used for BOTH
+# per-epoch checkpoint selection AND the final robustness report, which
+# meant the reported numbers were measured on data the checkpoint-selection
+# process was implicitly tuned against).
+VAL_SPLIT_RATIO = 0.15
 
 if not USE_CIFAKE and not USE_SID_SET:
     raise RuntimeError("At least one of USE_CIFAKE or USE_SID_SET must be True.")
@@ -157,6 +172,65 @@ from PIL import Image
 IMG_EXTS = {'.jpg', '.jpeg', '.png', '.bmp', '.webp'}
 
 
+import hashlib
+
+SPLIT_MANIFEST_PATH = PROJECT_ROOT / "split_manifest.json"
+# Deliberately NOT inside CHECKPOINT_DIR: that folder is gitignored, but this
+# file defines which exact images are train vs validation — it needs to ship
+# with the repo so anyone reproducing training gets the same split, not a
+# fresh random one.
+
+
+def load_split_manifest() -> dict:
+    """Loads the persisted train/val file assignments, or {} if none exist yet."""
+    if SPLIT_MANIFEST_PATH.exists():
+        with open(SPLIT_MANIFEST_PATH) as f:
+            return json.load(f)
+    return {}
+
+
+def save_split_manifest(manifest: dict) -> None:
+    with open(SPLIT_MANIFEST_PATH, 'w') as f:
+        json.dump(manifest, f, indent=2)
+
+
+def _stable_hash_fraction(key: str) -> float:
+    """
+    Deterministic hash of a string mapped to [0, 1), stable across process
+    restarts — unlike Python's builtin hash(), which is randomized per
+    process for security and would silently reassign every file on every
+    run if used here.
+    """
+    digest = hashlib.md5(key.encode('utf-8')).hexdigest()[:8]
+    return int(digest, 16) / 0x100000000
+
+
+def assign_split(paths: list, manifest_bucket: dict, val_ratio: float) -> tuple:
+    """
+    Assigns each path to 'train' or 'val', persistently: a path already
+    present in manifest_bucket keeps its existing assignment FOREVER,
+    regardless of what val_ratio is passed on this or any future call —
+    only a path seen for the first time gets a fresh hash-based assignment.
+    manifest_bucket is mutated in place with any new assignments.
+
+    This is what makes changing VAL_SPLIT_RATIO safe for local file-based
+    sources: it can only affect files not yet assigned, never retroactively
+    move an already-trained-on file into the validation set (or vice versa).
+    Returns (train_paths, val_paths, count_newly_assigned).
+    """
+    train_paths, val_paths = [], []
+    newly_assigned = 0
+    for p in paths:
+        key = p.name
+        assignment = manifest_bucket.get(key)
+        if assignment is None:
+            assignment = 'val' if _stable_hash_fraction(key) < val_ratio else 'train'
+            manifest_bucket[key] = assignment
+            newly_assigned += 1
+        (val_paths if assignment == 'val' else train_paths).append(p)
+    return train_paths, val_paths, newly_assigned
+
+
 class KaggleDirStreamDataset(IterableDataset):
     """
     Streams images lazily from a directory pair (real_dir / fake_dir).
@@ -168,9 +242,34 @@ class KaggleDirStreamDataset(IterableDataset):
     independently, silently duplicating every sample once per worker. Add
     torch.utils.data.get_worker_info()-based sharding before doing that.
     """
-    def __init__(self, real_dir, fake_dir, train=True, aug_in_loop=True, max_samples=None):
+    def __init__(self, real_dir, fake_dir, train=True, aug_in_loop=True, max_samples=None,
+                 manifest: dict = None, source_key: str = "default", role: str = "train",
+                 val_ratio: float = 0.15):
         self.real_paths = sorted(p for p in Path(real_dir).rglob('*') if p.suffix.lower() in IMG_EXTS)
         self.fake_paths = sorted(p for p in Path(fake_dir).rglob('*') if p.suffix.lower() in IMG_EXTS)
+
+        if manifest is not None:
+            # Separate buckets per class, so a real image and a fake image
+            # that happen to share a filename can never collide in the
+            # manifest lookup.
+            bucket = manifest.setdefault(source_key, {})
+            real_bucket = bucket.setdefault('real', {})
+            fake_bucket = bucket.setdefault('fake', {})
+
+            real_train, real_val, n_new_r = assign_split(self.real_paths, real_bucket, val_ratio)
+            fake_train, fake_val, n_new_f = assign_split(self.fake_paths, fake_bucket, val_ratio)
+            newly_assigned = n_new_r + n_new_f
+            if newly_assigned:
+                print(f"[{source_key}] assigned {newly_assigned} file(s) to train/val for "
+                      f"the first time (any existing assignments were left unchanged).")
+
+            real_split = real_train if role == 'train' else real_val
+            fake_split = fake_train if role == 'train' else fake_val
+        else:
+            # Fallback if no manifest is wired up: use everything, unsplit.
+            # Only relevant if this class is ever constructed directly
+            # without going through Section 3's manifest-based setup.
+            real_split, fake_split = self.real_paths, self.fake_paths
 
         if max_samples:
             # Split the cap evenly across classes BEFORE truncating. Doing
@@ -180,11 +279,11 @@ class KaggleDirStreamDataset(IterableDataset):
             # max_samples <= 50,000 silently produced a ZERO-fake, real-only
             # subset — same for a cap sitting exactly at 50,000.
             per_class_cap = max_samples // 2
-            real_subset = self.real_paths[:per_class_cap]
-            fake_subset = self.fake_paths[:per_class_cap]
+            real_subset = real_split[:per_class_cap]
+            fake_subset = fake_split[:per_class_cap]
         else:
-            real_subset = self.real_paths
-            fake_subset = self.fake_paths
+            real_subset = real_split
+            fake_subset = fake_split
 
         self.samples = [(p, 0) for p in real_subset] + [(p, 1) for p in fake_subset]
         self.train = train
@@ -223,11 +322,15 @@ class HFStreamDataset(IterableDataset):
 
     Same worker-sharding caveat as KaggleDirStreamDataset above applies here.
     """
-    def __init__(self, hf_dataset, train=True, aug_in_loop=True, max_samples=None):
+    def __init__(self, hf_dataset, train=True, aug_in_loop=True, max_samples=None, skip_first: int = 0):
         self.hf_dataset = hf_dataset
         self.train = train
         self.aug_in_loop = aug_in_loop
         self.max_samples = max_samples
+        self.skip_first = skip_first  # discard this many items before yielding —
+                                       # used to carve a disjoint early-stopping
+                                       # validation slice out of the same stream
+                                       # a separate instance uses for training
 
     def __len__(self):
         if self.max_samples is None:
@@ -242,6 +345,7 @@ class HFStreamDataset(IterableDataset):
 
     def __iter__(self):
         count = 0
+        skipped = 0
         consecutive_errors = 0
         max_consecutive_errors = 20  # tolerate transient network blips, but don't retry forever
         iterator = iter(self.hf_dataset)
@@ -273,6 +377,10 @@ class HFStreamDataset(IterableDataset):
                     ) from e
                 continue
 
+            if skipped < self.skip_first:
+                skipped += 1
+                continue
+
             try:
                 img = item['image'].convert('RGB')
                 label = int(item['label'])
@@ -292,6 +400,37 @@ class HFStreamDataset(IterableDataset):
                 'path': str(item.get('image_path', f'stream_{count}')),
             }
             count += 1
+
+
+class InterleavedIterableDataset(IterableDataset):
+    """
+    Interleaves multiple IterableDatasets by randomly picking which still-
+    active source to draw the next sample from, instead of ChainDataset's
+    behavior of fully exhausting one source before starting the next.
+
+    Without this, every single epoch sees a hard "regime switch" at the same
+    relative point (e.g. all of CIFAKE, then all of SID_Set) rather than a
+    well-mixed blend of sources — a real, if likely minor, training-dynamics
+    quirk that a plain ChainDataset can't avoid.
+    """
+    def __init__(self, datasets: list):
+        self.datasets = datasets
+
+    def __len__(self):
+        # Mirrors ChainDataset's own __len__: sums each source's length,
+        # propagating TypeError if any source's length is unknown (e.g. an
+        # uncapped HFStreamDataset) so callers fall back the same way.
+        return sum(len(d) for d in self.datasets)
+
+    def __iter__(self):
+        iterators = [iter(d) for d in self.datasets]
+        active = list(range(len(iterators)))
+        while active:
+            idx = random.choice(active)
+            try:
+                yield next(iterators[idx])
+            except StopIteration:
+                active.remove(idx)
 
 
 print('Dataset wrappers defined. No images loaded yet.')
@@ -409,12 +548,41 @@ def apply_named_transform(img: Image.Image, name: str) -> Image.Image:
     return TRANSFORM_POOL[name](img)
 
 
+def get_hf_split_total(repo_id: str, split: str):
+    """
+    Looks up a HuggingFace dataset split's true sample count from its
+    metadata (dataset_infos.json / README YAML), without downloading or
+    streaming any actual data. Returns None — rather than raising — if this
+    isn't available for this dataset/split, so the caller can report exactly
+    which source couldn't be determined instead of crashing.
+    """
+    try:
+        from datasets import load_dataset_builder
+        builder = load_dataset_builder(repo_id)
+        if not builder.info.splits or split not in builder.info.splits:
+            return None
+        return builder.info.splits[split].num_examples  # may itself be None
+    except Exception as e:
+        print(f"[warn] could not fetch size metadata for {repo_id} split={split}: {e}")
+        return None
+
+
 """## 3. Train / validation split, DataLoaders
 
 CIFAKE  -> KaggleDirStreamDataset  (reads from the project-local kagglehub cache)
 SID_Set -> HFStreamDataset         (HuggingFace streaming, no disk write)
 
 Neither source requires the full dataset to be in RAM or copied elsewhere.
+
+IMPORTANT: the early-stopping validation set used here is carved out of each
+source's TRAIN pool (via VAL_SPLIT_RATIO), NOT from the official test/
+validation split. The official test/validation split is reserved entirely
+for Section 7 — it is never touched during training or checkpoint selection,
+so it's a genuine "touched once" test set. Previously, the official
+test/validation split served double duty as both the checkpoint-selection
+signal and the final robustness report, which meant those numbers were
+measured on data the checkpoint-selection process was implicitly tuned
+against.
 """
 
 from torch.utils.data import ChainDataset
@@ -440,73 +608,103 @@ BATCH_SIZE = 64
 #      crashing. Both issues need fixing together before raising this.
 NUM_WORKERS = 0
 
-train_sources = []
-val_sources = []
-
-if USE_CIFAKE:
-    cifake_train_ds = KaggleDirStreamDataset(
-        real_dir=cifake_root / 'train' / 'REAL',
-        fake_dir=cifake_root / 'train' / 'FAKE',
-        train=True, aug_in_loop=True,
-        max_samples=MAX_SAMPLES_PER_SOURCE,
-    )
-    cifake_val_ds = KaggleDirStreamDataset(
-        real_dir=cifake_root / 'test' / 'REAL',
-        fake_dir=cifake_root / 'test' / 'FAKE',
-        train=False, aug_in_loop=False,
-        max_samples=MAX_SAMPLES_PER_SOURCE,
-    )
-    print(f'CIFAKE train: {len(cifake_train_ds.samples):,} images')
-    print(f'CIFAKE val:   {len(cifake_val_ds.samples):,} images')
-    train_sources.append(cifake_train_ds)
-    val_sources.append(cifake_val_ds)
+if SKIP_TRAINING:
+    print("SKIP_TRAINING is True — skipping training DataLoader construction "
+          "entirely (Section 7's small eval pool is built independently later).")
+    train_loader = None
+    val_loader = None
+    cifake_train_ds = cifake_earlystop_val_ds = None
+    sid_train_ds = sid_earlystop_val_ds = None
 else:
-    cifake_train_ds = None
-    cifake_val_ds = None
+    train_sources = []
+    val_sources = []
 
-if USE_SID_SET:
-    sid_train_stream = load_dataset('saberzl/SID_Set', split='train', streaming=True)
-    sid_val_stream = load_dataset('saberzl/SID_Set', split='validation', streaming=True)
+    # Loaded once per run — mutated in place as new files get their one-time
+    # assignment, then saved back to disk after all manifest-based sources
+    # are constructed below.
+    _split_manifest = load_split_manifest()
 
-    sid_train_ds = HFStreamDataset(sid_train_stream, train=True, aug_in_loop=True,
-                                    max_samples=MAX_SAMPLES_PER_SOURCE)
-    sid_val_ds = HFStreamDataset(sid_val_stream, train=False, aug_in_loop=False,
-                                  max_samples=MAX_SAMPLES_PER_SOURCE)
-    train_sources.append(sid_train_ds)
-    val_sources.append(sid_val_ds)
-else:
-    sid_train_ds = None
-    sid_val_ds = None
+    if USE_CIFAKE:
+        cifake_train_ds = KaggleDirStreamDataset(
+            real_dir=cifake_root / 'train' / 'REAL',
+            fake_dir=cifake_root / 'train' / 'FAKE',
+            train=True, aug_in_loop=True,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="CIFAKE", role="train",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        cifake_earlystop_val_ds = KaggleDirStreamDataset(
+            real_dir=cifake_root / 'train' / 'REAL',
+            fake_dir=cifake_root / 'train' / 'FAKE',
+            train=False, aug_in_loop=False,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="CIFAKE", role="val",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        print(f'CIFAKE train:       {len(cifake_train_ds.samples):,} images')
+        print(f'CIFAKE early-stop val: {len(cifake_earlystop_val_ds.samples):,} images')
+        train_sources.append(cifake_train_ds)
+        val_sources.append(cifake_earlystop_val_ds)
+    else:
+        cifake_train_ds = None
+        cifake_earlystop_val_ds = None
 
-if not train_sources:
-    raise RuntimeError("No data sources ended up enabled — check USE_CIFAKE/USE_SID_SET above.")
+    save_split_manifest(_split_manifest)
 
-train_ds = ChainDataset(train_sources)
-val_ds = ChainDataset(val_sources)
+    if USE_SID_SET:
+        sid_train_stream = load_dataset('saberzl/SID_Set', split='train', streaming=True)
+        sid_earlystop_val_stream = load_dataset('saberzl/SID_Set', split='train', streaming=True)
 
-train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
-val_loader = DataLoader(val_ds, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+        _sid_train_total = get_hf_split_total('saberzl/SID_Set', 'train')
+        _SID_FALLBACK_SPLIT_SIZE = 50_000  # only used if size is unknown AND uncapped
 
-print('\nDataLoaders ready. Images will be read lazily — no bulk copy elsewhere.')
+        if _sid_train_total is not None:
+            _sid_val_size = max(1, int(_sid_train_total * VAL_SPLIT_RATIO))
+            _sid_train_cap = _sid_train_total - _sid_val_size
+        elif MAX_SAMPLES_PER_SOURCE is not None:
+            _sid_val_size = max(1, int(MAX_SAMPLES_PER_SOURCE * VAL_SPLIT_RATIO))
+            _sid_train_cap = MAX_SAMPLES_PER_SOURCE - _sid_val_size
+        else:
+            print(f"[warn] SID_Set train split size is unknown AND MAX_SAMPLES_PER_SOURCE "
+                  f"is not set — falling back to a fixed {_SID_FALLBACK_SPLIT_SIZE:,}-sample "
+                  f"boundary so train/early-stop-val stay disjoint. Set MAX_SAMPLES_PER_SOURCE "
+                  f"for a split that's properly sized relative to the real split.")
+            _sid_val_size = max(1, int(_SID_FALLBACK_SPLIT_SIZE * VAL_SPLIT_RATIO))
+            _sid_train_cap = _SID_FALLBACK_SPLIT_SIZE - _sid_val_size
+
+        if MAX_SAMPLES_PER_SOURCE is not None:
+            _sid_train_cap = min(_sid_train_cap, MAX_SAMPLES_PER_SOURCE)
+
+        # skip_first=_sid_train_cap guarantees the val slice starts exactly
+        # where the train slice's cap ends — disjoint by construction,
+        # regardless of which branch above computed the numbers.
+        sid_train_ds = HFStreamDataset(sid_train_stream, train=True, aug_in_loop=True,
+                                        max_samples=_sid_train_cap, skip_first=0)
+        sid_earlystop_val_ds = HFStreamDataset(sid_earlystop_val_stream, train=False, aug_in_loop=False,
+                                                max_samples=_sid_val_size, skip_first=_sid_train_cap)
+        train_sources.append(sid_train_ds)
+        val_sources.append(sid_earlystop_val_ds)
+    else:
+        sid_train_ds = None
+        sid_earlystop_val_ds = None
+
+    if not train_sources:
+        raise RuntimeError("No data sources ended up enabled — check USE_CIFAKE/USE_SID_SET above.")
+
+    # Training data is interleaved (mixed sample-by-sample across sources)
+    # rather than chained (all of source A, then all of source B) — see
+    # InterleavedIterableDataset's docstring for why this matters. Validation
+    # order doesn't affect the aggregate accuracy metric, so it stays a
+    # simple ChainDataset for simplicity.
+    train_ds = InterleavedIterableDataset(train_sources) if len(train_sources) > 1 else train_sources[0]
+    val_ds = ChainDataset(val_sources)
+
+    train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+    val_loader = DataLoader(val_ds, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+
+    print('\nDataLoaders ready. Images will be read lazily — no bulk copy elsewhere.')
 
 
-def get_hf_split_total(repo_id: str, split: str):
-    """
-    Looks up a HuggingFace dataset split's true sample count from its
-    metadata (dataset_infos.json / README YAML), without downloading or
-    streaming any actual data. Returns None — rather than raising — if this
-    isn't available for this dataset/split, so the caller can report exactly
-    which source couldn't be determined instead of crashing.
-    """
-    try:
-        from datasets import load_dataset_builder
-        builder = load_dataset_builder(repo_id)
-        if not builder.info.splits or split not in builder.info.splits:
-            return None
-        return builder.info.splits[split].num_examples  # may itself be None
-    except Exception as e:
-        print(f"[warn] could not fetch size metadata for {repo_id} split={split}: {e}")
-        return None
 
 
 def summarize_sample_usage(sources: list):
@@ -557,42 +755,31 @@ def summarize_sample_usage(sources: list):
         print("\nSample sizes obtained for all sources.")
 
 
-# CIFAKE: exact counts always known directly from the filesystem scan —
-# ds.real_paths/ds.fake_paths hold the FULL untruncated lists regardless of
-# any cap, while ds.samples holds what actually got kept after capping.
-def _sid_used(total, cap):
-    """Returns (used, is_upper_bound) for a SID_Set split."""
-    if total is not None and cap is not None:
-        return min(total, cap), False
-    if total is not None and cap is None:
-        return total, False
-    if total is None and cap is not None:
-        return cap, True  # can't confirm the stream actually has this many
-    return 0, True  # uncapped AND unknown total — genuinely can't say
+if SKIP_TRAINING:
+    print("\n(Sample-usage summary skipped — no training DataLoaders were built this run.)")
+else:
+    _summary_sources = []
+
+    if USE_CIFAKE:
+        _cifake_train_total = len(cifake_train_ds.real_paths) + len(cifake_train_ds.fake_paths)
+        _cifake_val_total = len(cifake_earlystop_val_ds.real_paths) + len(cifake_earlystop_val_ds.fake_paths)
+        _summary_sources.append({"name": "CIFAKE (train)", "total_available": _cifake_train_total,
+                                  "used": len(cifake_train_ds.samples), "used_is_upper_bound": False})
+        _summary_sources.append({"name": "CIFAKE (early-stop val)", "total_available": _cifake_val_total,
+                                  "used": len(cifake_earlystop_val_ds.samples), "used_is_upper_bound": False})
+
+    if USE_SID_SET:
+        # Reuse the split numbers already computed in Section 3 rather than
+        # re-fetching metadata — _sid_train_total/_sid_train_cap/_sid_val_size
+        # were computed there when constructing sid_train_ds/sid_earlystop_val_ds.
+        _summary_sources.append({"name": "SID_Set (train)", "total_available": _sid_train_total,
+                                  "used": _sid_train_cap, "used_is_upper_bound": _sid_train_total is None})
+        _summary_sources.append({"name": "SID_Set (early-stop val)", "total_available": _sid_train_total,
+                                  "used": _sid_val_size, "used_is_upper_bound": _sid_train_total is None})
+
+    summarize_sample_usage(_summary_sources)
 
 
-_summary_sources = []
-
-if USE_CIFAKE:
-    _cifake_train_total = len(cifake_train_ds.real_paths) + len(cifake_train_ds.fake_paths)
-    _cifake_val_total = len(cifake_val_ds.real_paths) + len(cifake_val_ds.fake_paths)
-    _summary_sources.append({"name": "CIFAKE (train)", "total_available": _cifake_train_total,
-                              "used": len(cifake_train_ds.samples), "used_is_upper_bound": False})
-    _summary_sources.append({"name": "CIFAKE (val)", "total_available": _cifake_val_total,
-                              "used": len(cifake_val_ds.samples), "used_is_upper_bound": False})
-
-if USE_SID_SET:
-    # SID_Set: attempt to fetch true split sizes from HF metadata (no download).
-    _sid_train_total = get_hf_split_total('saberzl/SID_Set', 'train')
-    _sid_val_total = get_hf_split_total('saberzl/SID_Set', 'validation')
-    _sid_train_used, _sid_train_upper = _sid_used(_sid_train_total, MAX_SAMPLES_PER_SOURCE)
-    _sid_val_used, _sid_val_upper = _sid_used(_sid_val_total, MAX_SAMPLES_PER_SOURCE)
-    _summary_sources.append({"name": "SID_Set (train)", "total_available": _sid_train_total,
-                              "used": _sid_train_used, "used_is_upper_bound": _sid_train_upper})
-    _summary_sources.append({"name": "SID_Set (val)", "total_available": _sid_val_total,
-                              "used": _sid_val_used, "used_is_upper_bound": _sid_val_upper})
-
-summarize_sample_usage(_summary_sources)
 
 
 
@@ -713,11 +900,15 @@ def count_trainable_params(model: nn.Module) -> int:
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
 
-_sanity_model = AIGCDetector()
-print(f"Total params: {count_params(_sanity_model):,} (Limit: 2B)")
-print(f"Trainable params: {count_trainable_params(_sanity_model):,} "
-      f"(the rest is the frozen CLIP backbone)")
-del _sanity_model
+if SKIP_TRAINING:
+    print("(Parameter-count sanity check skipped — SKIP_TRAINING is True, "
+          "no need to load a throwaway model just to print this.)")
+else:
+    _sanity_model = AIGCDetector()
+    print(f"Total params: {count_params(_sanity_model):,} (Limit: 2B)")
+    print(f"Trainable params: {count_trainable_params(_sanity_model):,} "
+          f"(the rest is the frozen CLIP backbone)")
+    del _sanity_model
 
 """## 5. Training loop
 
@@ -741,9 +932,6 @@ import time
 EPOCHS = 30      # high ceiling — early stopping will cut this short in practice
 PATIENCE = 5     # stop if val accuracy hasn't improved in this many epochs
 LR = 1e-4
-SKIP_TRAINING = False  # set True to skip straight to inference/eval using an
-                       # existing checkpoints/best_model.pt — see the check
-                       # right before the training call below.
 
 
 def _format_duration(seconds: float) -> str:
@@ -752,6 +940,52 @@ def _format_duration(seconds: float) -> str:
     hours, remainder = divmod(seconds, 3600)
     minutes, secs = divmod(remainder, 60)
     return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+
+def _active_sources_snapshot() -> dict:
+    """
+    Snapshot of which data sources are enabled right now. Stored in every
+    checkpoint so a later resume can detect a change in what data is being
+    trained on — since that silently changes what best_val_acc and the
+    early-stopping patience counter even mean (they were calibrated against
+    whatever validation mix existed at save time, not necessarily the one
+    the resumed run will use). Add new source toggles here if more get added.
+    """
+    return {'USE_CIFAKE': USE_CIFAKE, 'USE_SID_SET': USE_SID_SET}
+
+
+def _data_volume_snapshot() -> dict:
+    """
+    Snapshot of data-volume-related settings and observed dataset sizes for
+    the CURRENTLY enabled sources. Stored in every checkpoint so a resume can
+    detect a change in how much data existing sources are contributing —
+    either from a config change (MAX_SAMPLES_PER_SOURCE) or from the
+    underlying dataset itself growing/shrinking between runs.
+
+    CIFAKE tracks its ACTUAL resulting split sizes (cifake_train_used /
+    cifake_val_used), not the raw VAL_SPLIT_RATIO — the persisted split
+    manifest makes CIFAKE's real outcome independent of that constant for
+    any file already assigned, so comparing the raw ratio would flag a
+    "change" even when literally nothing about the actual data differs
+    (verified: editing the ratio alone, with no new files, produces byte-
+    identical train/val file sets once the manifest is populated). Tracking
+    the real outcome instead avoids an unnecessary re-baseline in that case.
+
+    SID_Set still has no manifest (its streaming rows have no stable
+    identity to hash against), so VAL_SPLIT_RATIO directly determines which
+    files land where for it — it stays a necessary, direct signal there.
+    """
+    snapshot = {'MAX_SAMPLES_PER_SOURCE': MAX_SAMPLES_PER_SOURCE}
+    if USE_CIFAKE:
+        snapshot['cifake_total_available'] = (
+            len(cifake_train_ds.real_paths) + len(cifake_train_ds.fake_paths)
+        )
+        snapshot['cifake_train_used'] = len(cifake_train_ds.samples)
+        snapshot['cifake_val_used'] = len(cifake_earlystop_val_ds.samples)
+    if USE_SID_SET:
+        snapshot['sid_total_available'] = _sid_train_total
+        snapshot['VAL_SPLIT_RATIO'] = VAL_SPLIT_RATIO
+    return snapshot
 
 
 def persist_checkpoint(local_path: str, dest_dir: str = str(CHECKPOINT_DIR)) -> Path:
@@ -764,8 +998,12 @@ def persist_checkpoint(local_path: str, dest_dir: str = str(CHECKPOINT_DIR)) -> 
     return dest
 
 
+LATEST_CHECKPOINT_PATH = str(CHECKPOINT_DIR / "latest_checkpoint.pt")
+
+
 def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
                  checkpoint_path=str(CHECKPOINT_DIR / "best_model.pt"),
+                 latest_checkpoint_path=LATEST_CHECKPOINT_PATH,
                  resume_from=None):
     model = AIGCDetector().to(DEVICE)
     trainable_params = [p for p in model.parameters() if p.requires_grad]
@@ -792,14 +1030,91 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
         if epochs is None:
             epochs = ckpt['epochs']  # keep the original run's ceiling so the
                                       # cosine LR schedule's shape isn't distorted
+        elif epochs < ckpt['epochs']:
+            raise RuntimeError(
+                f"epochs={epochs} is LESS than this checkpoint's original ceiling "
+                f"({ckpt['epochs']}). Shrinking the ceiling on a resume is almost "
+                f"always a stale EPOCHS value rather than an intentional choice, and "
+                f"proceeding silently could badly distort the LR schedule or produce "
+                f"an empty training loop — refusing to continue. Set EPOCHS >= "
+                f"{ckpt['epochs']}, or delete/rename the checkpoint if you genuinely "
+                f"want to restart with a smaller ceiling."
+            )
         elif epochs != ckpt['epochs']:
-            print(f"WARNING: epochs={epochs} differs from this checkpoint's original "
-                  f"ceiling ({ckpt['epochs']}). The cosine LR schedule was shaped around "
-                  f"the original ceiling, so changing it now will distort the LR curve. "
-                  f"Leave epochs unset to preserve it.")
+            print(f"Extending LR schedule ceiling from {ckpt['epochs']} to {epochs}.")
 
         print(f"Resumed from {resume_from}: continuing at epoch {start_epoch + 1}, "
-              f"best_val_acc so far = {best_val_acc:.4f}")
+              f"best_val_acc so far = {best_val_acc:.4f}, "
+              f"epochs_without_improvement = {epochs_without_improvement}")
+
+        saved_sources = ckpt.get('active_sources')  # None for checkpoints saved before this existed
+        current_sources = _active_sources_snapshot()
+        sources_changed = saved_sources is not None and saved_sources != current_sources
+        if sources_changed:
+            print(f"NOTICE: the enabled data sources have changed since this checkpoint "
+                  f"was saved.\n"
+                  f"  Then: {saved_sources}\n"
+                  f"  Now:  {current_sources}")
+        elif saved_sources is None:
+            print("Note: this checkpoint predates source-tracking, so a data-source-change "
+                  "check couldn't be performed on resume.")
+
+        saved_volume = ckpt.get('data_volume')
+        current_volume = _data_volume_snapshot()
+        val_split_changed = False
+        volume_changed = False
+        if saved_volume is not None and saved_volume != current_volume:
+            changed_keys = {k for k in current_volume if saved_volume.get(k) != current_volume.get(k)}
+            # VAL_SPLIT_RATIO only ever appears in current_volume when
+            # USE_SID_SET is True (see _data_volume_snapshot) — CIFAKE tracks
+            # its actual resulting split sizes instead, since the persisted
+            # manifest makes the raw ratio alone a non-signal for it.
+            val_split_changed = 'VAL_SPLIT_RATIO' in changed_keys
+            volume_changed = bool(changed_keys - {'VAL_SPLIT_RATIO'})
+
+            if val_split_changed:
+                print(f"WARNING: VAL_SPLIT_RATIO changed since this checkpoint was saved "
+                      f"({saved_volume.get('VAL_SPLIT_RATIO')} -> {current_volume.get('VAL_SPLIT_RATIO')}). "
+                      f"This is a MORE SERIOUS issue than a plain size change: SID_Set's "
+                      f"streaming source still uses proportional splitting (not the "
+                      f"persisted manifest CIFAKE uses), so the train/validation boundary "
+                      f"within it has shifted — some images now labeled 'validation' may "
+                      f"actually have already been trained on in earlier epochs, real "
+                      f"leakage rather than just a different validation size. Strongly "
+                      f"consider deleting this checkpoint and starting fresh rather than "
+                      f"resuming across a VAL_SPLIT_RATIO change while SID_Set is enabled "
+                      f"— this is NOT auto-recalibrated below, unlike a plain "
+                      f"source/volume increase.")
+
+            if volume_changed:
+                details = {k: (saved_volume.get(k), current_volume.get(k))
+                           for k in changed_keys - {'VAL_SPLIT_RATIO'}}
+                print(f"NOTICE: the amount of available training data has changed since "
+                      f"this checkpoint was saved (shown as (then, now) per setting): "
+                      f"{details}.")
+        elif saved_volume is None:
+            print("Note: this checkpoint predates data-volume tracking, so a data-volume-"
+                  "change check couldn't be performed on resume.")
+
+        # More data or a new source is a genuine opportunity to improve, not just a
+        # bookkeeping problem — so when the change is safe (no VAL_SPLIT_RATIO shift),
+        # actually USE it: re-measure the already-trained model against the new
+        # validation mix right now, and treat that fresh number as the new bar to
+        # beat, with patience reset to give it a fair shot. Skipped entirely for a
+        # VAL_SPLIT_RATIO change, since re-baselining across a leakage risk would
+        # paper over the real problem instead of fixing it.
+        if (sources_changed or volume_changed) and not val_split_changed:
+            print(f"Re-evaluating the resumed model against the updated validation set "
+                  f"to get a fair new baseline (the old best_val_acc of {best_val_acc:.4f} "
+                  f"was measured on a different data mix)...")
+            best_val_acc = evaluate_accuracy(model, val_loader)
+            epochs_without_improvement = 0
+            print(f"New baseline best_val_acc = {best_val_acc:.4f}. Training will treat "
+                  f"this as the mark to beat going forward, and patience has been reset "
+                  f"so the model gets a fair chance to improve against the expanded data "
+                  f"rather than being judged against a stale comparison. If a lot more "
+                  f"data is now available, consider also raising EPOCHS to make full use "
+                  f"of it.")
     elif ckpt is not None:
         # Legacy checkpoint: a bare state_dict with no training state alongside
         # it (this is what earlier versions of this script saved). Weights load
@@ -812,12 +1127,33 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
     if epochs is None:
         epochs = EPOCHS
 
+    if start_epoch >= epochs:
+        raise RuntimeError(
+            f"This checkpoint already completed through epoch {start_epoch} (next epoch "
+            f"to run would be 0-indexed epoch {start_epoch}), which leaves nothing to "
+            f"train toward a ceiling of {epochs} — this would otherwise silently run zero "
+            f"epochs. Raise EPOCHS above {start_epoch}, or set SKIP_TRAINING = True if you "
+            f"just want to use the existing model as-is."
+        )
+
     print(f'Model params: {count_params(model):,} (Limit: 2B)')
 
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
     scaler = torch.amp.GradScaler(enabled=(DEVICE == "cuda"))
     if isinstance(ckpt, dict) and 'scheduler_state_dict' in ckpt:
         scheduler.load_state_dict(ckpt['scheduler_state_dict'])
+        # load_state_dict restores T_max from the CHECKPOINT, silently
+        # discarding whatever `epochs` was just passed in. Cosine annealing
+        # is periodic, so if that's left unfixed, continuing to step past the
+        # OLD T_max makes the LR climb back up toward its original starting
+        # value instead of staying low — exactly the wrong behavior when
+        # resuming to keep fine-tuning an already-partially-trained model.
+        # Re-apply the current ceiling explicitly so it actually takes effect.
+        if scheduler.T_max != epochs:
+            print(f"Adjusting LR schedule: extending T_max from {scheduler.T_max} to {epochs} "
+                  f"so the cosine decay continues smoothly to the new ceiling instead of "
+                  f"restarting/climbing back up past the original one.")
+            scheduler.T_max = epochs
     if isinstance(ckpt, dict) and 'scaler_state_dict' in ckpt:
         scaler.load_state_dict(ckpt['scaler_state_dict'])
 
@@ -876,13 +1212,37 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
                 'epochs': epochs,
                 'best_val_acc': best_val_acc,
                 'epochs_without_improvement': epochs_without_improvement,
+                'active_sources': _active_sources_snapshot(),
+                'data_volume': _data_volume_snapshot(),
             }, checkpoint_path)
             print(f'  --> Saved new best model (val_acc={val_acc:.4f})')
         else:
             epochs_without_improvement += 1
-            if epochs_without_improvement >= patience:
-                print(f'No improvement for {patience} epochs, stopping early at epoch {epoch+1}.')
-                break
+
+        # Saved EVERY epoch, regardless of improvement — unlike checkpoint_path
+        # (best_model.pt) above, which only saves on improvement and therefore
+        # can only ever persist epochs_without_improvement=0 (it's always reset
+        # to 0 right before that save). This is what makes epochs_without_
+        # improvement genuinely restorable on resume, and lets a resume
+        # continue from the actual last-trained weights instead of always
+        # rewinding to the last improving epoch (re-doing any non-improving
+        # epochs that happened after it).
+        torch.save({
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'scheduler_state_dict': scheduler.state_dict(),
+            'scaler_state_dict': scaler.state_dict(),
+            'epoch': epoch,
+            'epochs': epochs,
+            'best_val_acc': best_val_acc,
+            'epochs_without_improvement': epochs_without_improvement,
+            'active_sources': _active_sources_snapshot(),
+            'data_volume': _data_volume_snapshot(),
+        }, latest_checkpoint_path)
+
+        if epochs_without_improvement >= patience:
+            print(f'No improvement for {patience} epochs, stopping early at epoch {epoch+1}.')
+            break
 
     return model
 
@@ -909,6 +1269,7 @@ def evaluate_accuracy(model, loader):
 
 
 _default_checkpoint = str(CHECKPOINT_DIR / "best_model.pt")
+_latest_checkpoint = str(CHECKPOINT_DIR / "latest_checkpoint.pt")
 
 if SKIP_TRAINING:
     if not Path(_default_checkpoint).exists():
@@ -920,14 +1281,20 @@ if SKIP_TRAINING:
     print(f"SKIP_TRAINING is True — skipping straight to inference/eval using "
           f"the existing checkpoint at {_default_checkpoint}.")
 else:
-    if Path(_default_checkpoint).exists():
-        print(f"Found existing checkpoint at {_default_checkpoint} — resuming training from it.")
+    if Path(_latest_checkpoint).exists():
+        print(f"Found {_latest_checkpoint} — resuming training from it (this reflects "
+              f"the exact epoch and patience state training last left off at).")
+        _resume_from = _latest_checkpoint
+    elif Path(_default_checkpoint).exists():
+        print(f"No 'latest' checkpoint found, but {_default_checkpoint} exists — "
+              f"resuming from it. Note: only the 'latest' checkpoint format preserves "
+              f"patience state, so epochs_without_improvement will restart fresh here.")
         _resume_from = _default_checkpoint
     else:
         print("No existing checkpoint found — starting training from scratch.")
         _resume_from = None
 
-    model = train_model(train_loader, val_loader, resume_from=_resume_from)
+    model = train_model(train_loader, val_loader, resume_from=_resume_from, epochs=EPOCHS)
     persist_checkpoint(str(CHECKPOINT_DIR / "best_model.pt"))
 
 """## 6. Inference (required deliverable)
