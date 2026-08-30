@@ -20,9 +20,9 @@ Robust detection of AI-generated images under real-world transformations
 
 | Split | Source | Purpose |
 |---|---|---|
-| Train | CIFAKE + SID_Set (toggle via USE_CIFAKE/USE_SID_SET below) | Core training data |
+| Train | CIFAKE + AIGC_DETECTION + AIGC_DETECTION_TRANSFORMED + SID_Set (toggle via USE_* flags below) | Core training data |
 | Validation | Carved out of each enabled source's TRAIN pool (VAL_SPLIT_RATIO) | Checkpoint selection, early stopping — never the official test/validation split |
-| Test (in-distribution) | Each source's OFFICIAL test/validation split, touched only in Section 7 | Final honest accuracy — same distribution as training, never touched during training |
+| Test (in-distribution) | Each source's OFFICIAL test/validation split, touched only in Section 7 (AIGC_DETECTION_TRANSFORMED has none — train/val only) | Final honest accuracy — same distribution as training, never touched during training |
 | External benchmark (out-of-distribution) | WildFake subset (COCO val2017 real + DALL·E Advanced fake) | Generalization check + required robustness table. **Never trained on.** |
 
 ### Why three eval numbers, not one
@@ -32,13 +32,15 @@ Robust detection of AI-generated images under real-world transformations
 
 ### Model
 Two-branch design (see Section 4 for full detail), well under the 2B parameter cap:
-- **RGB branch** — frozen CLIP ViT-L/14 (~304M params, never updated during training).
-- **Frequency branch** — trainable ConvNeXt-Tiny on the log-magnitude FFT spectrum.
+- **RGB branch** — frozen CLIP ViT-H/14 (~632M params, never updated during training).
+- **Frequency branch** — trainable ConvNeXt-Base on the log-magnitude FFT spectrum.
 - **Fusion** — a small cross-modal attention block combining both branches' features.
 
 ### Robustness strategy
-Augmentation-in-the-loop: every training sample gets one randomly sampled transform from the
-hackathon's own spec table (or stays clean) before being fed to the model.
+Augmentation-in-the-loop: each training sample either stays clean (probability P_CLEAN) or gets
+1 to MAX_STACKED_TRANSFORMS DISTINCT transforms from the hackathon's spec table applied in
+sequence (e.g. blur THEN JPEG compression) — simulating an image that's been through multiple
+rounds of real-world processing, not just one.
 """
 
 # =============================================================================
@@ -60,7 +62,18 @@ load_dotenv()  # reads .env in the current working directory into environment va
 # pipeline on CIFAKE alone while SID_Set's network streaming is being flaky).
 USE_CIFAKE = True
 USE_SID_SET = False
-SKIP_TRAINING = False  # set True to skip straight to inference/eval using an
+USE_AIGC_DETECTION = True  # a third Kaggle source: 5k real (COCO train2017) +
+                            # 6k fake (2k each ADM / SD1.5 / Midjourney) — adds
+                            # Midjourney specifically, which neither CIFAKE nor
+                            # SID_Set represents. Uses the SAME Kaggle account
+                            # as CIFAKE, so no extra credentials are needed.
+USE_AIGC_DETECTION_TRANSFORMED = True  # also load the dataset's own
+                            # "transformed_data" folder (pre-transformed
+                            # images) as a SEPARATE training source, with
+                            # our own transform stack turned OFF for it —
+                            # requires USE_AIGC_DETECTION = True, since it's
+                            # a subfolder of the same download.
+SKIP_TRAINING = True  # set True to skip straight to inference/eval using an
                        # existing checkpoints/best_model.pt, without building
                        # the full training DataLoaders or downloading more
                        # than Section 7's small eval pool needs.
@@ -75,20 +88,80 @@ SKIP_TRAINING = False  # set True to skip straight to inference/eval using an
 # process was implicitly tuned against).
 VAL_SPLIT_RATIO = 0.15
 
-if not USE_CIFAKE and not USE_SID_SET:
-    raise RuntimeError("At least one of USE_CIFAKE or USE_SID_SET must be True.")
+# Best-guess subfolder names inside the AIGC detection Kaggle dataset —
+# verify against the directory listing printed on first download (Section 0),
+# and adjust these two strings if the real folder names differ. Nothing else
+# needs to change if they do.
+AIGC_DETECTION_REAL_SUBDIR = "real"
+AIGC_DETECTION_FAKE_SUBDIR = "fake"
+# Assumed to contain its own real/fake subfolders following the same
+# convention as above — unverified, check the printed subfolder breakdown
+# on first run.
+AIGC_DETECTION_TRANSFORMED_SUBDIR = "transformed_data"
+# Confirmed from an actual run: the dataset has train/{real,fake} AND
+# test/{real,fake} — it DOES have an official test split, unlike what was
+# assumed before. transformed_data/ contains only a "train" subfolder (no
+# separate test), which its own train/val split already correctly assumes.
+AIGC_DETECTION_TRAIN_SUBDIR = "train"
+AIGC_DETECTION_TEST_SUBDIR = "test"
 
-if USE_CIFAKE and (not os.environ.get("KAGGLE_USERNAME") or not os.environ.get("KAGGLE_KEY")):
+# =============================================================================
+# SETTINGS — every commonly-tuned value lives here, in one place. Everything
+# below this block reads these as already-defined constants; you shouldn't
+# need to hunt through the rest of the file to change any of the following
+# day-to-day. (The data-source toggles above stay separate since they're
+# tightly coupled to the credential checks immediately following them.)
+# =============================================================================
+
+# ── Data volume ──────────────────────────────────────────────────────────
+MAX_SAMPLES_PER_SOURCE = None  # e.g. 20_000 to cap; None = use all
+
+# ── Model architecture (Section 4) ───────────────────────────────────────
+IMG_SIZE = 224
+RGB_BACKBONE_NAME = "vit_huge_patch14_clip_224.laion2b"  # frozen — ~632M params
+FREQ_BACKBONE_NAME = "convnext_base"                     # trainable — ~88M params
+FUSION_DIM = 512
+
+# ── Training augmentation (Section 2b) ───────────────────────────────────
+# Fraction of training samples left completely untouched. The remainder get
+# 1 or more DISTINCT transforms stacked in sequence (e.g. blur THEN JPEG
+# compression) rather than exactly one.
+P_CLEAN = 1 / 15  # roughly matches the old "1-of-15-keys is clean" odds
+MAX_STACKED_TRANSFORMS = 3
+
+# ── Training loop (Section 5) ────────────────────────────────────────────
+BATCH_SIZE = 64
+# NUM_WORKERS must stay 0 — see the detailed comment at its old call site in
+# Section 3 for the two independent reasons (Windows spawn + no worker-
+# sharding in the dataset classes) if you're ever tempted to raise it.
+NUM_WORKERS = 0
+EPOCHS = 10000      # high ceiling — early stopping will cut this short in practice
+PATIENCE = 5        # stop if val accuracy hasn't improved in this many epochs
+LR = 1e-4
+
+# ── Evaluation (Section 7) ────────────────────────────────────────────────
+EVAL_CAP = 2000  # total images in the robustness/error-analysis eval pool
+
+if not USE_CIFAKE and not USE_SID_SET and not USE_AIGC_DETECTION:
+    raise RuntimeError("At least one of USE_CIFAKE, USE_SID_SET, or USE_AIGC_DETECTION must be True.")
+
+if (USE_CIFAKE or USE_AIGC_DETECTION) and (not os.environ.get("KAGGLE_USERNAME") or not os.environ.get("KAGGLE_KEY")):
     raise RuntimeError(
-        "USE_CIFAKE is True but KAGGLE_USERNAME/KAGGLE_KEY are missing. Check that "
-        ".env exists in the project root and contains both values — or set "
-        "USE_CIFAKE = False if you don't want CIFAKE this run."
+        "USE_CIFAKE or USE_AIGC_DETECTION is True but KAGGLE_USERNAME/KAGGLE_KEY are "
+        "missing. Check that .env exists in the project root and contains both values "
+        "— or set both of those flags to False if you don't want any Kaggle source this run."
     )
 if USE_SID_SET and not os.environ.get("HF_TOKEN"):
     raise RuntimeError(
         "USE_SID_SET is True but HF_TOKEN is missing. Check that .env exists in "
         "the project root and contains a HuggingFace token — or set "
         "USE_SID_SET = False if you don't want SID_Set this run."
+    )
+if USE_AIGC_DETECTION_TRANSFORMED and not USE_AIGC_DETECTION:
+    raise RuntimeError(
+        "USE_AIGC_DETECTION_TRANSFORMED is True but USE_AIGC_DETECTION is False. "
+        "transformed_data is a subfolder of the AIGC detection dataset download, "
+        "so USE_AIGC_DETECTION must also be True."
     )
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -145,6 +218,34 @@ else:
 # Expected layout inside cifake_root:
 #   train/REAL/  train/FAKE/
 #   test/REAL/   test/FAKE/
+
+# ── AIGC detection dataset (shxrlenee/aigc-detection-dataset): 5k real ────
+# (COCO train2017) + 6k fake (2k each ADM / SD1.5 / Midjourney), from Kaggle.
+# CONFIRMED structure (from an actual run): {root}/train/{real,fake} and
+# {root}/test/{real,fake} — both with generator subfolders nested under
+# .../fake/ — plus {root}/transformed_data/train/(presumed real,fake).
+# The print below shows the actual layout two levels deep on every run, so
+# any future dataset-version change to this structure is caught immediately.
+if USE_AIGC_DETECTION:
+    aigc_detection_root = Path(kagglehub.dataset_download(
+        "shxrlenee/aigc-detection-dataset"
+    ))
+    print("AIGC detection dataset cached at:", aigc_detection_root)
+    print("Contents (top level):", os.listdir(aigc_detection_root))
+    for _sub in sorted(p for p in aigc_detection_root.iterdir() if p.is_dir()):
+        print(f"  {_sub.name}/ contains:", os.listdir(_sub)[:10],
+              "..." if len(os.listdir(_sub)) > 10 else "")
+        # One level deeper too — otherwise transformed_data/train/'s own
+        # contents (does it have real/fake beneath it?) would only ever
+        # surface later in Section 3, which SKIP_TRAINING=True skips
+        # entirely. This makes the structure fully visible every run,
+        # regardless of that flag.
+        for _subsub in sorted(p for p in _sub.iterdir() if p.is_dir()):
+            print(f"    {_sub.name}/{_subsub.name}/ contains:", os.listdir(_subsub)[:10],
+                  "..." if len(os.listdir(_subsub)) > 10 else "")
+else:
+    aigc_detection_root = None
+    print("USE_AIGC_DETECTION is False — skipping AIGC detection dataset download.")
 
 # ── SID_Set: streamed from HuggingFace ────────────────────────────────────────
 from huggingface_hub import login
@@ -231,11 +332,64 @@ def assign_split(paths: list, manifest_bucket: dict, val_ratio: float) -> tuple:
     return train_paths, val_paths, newly_assigned
 
 
+_PRINTED_SUBFOLDER_BREAKDOWN = set()  # avoids printing the same directory's
+                                       # breakdown twice (train-role and val-
+                                       # role instances both scan it once each)
+
+
+def _scan_images_excluding_test(root_dir: Path) -> list:
+    """
+    Recursively finds image files under root_dir — INCLUDING any nested
+    subfolders (e.g. a generator-origin breakdown like fake/adm/, fake/sd15/,
+    fake/midjourney/), since rglob is recursive by design.
+
+    EXCLUDES any file sitting inside a subfolder literally named "test"
+    (case-insensitive), at any depth — a defensive guard in case a dataset
+    nests a held-out test split inside its real/fake folders (e.g.
+    fake/test/) rather than as a separate sibling directory. Without this,
+    such a split would be silently swept into training with no warning,
+    since a plain recursive glob doesn't distinguish "generator subfolder"
+    from "held-out test subfolder."
+
+    Prints a one-time per-subfolder image count breakdown for each unique
+    root_dir, so what's actually being loaded is visible rather than assumed.
+    """
+    root_dir = Path(root_dir)
+    included = []
+    excluded_count = 0
+    per_subfolder = {}
+
+    for p in root_dir.rglob('*'):
+        if p.suffix.lower() not in IMG_EXTS:
+            continue
+        rel_parts = p.relative_to(root_dir).parts[:-1]  # directory components only
+        if any(part.lower() == 'test' for part in rel_parts):
+            excluded_count += 1
+            continue
+        included.append(p)
+        subfolder = rel_parts[0] if rel_parts else '(directly in ' + root_dir.name + ')'
+        per_subfolder[subfolder] = per_subfolder.get(subfolder, 0) + 1
+
+    if str(root_dir) not in _PRINTED_SUBFOLDER_BREAKDOWN:
+        _PRINTED_SUBFOLDER_BREAKDOWN.add(str(root_dir))
+        print(f"[{root_dir}] image breakdown by subfolder:")
+        for subfolder, count in sorted(per_subfolder.items()):
+            print(f"    {subfolder}: {count:,} images")
+        if excluded_count:
+            print(f"    (excluded {excluded_count:,} image(s) found inside a subfolder "
+                  f"named 'test' — not used in training)")
+
+    return sorted(included)
+
+
 class KaggleDirStreamDataset(IterableDataset):
     """
     Streams images lazily from a directory pair (real_dir / fake_dir).
     Images are opened one at a time — no bulk loading into RAM.
     Compatible with CIFAKE's layout: train/REAL, train/FAKE, test/REAL, test/FAKE.
+    Also handles sources with generator-origin subfolders nested under
+    real_dir/fake_dir (e.g. fake/adm/, fake/sd15/, fake/midjourney/) —
+    scanned recursively, with any nested "test"-named subfolder excluded.
 
     NOTE: this does NOT shard samples across DataLoader workers. If you ever
     raise NUM_WORKERS above 0, every worker will iterate the FULL sample list
@@ -245,8 +399,8 @@ class KaggleDirStreamDataset(IterableDataset):
     def __init__(self, real_dir, fake_dir, train=True, aug_in_loop=True, max_samples=None,
                  manifest: dict = None, source_key: str = "default", role: str = "train",
                  val_ratio: float = 0.15):
-        self.real_paths = sorted(p for p in Path(real_dir).rglob('*') if p.suffix.lower() in IMG_EXTS)
-        self.fake_paths = sorted(p for p in Path(fake_dir).rglob('*') if p.suffix.lower() in IMG_EXTS)
+        self.real_paths = _scan_images_excluding_test(real_dir)
+        self.fake_paths = _scan_images_excluding_test(fake_dir)
 
         if manifest is not None:
             # Separate buckets per class, so a real image and a fake image
@@ -303,8 +457,7 @@ class KaggleDirStreamDataset(IterableDataset):
                 print(f'[warn] skipping {path}: {e}')
                 continue
             if self.train and self.aug_in_loop:
-                transform_name = random.choice(list(TRANSFORM_POOL.keys()))
-                img = TRANSFORM_POOL[transform_name](img)
+                img = apply_random_transform_stack(img)
             rgb = _normalize(img)
             freq = to_freq_tensor(img)
             yield {
@@ -389,8 +542,7 @@ class HFStreamDataset(IterableDataset):
                 continue
 
             if self.train and self.aug_in_loop:
-                transform_name = random.choice(list(TRANSFORM_POOL.keys()))
-                img = TRANSFORM_POOL[transform_name](img)
+                img = apply_random_transform_stack(img)
             rgb = _normalize(img)
             freq = to_freq_tensor(img)
             yield {
@@ -462,9 +614,6 @@ three places: training-time augmentation, the robustness eval, and the (optional
 demo in your video.
 """
 
-IMG_SIZE = 224
-
-
 def jpeg_compress(img: Image.Image, quality: int) -> Image.Image:
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=quality)
@@ -521,9 +670,45 @@ TRANSFORM_POOL = {
     "center_crop_80": lambda img: center_crop_pct(img, 0.8),
 }
 
-# CLIP's own normalization stats — NOT ImageNet's. The RGB branch is now a
-# frozen CLIP backbone; feeding it ImageNet-normalized input would silently
-# mismatch the distribution it was pretrained on and degrade feature quality.
+# P_CLEAN and MAX_STACKED_TRANSFORMS are set in the SETTINGS block at the top
+# of the file. The remainder of samples (not left clean) get 1 or more
+# DISTINCT transforms stacked in sequence (e.g. blur THEN JPEG compression)
+# rather than exactly one — real-world images are often degraded by multiple
+# processes in a row (resized for a thumbnail, then re-compressed on
+# re-upload), and prior research on cross-generator generalization (Wang et
+# al., CVPR 2020) specifically credits this kind of combined augmentation
+# over single-transform augmentation.
+
+_STACKABLE_TRANSFORM_NAMES = [k for k in TRANSFORM_POOL if k != "clean"]
+
+
+def apply_random_transform_stack(img: Image.Image) -> Image.Image:
+    """
+    With probability P_CLEAN, returns the image untouched. Otherwise applies
+    a random number (1 to MAX_STACKED_TRANSFORMS) of DISTINCT transforms
+    from TRANSFORM_POOL, in sequence — e.g. blur_1.0 then jpeg_50 then
+    center_crop_80 all applied to the same image, one after another.
+    random.sample (not random.choices) is used so the same transform is
+    never picked twice in one stack — applying "blur_1.0" then "blur_1.0"
+    again adds no realism, but "blur_1.0" then "jpeg_50" does.
+    """
+    if random.random() < P_CLEAN:
+        return img
+    k = random.randint(1, MAX_STACKED_TRANSFORMS)
+    for name in random.sample(_STACKABLE_TRANSFORM_NAMES, k=k):
+        img = TRANSFORM_POOL[name](img)
+    return img
+
+# CLIP's own normalization stats — NOT ImageNet's. The RGB branch is a frozen
+# CLIP backbone; feeding it ImageNet-normalized input would silently mismatch
+# the distribution it was pretrained on and degrade feature quality.
+# These stats are shared by OpenAI's original CLIP and OpenCLIP/LAION's plain
+# (non-ImageNet-fine-tuned) CLIP encoders alike — e.g. both
+# "vit_large_patch14_clip_224.openai" and "vit_huge_patch14_clip_224.laion2b"
+# use these exact values. Note this does NOT hold for ImageNet-fine-tuned
+# variants (any name ending "_ft_in1k" / "_ft_in12k_in1k") — some of those
+# switch to different normalization during fine-tuning, so verify before
+# swapping to one of those specifically.
 CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
 CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
 
@@ -569,8 +754,9 @@ def get_hf_split_total(repo_id: str, split: str):
 
 """## 3. Train / validation split, DataLoaders
 
-CIFAKE  -> KaggleDirStreamDataset  (reads from the project-local kagglehub cache)
-SID_Set -> HFStreamDataset         (HuggingFace streaming, no disk write)
+CIFAKE, AIGC_DETECTION, AIGC_DETECTION_TRANSFORMED -> KaggleDirStreamDataset
+    (reads from the project-local kagglehub cache)
+SID_Set -> HFStreamDataset (HuggingFace streaming, no disk write)
 
 Neither source requires the full dataset to be in RAM or copied elsewhere.
 
@@ -582,20 +768,21 @@ so it's a genuine "touched once" test set. Previously, the official
 test/validation split served double duty as both the checkpoint-selection
 signal and the final robustness report, which meant those numbers were
 measured on data the checkpoint-selection process was implicitly tuned
-against.
+against. (AIGC_DETECTION_TRANSFORMED is the one exception — it has no
+official test split at all, so it only ever participates in train/val here.)
 """
 
 from torch.utils.data import ChainDataset
 
-MAX_SAMPLES_PER_SOURCE = None  # e.g. 20_000 to cap; None = use all
-BATCH_SIZE = 64
-# Lowered from 128 (the EfficientNet-B0 baseline's setting): CLIP ViT-L/14's
-# forward pass has real activation-memory cost even frozen and gradient-free.
-# Watch nvidia-smi on your first epoch and raise this back up if there's
-# headroom left on your 12GB card — this is a conservative starting point,
-# not a measured limit.
+# MAX_SAMPLES_PER_SOURCE, BATCH_SIZE, and NUM_WORKERS are set in the SETTINGS
+# block at the top of the file.
 #
-# NUM_WORKERS is 0 deliberately, for two independent reasons:
+# On BATCH_SIZE: 64 is a conservative starting point given ViT-H/14's
+# (~632M) forward-pass activation cost even frozen/gradient-free — watch
+# nvidia-smi on your first epoch and raise it if there's headroom on your
+# 12GB card.
+#
+# On NUM_WORKERS: it must stay 0, for two independent reasons:
 #   1. Windows uses "spawn" (not "fork") for multiprocessing, which requires
 #      all top-level script code to be re-import-safe under a `if __name__ ==
 #      "__main__":` guard — this script doesn't have that structure, so any
@@ -606,7 +793,6 @@ BATCH_SIZE = 64
 #      above do not shard samples across workers, so num_workers>0 would
 #      silently duplicate every sample once per worker rather than just
 #      crashing. Both issues need fixing together before raising this.
-NUM_WORKERS = 0
 
 if SKIP_TRAINING:
     print("SKIP_TRAINING is True — skipping training DataLoader construction "
@@ -649,6 +835,91 @@ else:
         cifake_train_ds = None
         cifake_earlystop_val_ds = None
 
+    if USE_AIGC_DETECTION:
+        # CONFIRMED structure (from an actual run's printed listing):
+        # {root}/train/{real,fake} for training data, {root}/test/{real,fake}
+        # reserved for Section 7 (see below) — this dataset DOES have an
+        # official test split, contrary to what was assumed before this fix.
+        # KaggleDirStreamDataset scans recursively, so this correctly picks
+        # up per-generator subfolders (e.g. fake/adm/, fake/sd15/,
+        # fake/midjourney/) nested under train/fake/.
+        AIGC_DETECTION_REAL_DIR = aigc_detection_root / AIGC_DETECTION_TRAIN_SUBDIR / AIGC_DETECTION_REAL_SUBDIR
+        AIGC_DETECTION_FAKE_DIR = aigc_detection_root / AIGC_DETECTION_TRAIN_SUBDIR / AIGC_DETECTION_FAKE_SUBDIR
+
+        aigc_detection_train_ds = KaggleDirStreamDataset(
+            real_dir=AIGC_DETECTION_REAL_DIR,
+            fake_dir=AIGC_DETECTION_FAKE_DIR,
+            train=True, aug_in_loop=True,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="AIGC_DETECTION", role="train",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        aigc_detection_earlystop_val_ds = KaggleDirStreamDataset(
+            real_dir=AIGC_DETECTION_REAL_DIR,
+            fake_dir=AIGC_DETECTION_FAKE_DIR,
+            train=False, aug_in_loop=False,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="AIGC_DETECTION", role="val",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        print(f'AIGC detection train:       {len(aigc_detection_train_ds.samples):,} images')
+        print(f'AIGC detection early-stop val: {len(aigc_detection_earlystop_val_ds.samples):,} images')
+        train_sources.append(aigc_detection_train_ds)
+        val_sources.append(aigc_detection_earlystop_val_ds)
+        # This dataset DOES have an official test/ split (confirmed) — it's
+        # reserved for Section 7's evaluation pool, never touched here,
+        # matching CIFAKE's own train/val/test separation.
+    else:
+        aigc_detection_train_ds = None
+        aigc_detection_earlystop_val_ds = None
+
+    if USE_AIGC_DETECTION_TRANSFORMED:
+        # CONFIRMED: transformed_data/ contains exactly one subfolder, "train"
+        # (no separate test split for this source). real/fake beneath that
+        # is assumed to follow the same convention as the base dataset —
+        # check the printed subfolder breakdown below on first run.
+        #
+        # aug_in_loop=False on BOTH instances is the whole point of this
+        # source: these images are already transformed, so our own random
+        # transform stack must NOT be applied on top of them. train=True
+        # still shuffles sample order — it just skips the transform-
+        # selection step (train AND aug_in_loop both need to be True for a
+        # transform to be applied — see KaggleDirStreamDataset's __iter__).
+        AIGC_DETECTION_TRANSFORMED_REAL_DIR = (
+            aigc_detection_root / AIGC_DETECTION_TRANSFORMED_SUBDIR / AIGC_DETECTION_TRAIN_SUBDIR
+            / AIGC_DETECTION_REAL_SUBDIR
+        )
+        AIGC_DETECTION_TRANSFORMED_FAKE_DIR = (
+            aigc_detection_root / AIGC_DETECTION_TRANSFORMED_SUBDIR / AIGC_DETECTION_TRAIN_SUBDIR
+            / AIGC_DETECTION_FAKE_SUBDIR
+        )
+
+        aigc_detection_transformed_train_ds = KaggleDirStreamDataset(
+            real_dir=AIGC_DETECTION_TRANSFORMED_REAL_DIR,
+            fake_dir=AIGC_DETECTION_TRANSFORMED_FAKE_DIR,
+            train=True, aug_in_loop=False,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="AIGC_DETECTION_TRANSFORMED", role="train",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        aigc_detection_transformed_earlystop_val_ds = KaggleDirStreamDataset(
+            real_dir=AIGC_DETECTION_TRANSFORMED_REAL_DIR,
+            fake_dir=AIGC_DETECTION_TRANSFORMED_FAKE_DIR,
+            train=False, aug_in_loop=False,
+            max_samples=MAX_SAMPLES_PER_SOURCE,
+            manifest=_split_manifest, source_key="AIGC_DETECTION_TRANSFORMED", role="val",
+            val_ratio=VAL_SPLIT_RATIO,
+        )
+        print(f'AIGC detection (pre-transformed) train:       '
+              f'{len(aigc_detection_transformed_train_ds.samples):,} images')
+        print(f'AIGC detection (pre-transformed) early-stop val: '
+              f'{len(aigc_detection_transformed_earlystop_val_ds.samples):,} images')
+        train_sources.append(aigc_detection_transformed_train_ds)
+        val_sources.append(aigc_detection_transformed_earlystop_val_ds)
+    else:
+        aigc_detection_transformed_train_ds = None
+        aigc_detection_transformed_earlystop_val_ds = None
+
     save_split_manifest(_split_manifest)
 
     if USE_SID_SET:
@@ -689,7 +960,7 @@ else:
         sid_earlystop_val_ds = None
 
     if not train_sources:
-        raise RuntimeError("No data sources ended up enabled — check USE_CIFAKE/USE_SID_SET above.")
+        raise RuntimeError("No data sources ended up enabled — check USE_CIFAKE/USE_SID_SET/USE_AIGC_DETECTION above.")
 
     # Training data is interleaved (mixed sample-by-sample across sources)
     # rather than chained (all of source A, then all of source B) — see
@@ -728,6 +999,13 @@ def summarize_sample_usage(sources: list):
     combined_used = 0
     combined_total_known = True
     combined_total = 0
+    # Each source contributes a (train) row and an (early-stop val) row that
+    # BOTH correctly report the same total_available — val is carved out of
+    # the train pool via the manifest, not read from a separate directory.
+    # Summing total_available across every row would therefore double-count
+    # every source's pool once. Track which base source names have already
+    # had their total counted, so each one only contributes once.
+    _counted_totals_for = set()
 
     for src in sources:
         used_str = f"{src['used']:,}" + ("*" if src['used_is_upper_bound'] else "")
@@ -735,10 +1013,12 @@ def summarize_sample_usage(sources: list):
         print(f"{src['name']:<22} {used_str:>12} {total_str:>14}")
 
         combined_used += src['used']
+        base_name = src['name'].rsplit(' (', 1)[0]  # "CIFAKE (train)" -> "CIFAKE"
         if src['total_available'] is None:
             combined_total_known = False
             unknown_sources.append(src['name'])
-        else:
+        elif base_name not in _counted_totals_for:
+            _counted_totals_for.add(base_name)
             combined_total += src['total_available']
 
     print("-" * 50)
@@ -768,6 +1048,30 @@ else:
         _summary_sources.append({"name": "CIFAKE (early-stop val)", "total_available": _cifake_val_total,
                                   "used": len(cifake_earlystop_val_ds.samples), "used_is_upper_bound": False})
 
+    if USE_AIGC_DETECTION:
+        _aigc_det_train_total = (len(aigc_detection_train_ds.real_paths) +
+                                  len(aigc_detection_train_ds.fake_paths))
+        _aigc_det_val_total = (len(aigc_detection_earlystop_val_ds.real_paths) +
+                                len(aigc_detection_earlystop_val_ds.fake_paths))
+        _summary_sources.append({"name": "AIGC_DETECTION (train)", "total_available": _aigc_det_train_total,
+                                  "used": len(aigc_detection_train_ds.samples), "used_is_upper_bound": False})
+        _summary_sources.append({"name": "AIGC_DETECTION (early-stop val)", "total_available": _aigc_det_val_total,
+                                  "used": len(aigc_detection_earlystop_val_ds.samples), "used_is_upper_bound": False})
+
+    if USE_AIGC_DETECTION_TRANSFORMED:
+        _aigc_det_t_train_total = (len(aigc_detection_transformed_train_ds.real_paths) +
+                                    len(aigc_detection_transformed_train_ds.fake_paths))
+        _aigc_det_t_val_total = (len(aigc_detection_transformed_earlystop_val_ds.real_paths) +
+                                  len(aigc_detection_transformed_earlystop_val_ds.fake_paths))
+        _summary_sources.append({"name": "AIGC_DETECTION_TRANSFORMED (train)",
+                                  "total_available": _aigc_det_t_train_total,
+                                  "used": len(aigc_detection_transformed_train_ds.samples),
+                                  "used_is_upper_bound": False})
+        _summary_sources.append({"name": "AIGC_DETECTION_TRANSFORMED (early-stop val)",
+                                  "total_available": _aigc_det_t_val_total,
+                                  "used": len(aigc_detection_transformed_earlystop_val_ds.samples),
+                                  "used_is_upper_bound": False})
+
     if USE_SID_SET:
         # Reuse the split numbers already computed in Section 3 rather than
         # re-fetching metadata — _sid_train_total/_sid_train_cap/_sid_val_size
@@ -787,21 +1091,24 @@ else:
 
 Two-branch design, upgraded from the EfficientNet-B0 baseline:
 
-- **RGB branch**: frozen CLIP ViT-L/14 (~304M params). Per Ojha et al., CVPR
-  2023 ("Towards Universal Fake Image Detectors that Generalize Across
-  Generative Models"), a frozen large pretrained backbone + linear probe
-  generalizes to UNSEEN generators far better than fine-tuning a smaller CNN
-  end-to-end — directly relevant since WildFake is your out-of-distribution
-  benchmark. Frozen also means zero gradient/optimizer-state memory cost for
-  this branch, despite its size.
-- **Frequency branch**: trainable ConvNeXt-Tiny (~28M params) on the FFT
+- **RGB branch**: frozen CLIP ViT-H/14 (~632M params, `vit_huge_patch14_clip_224.laion2b`
+  — the plain OpenCLIP/LAION-2B image encoder, NOT an ImageNet-fine-tuned variant,
+  which would use different normalization and defeat the point of a general-purpose
+  frozen feature extractor). Per Ojha et al., CVPR 2023 ("Towards Universal Fake
+  Image Detectors that Generalize Across Generative Models"), a frozen large
+  pretrained backbone + linear probe generalizes to UNSEEN generators far better
+  than fine-tuning a smaller CNN end-to-end — directly relevant since WildFake is
+  your out-of-distribution benchmark. Frozen also means zero gradient/optimizer-
+  state memory cost for this branch, despite its size.
+- **Frequency branch**: trainable ConvNeXt-Base (~88M params) on the FFT
   spectrum — this one DOES need to adapt to the FFT-magnitude input domain,
   so it stays trainable, unlike the RGB branch.
 - **Fusion**: a small cross-modal attention block instead of naive
   concatenation, so the model can learn interactions between pixel content
   and frequency artifacts rather than treating them as independent evidence.
 
-Total ~332M params — still comfortably under the hackathon's 2B cap.
+Total ~721M params — still comfortably under the hackathon's 2B cap.
+Trainable ~91M of those (frequency branch + fusion + head).
 """
 
 
@@ -814,7 +1121,7 @@ class CrossModalFusion(nn.Module):
     just being concatenated side by side.
     """
 
-    def __init__(self, rgb_dim: int, freq_dim: int, fusion_dim: int = 512, num_heads: int = 4):
+    def __init__(self, rgb_dim: int, freq_dim: int, fusion_dim: int = FUSION_DIM, num_heads: int = 4):
         super().__init__()
         self.rgb_proj = nn.Linear(rgb_dim, fusion_dim)
         self.freq_proj = nn.Linear(freq_dim, fusion_dim)
@@ -841,9 +1148,9 @@ class CrossModalFusion(nn.Module):
 
 class AIGCDetector(nn.Module):
     def __init__(self,
-                 rgb_backbone_name: str = "vit_large_patch14_clip_224.openai",
-                 freq_backbone_name: str = "convnext_tiny",
-                 fusion_dim: int = 512,
+                 rgb_backbone_name: str = RGB_BACKBONE_NAME,
+                 freq_backbone_name: str = FREQ_BACKBONE_NAME,
+                 fusion_dim: int = FUSION_DIM,
                  pretrained: bool = True):
         super().__init__()
 
@@ -912,12 +1219,12 @@ else:
 
 """## 5. Training loop
 
-Optimizations over the baseline version:
-  - BATCH_SIZE raised from 32 -> 128 (the model is tiny — 8-9M params — so a
-    12GB GPU has plenty of headroom; watch nvidia-smi and raise further if
-    there's room).
+Key design points:
+  - BATCH_SIZE=64: sized for the current ~721M-param model (frozen ViT-H/14
+    + trainable ConvNeXt-Base) — watch nvidia-smi on your first epoch and
+    adjust if needed; this is not the tiny-model baseline anymore.
   - Cosine LR schedule instead of a flat learning rate.
-  - Automatic mixed precision (torch.cuda.amp) for speed/memory on the 4070 Ti.
+  - Automatic mixed precision (torch.cuda.amp) for speed/memory.
   - Early stopping: EPOCHS is a high ceiling, PATIENCE actually decides when
     training stops.
   - resume_from: continue training from a saved checkpoint instead of always
@@ -929,9 +1236,7 @@ import shutil
 import datetime
 import time
 
-EPOCHS = 30      # high ceiling — early stopping will cut this short in practice
-PATIENCE = 5     # stop if val accuracy hasn't improved in this many epochs
-LR = 1e-4
+# EPOCHS, PATIENCE, and LR are set in the SETTINGS block at the top of the file.
 
 
 def _format_duration(seconds: float) -> str:
@@ -951,7 +1256,9 @@ def _active_sources_snapshot() -> dict:
     whatever validation mix existed at save time, not necessarily the one
     the resumed run will use). Add new source toggles here if more get added.
     """
-    return {'USE_CIFAKE': USE_CIFAKE, 'USE_SID_SET': USE_SID_SET}
+    return {'USE_CIFAKE': USE_CIFAKE, 'USE_SID_SET': USE_SID_SET,
+            'USE_AIGC_DETECTION': USE_AIGC_DETECTION,
+            'USE_AIGC_DETECTION_TRANSFORMED': USE_AIGC_DETECTION_TRANSFORMED}
 
 
 def _data_volume_snapshot() -> dict:
@@ -982,6 +1289,21 @@ def _data_volume_snapshot() -> dict:
         )
         snapshot['cifake_train_used'] = len(cifake_train_ds.samples)
         snapshot['cifake_val_used'] = len(cifake_earlystop_val_ds.samples)
+    if USE_AIGC_DETECTION:
+        # Same reasoning as CIFAKE above — manifest-based, so track actual
+        # outcomes rather than the raw ratio.
+        snapshot['aigc_detection_total_available'] = (
+            len(aigc_detection_train_ds.real_paths) + len(aigc_detection_train_ds.fake_paths)
+        )
+        snapshot['aigc_detection_train_used'] = len(aigc_detection_train_ds.samples)
+        snapshot['aigc_detection_val_used'] = len(aigc_detection_earlystop_val_ds.samples)
+    if USE_AIGC_DETECTION_TRANSFORMED:
+        snapshot['aigc_detection_transformed_total_available'] = (
+            len(aigc_detection_transformed_train_ds.real_paths) +
+            len(aigc_detection_transformed_train_ds.fake_paths)
+        )
+        snapshot['aigc_detection_transformed_train_used'] = len(aigc_detection_transformed_train_ds.samples)
+        snapshot['aigc_detection_transformed_val_used'] = len(aigc_detection_transformed_earlystop_val_ds.samples)
     if USE_SID_SET:
         snapshot['sid_total_available'] = _sid_train_total
         snapshot['VAL_SPLIT_RATIO'] = VAL_SPLIT_RATIO
@@ -1021,8 +1343,36 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
         # Full checkpoint (this script's format): restores weights AND the
         # optimizer/scheduler/scaler state, so this is a true continuation,
         # not just a warm weight restart.
-        model.load_state_dict(ckpt['model_state_dict'])
+        try:
+            model.load_state_dict(ckpt['model_state_dict'])
+        except RuntimeError as e:
+            raise RuntimeError(
+                f"Failed to load {resume_from} into the current model architecture. "
+                f"This almost always means the model definition (backbone names, "
+                f"fusion_dim, etc.) has changed since this checkpoint was saved — e.g. "
+                f"swapping to a different backbone size. A checkpoint's weights are tied "
+                f"to the exact architecture that produced them and can't be loaded into "
+                f"a differently-shaped model. Delete or rename this checkpoint to start "
+                f"fresh with the new architecture, or revert the architecture change to "
+                f"keep resuming from it.\n\nOriginal error: {e}"
+            ) from e
         optimizer.load_state_dict(ckpt['optimizer_state_dict'])
+        # load_state_dict restores EVERY param_group hyperparameter from the
+        # checkpoint, including 'lr' — silently discarding whatever LR was
+        # just set when the optimizer above was constructed. The scheduler
+        # is built AFTER this point and reads its starting point from
+        # whatever the optimizer says right now, so an unfixed LR here means
+        # editing the LR constant in the script has NO EFFECT on a resumed
+        # run — the checkpoint's old LR wins every time. Same failure shape
+        # as the T_max bug fixed earlier, just on the optimizer's LR instead
+        # of the scheduler's ceiling. Re-apply the current LR explicitly so
+        # a deliberate change actually takes effect.
+        old_lr = optimizer.param_groups[0]['lr']
+        if old_lr != LR:
+            print(f"Adjusting LR: checkpoint was saved at {old_lr:.2e}, applying the "
+                  f"currently-configured LR of {LR:.2e} instead.")
+            for group in optimizer.param_groups:
+                group['lr'] = LR
         start_epoch = ckpt['epoch'] + 1
         best_val_acc = ckpt['best_val_acc']
         epochs_without_improvement = ckpt['epochs_without_improvement']
@@ -1160,6 +1510,13 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
     criterion = nn.BCEWithLogitsLoss()
     epoch_durations = []  # tracks wall-clock seconds per epoch, for the ETA estimate below
 
+    if DEVICE == "cuda":
+        # Tracks the TRUE peak VRAM usage since this point, regardless of
+        # brief spikes during backward/optimizer steps that Task
+        # Manager/nvidia-smi's periodic sampling could easily miss —
+        # this is PyTorch reporting its own actual peak, not a live snapshot.
+        torch.cuda.reset_peak_memory_stats()
+
     for epoch in range(start_epoch, epochs):
         epoch_start = time.time()
         model.train()
@@ -1194,8 +1551,18 @@ def train_model(train_loader, val_loader, epochs=None, patience=PATIENCE,
         epochs_remaining = epochs - (epoch + 1)
         eta_seconds = avg_epoch_time * epochs_remaining
 
+        if DEVICE == "cuda":
+            peak_allocated_gb = torch.cuda.max_memory_allocated() / (1024 ** 3)
+            peak_reserved_gb = torch.cuda.max_memory_reserved() / (1024 ** 3)
+            total_gb = torch.cuda.get_device_properties(0).total_memory / (1024 ** 3)
+            mem_str = (f'Peak VRAM={peak_allocated_gb:.2f}GB allocated / '
+                       f'{peak_reserved_gb:.2f}GB reserved (of {total_gb:.1f}GB total), ')
+        else:
+            mem_str = ''
+
         print(f'Epoch {epoch+1}: Loss={total_loss/max(n_batches,1):.4f}, '
               f'Val Acc={val_acc:.4f}, LR={scheduler.get_last_lr()[0]:.2e}, '
+              f'{mem_str}'
               f'Time={_format_duration(epoch_duration)}, '
               f'Avg/epoch={_format_duration(avg_epoch_time)}, '
               f'Est. remaining (to ceiling)={_format_duration(eta_seconds)}')
@@ -1350,11 +1717,123 @@ def run_inference(image_dir: str,
     return results
 
 
-# Example — drop images into the INFERENCE_INPUT_DIR folder printed at
-# startup, then uncomment this line to run the checker against them:
-# run_inference(str(INFERENCE_INPUT_DIR))
+def summarize_inference_results(results: list, top_n: int = 5,
+                                 out_csv=str(OUTPUT_DIR / "inference_summary.csv"),
+                                 out_chart=str(OUTPUT_DIR / "inference_summary_chart.png")):
+    """
+    Summarizes run_inference()'s results: counts, confidence-score
+    distribution stats, a two-panel chart, and the top-N most confident
+    detections in each direction for quick manual spot-checking.
+
+    NOTE: there's no ground truth for inference_images/ — these are real
+    images being checked, not labeled test data — so this can only report
+    DISTRIBUTION and COUNT statistics, never accuracy/precision/recall.
+    Accuracy requires known labels; see Section 7 for that (on CIFAKE/
+    AIGC_DETECTION's test folders, which do have labels).
+    """
+    if not results:
+        print("No inference results to summarize (empty result set).")
+        return None
+
+    preds = [r["pred"] for r in results]
+    n = len(preds)
+    n_fake = sum(1 for p in preds if p > 0.5)
+    n_real = n - n_fake
+    mean_pred = sum(preds) / n
+    sorted_preds = sorted(preds)
+    median_pred = (sorted_preds[n // 2] if n % 2 == 1
+                   else (sorted_preds[n // 2 - 1] + sorted_preds[n // 2]) / 2)
+    std_pred = (sum((p - mean_pred) ** 2 for p in preds) / n) ** 0.5
+
+    summary = {
+        "total_images": n,
+        "predicted_ai_generated": n_fake,
+        "predicted_real": n_real,
+        "pct_ai_generated": round(100 * n_fake / n, 2),
+        "pct_real": round(100 * n_real / n, 2),
+        "mean_confidence": round(mean_pred, 4),
+        "median_confidence": round(median_pred, 4),
+        "std_confidence": round(std_pred, 4),
+        "min_confidence": round(min(preds), 4),
+        "max_confidence": round(max(preds), 4),
+    }
+
+    print(f"\n=== Inference summary ({n} images) ===")
+    for k, v in summary.items():
+        print(f"  {k}: {v}")
+
+    with open(out_csv, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=list(summary.keys()))
+        writer.writeheader()
+        writer.writerow(summary)
+    print(f"Wrote inference summary -> {out_csv}")
+
+    # Top-N most confident detections in each direction — names the actual
+    # images, not just aggregate counts, for quick manual spot-checking.
+    sorted_results = sorted(results, key=lambda r: r["pred"], reverse=True)
+    n_show = min(top_n, n)
+    print(f"\nTop {n_show} most confident AI-GENERATED detections:")
+    for r in sorted_results[:n_show]:
+        print(f"  {r['pred']:.4f}  {r['image_path']}")
+    print(f"\nTop {n_show} most confident REAL detections:")
+    for r in sorted_results[-n_show:][::-1]:
+        print(f"  {r['pred']:.4f}  {r['image_path']}")
+
+    # Chart: detection counts + confidence-score distribution
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+    axes[0].bar(["Real", "AI-Generated"], [n_real, n_fake], color=["#55A868", "#C44E52"])
+    axes[0].set_ylabel("Number of images")
+    axes[0].set_title(f"Detection Summary ({n} images)")
+    for i, v in enumerate([n_real, n_fake]):
+        axes[0].text(i, v, str(v), ha="center", va="bottom")
+
+    axes[1].hist(preds, bins=20, range=(0, 1), color="#4C72B0", edgecolor="white")
+    axes[1].axvline(0.5, color="red", linestyle="--", linewidth=1, label="Decision threshold (0.5)")
+    axes[1].set_xlabel("Predicted confidence (AI-generated likelihood)")
+    axes[1].set_ylabel("Number of images")
+    axes[1].set_title("Confidence Score Distribution")
+    axes[1].legend()
+
+    plt.tight_layout()
+    plt.savefig(out_chart, dpi=150)
+    plt.close(fig)
+    print(f"\nWrote inference chart -> {out_chart}")
+
+    return summary
+
+
+# PRIORITY OUTPUT: automatically run inference on whatever's in
+# INFERENCE_INPUT_DIR. This is the primary, user-facing output of the whole
+# pipeline — your own images take priority over Section 7's robustness
+# analysis below, which uses the CIFAKE/AIGC_DETECTION *test* folders (not
+# your images) purely as a supporting robustness signal, not as the main
+# analysis output.
+#
+# If INFERENCE_INPUT_DIR is empty, no analysis is performed on it at all —
+# no preds.json gets written, no error is raised, just a clear message.
+_inference_images_found = [
+    p for p in Path(INFERENCE_INPUT_DIR).rglob("*") if p.suffix.lower() in VALID_EXT
+]
+if _inference_images_found:
+    print(f"\nFound {len(_inference_images_found)} image(s) in {INFERENCE_INPUT_DIR} "
+          f"— running inference (this is the priority output)...")
+    _inference_results = run_inference(str(INFERENCE_INPUT_DIR))
+    summarize_inference_results(_inference_results)
+else:
+    print(f"\n{INFERENCE_INPUT_DIR} is empty — skipping inference. "
+          f"No preds.json will be written. Drop images in there to get predictions.")
 
 """## 7. Robustness evaluation (deliverable #4 + #5)
+
+NOTE: everything below uses the CIFAKE/AIGC_DETECTION *test* folders, NOT
+INFERENCE_INPUT_DIR — this is a supporting robustness/error-analysis signal
+about the model's general behavior, separate from (and secondary to) the
+inference_images/ predictions produced just above.
 
 Because we're streaming, the robustness eval collects a **capped sample** into memory
 (default 2,000 images) for repeatable per-transform scoring. This is fine for eval —
@@ -1367,55 +1846,95 @@ Produces the clean-vs-transformed table. Run **twice**:
 
 from itertools import islice
 
-EVAL_CAP = 2000  # total images; raise if you have RAM to spare
-_active_source_count = sum([USE_CIFAKE, USE_SID_SET])
+# EVAL_CAP is set in the SETTINGS block at the top of the file.
+_active_source_count = sum([USE_CIFAKE, USE_SID_SET, USE_AIGC_DETECTION])
 per_source_cap = EVAL_CAP // _active_source_count
 
-eval_samples_raw = []
+eval_samples_raw = []  # each entry: (PIL Image, label, identifier)
 
 if USE_CIFAKE:
-    cifake_eval_paths = (
-        [(p, 0) for p in sorted((cifake_root / 'test' / 'REAL').rglob('*')) if p.suffix.lower() in IMG_EXTS] +
-        [(p, 1) for p in sorted((cifake_root / 'test' / 'FAKE').rglob('*')) if p.suffix.lower() in IMG_EXTS]
-    )[:per_source_cap]
+    # Split the cap evenly across classes BEFORE truncating — concatenating
+    # real+fake into one list and slicing the front off is the exact same
+    # bug already fixed in KaggleDirStreamDataset: CIFAKE's test split lists
+    # all 10,000 real paths before any of the 10,000 fake ones, so any
+    # per_source_cap <= 10,000 (the current default of 2000 included)
+    # silently produced a ZERO-fake, real-only eval pool — meaning every
+    # robustness/error-analysis number was being computed with no fake
+    # images ever tested.
+    _cifake_eval_per_class_cap = per_source_cap // 2
+    cifake_real_eval = [(p, 0) for p in sorted((cifake_root / 'test' / 'REAL').rglob('*'))
+                        if p.suffix.lower() in IMG_EXTS][:_cifake_eval_per_class_cap]
+    cifake_fake_eval = [(p, 1) for p in sorted((cifake_root / 'test' / 'FAKE').rglob('*'))
+                        if p.suffix.lower() in IMG_EXTS][:_cifake_eval_per_class_cap]
+    cifake_eval_paths = cifake_real_eval + cifake_fake_eval
 
     for path, label in cifake_eval_paths:
         try:
-            eval_samples_raw.append((Image.open(path).convert('RGB'), label))
+            eval_samples_raw.append((Image.open(path).convert('RGB'), label, str(path)))
+        except Exception as e:
+            print(f'[warn] {path}: {e}')
+
+if USE_AIGC_DETECTION:
+    # Confirmed structure: {root}/test/{real,fake} — genuinely untouched by
+    # training (which only ever reads from {root}/train/...). Same balanced
+    # per-class construction as CIFAKE above, for the same reason: avoid a
+    # real-only eval pool from concatenating then slicing.
+    _aigc_det_eval_per_class_cap = per_source_cap // 2
+    aigc_det_test_real_dir = aigc_detection_root / AIGC_DETECTION_TEST_SUBDIR / AIGC_DETECTION_REAL_SUBDIR
+    aigc_det_test_fake_dir = aigc_detection_root / AIGC_DETECTION_TEST_SUBDIR / AIGC_DETECTION_FAKE_SUBDIR
+    aigc_det_real_eval = [(p, 0) for p in sorted(aigc_det_test_real_dir.rglob('*'))
+                          if p.suffix.lower() in IMG_EXTS][:_aigc_det_eval_per_class_cap]
+    aigc_det_fake_eval = [(p, 1) for p in sorted(aigc_det_test_fake_dir.rglob('*'))
+                          if p.suffix.lower() in IMG_EXTS][:_aigc_det_eval_per_class_cap]
+    aigc_det_eval_paths = aigc_det_real_eval + aigc_det_fake_eval
+
+    for path, label in aigc_det_eval_paths:
+        try:
+            eval_samples_raw.append((Image.open(path).convert('RGB'), label, str(path)))
         except Exception as e:
             print(f'[warn] {path}: {e}')
 
 if USE_SID_SET:
+    # NOTE: unlike CIFAKE above, this takes the first `per_source_cap` items
+    # in WHATEVER ORDER the HF stream provides them — if that underlying
+    # order happens to group by class (as CIFAKE's directory listing does),
+    # this would reproduce the exact same real-only eval pool bug just fixed
+    # for CIFAKE. Not fixed here since USE_SID_SET is currently False and
+    # the stream's actual ordering hasn't been verified — if you re-enable
+    # this, check the class balance of eval_samples_raw's SID_Set portion
+    # (or shuffle/stratify before capping) before trusting the results.
     sid_eval_stream = load_dataset('saberzl/SID_Set', split='validation', streaming=True)
-    for item in islice(sid_eval_stream, per_source_cap):
-        eval_samples_raw.append((item['image'].convert('RGB'), int(item['label'])))
+    for i, item in enumerate(islice(sid_eval_stream, per_source_cap)):
+        identifier = item.get('image_path', f'sid_set_validation_row_{i}')
+        eval_samples_raw.append((item['image'].convert('RGB'), int(item['label']), identifier))
 
 print(f'Eval pool: {len(eval_samples_raw)} images ready.')
 
 
 @torch.no_grad()
 def run_transform_eval_pil(model, samples_raw: list, transform_name: str):
-    """samples_raw: list of (PIL Image, label)"""
-    preds, labels = [], []
-    for img, label in samples_raw:
+    """samples_raw: list of (PIL Image, label, identifier)"""
+    preds, labels, identifiers = [], [], []
+    for img, label, identifier in samples_raw:
         img_t = apply_named_transform(img, transform_name)
         rgb = _normalize(img_t).unsqueeze(0).to(DEVICE)
         freq = to_freq_tensor(img_t).unsqueeze(0).to(DEVICE)
         score = torch.sigmoid(model(rgb, freq)).item()
         preds.append(score)
         labels.append(label)
+        identifiers.append(identifier)
 
     pred_labels = [1 if p > 0.5 else 0 for p in preds]
     acc = sum(int(p == l) for p, l in zip(pred_labels, labels)) / len(labels)
     auc = roc_auc_score(labels, preds) if len(set(labels)) > 1 else float('nan')
-    return acc, auc, preds, labels
+    return acc, auc, preds, labels, identifiers
 
 
 def build_robustness_table_streaming(model, samples_raw,
                                       out_csv=str(OUTPUT_DIR / 'robustness_table.csv')):
     rows = []
     for name in TRANSFORM_POOL:
-        acc, auc, _, _ = run_transform_eval_pil(model, samples_raw, name)
+        acc, auc, _, _, _ = run_transform_eval_pil(model, samples_raw, name)
         rows.append({'transform': name, 'accuracy': round(acc, 4), 'auc': round(auc, 4)})
         print(f'{name:20s}  acc={acc:.4f}  auc={auc:.4f}')
 
@@ -1427,9 +1946,200 @@ def build_robustness_table_streaming(model, samples_raw,
     return rows
 
 
-def error_analysis_pil(model, samples_raw, transform_name='clean', top_k=10):
-    _, _, preds, labels = run_transform_eval_pil(model, samples_raw, transform_name)
-    records = [(f'sample_{i}', p, l) for i, (p, l) in enumerate(zip(preds, labels))]
+# Groups TRANSFORM_POOL's 15 individual entries into families, for a compact
+# clean-vs-transformed comparison — the deliverable asks for a "compact table
+# or visual summary," and 15 individual rows isn't compact. Built from
+# whatever rows build_robustness_table_streaming already computed, so this
+# costs zero additional model evaluations.
+TRANSFORM_FAMILIES = {
+    'clean': ['clean'],
+    'jpeg_compression': ['jpeg_90', 'jpeg_70', 'jpeg_50', 'jpeg_30'],
+    'blur': ['blur_0.5', 'blur_1.0', 'blur_2.0'],
+    'resize': ['resize_0.5', 'resize_0.25'],
+    'noise': ['noise_0.02', 'noise_0.05', 'noise_0.10'],
+    'color_jitter': ['color_jitter'],
+    'center_crop': ['center_crop_80'],
+}
+
+
+def summarize_robustness_compact(rows: list, out_csv=str(OUTPUT_DIR / 'robustness_summary_compact.csv')):
+    """
+    Collapses the 15-row per-transform table into a 7-row family-level
+    summary (clean vs. each transform family), with each family's accuracy
+    drop relative to clean — the actual number a reader cares about most.
+    """
+    rows_by_name = {r['transform']: r for r in rows}
+    clean_acc = rows_by_name['clean']['accuracy']
+
+    summary = []
+    for family, members in TRANSFORM_FAMILIES.items():
+        member_rows = [rows_by_name[m] for m in members if m in rows_by_name]
+        avg_acc = sum(r['accuracy'] for r in member_rows) / len(member_rows)
+        avg_auc = sum(r['auc'] for r in member_rows) / len(member_rows)
+        drop = clean_acc - avg_acc
+        summary.append({
+            'transform_family': family,
+            'avg_accuracy': round(avg_acc, 4),
+            'avg_auc': round(avg_auc, 4),
+            'accuracy_drop_from_clean': round(drop, 4),
+        })
+
+    print(f"\n{'Transform family':<20} {'Avg Acc':>9} {'Avg AUC':>9} {'Drop from clean':>17}")
+    print("-" * 58)
+    for s in summary:
+        print(f"{s['transform_family']:<20} {s['avg_accuracy']:>9.4f} {s['avg_auc']:>9.4f} "
+              f"{s['accuracy_drop_from_clean']:>17.4f}")
+
+    with open(out_csv, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['transform_family', 'avg_accuracy',
+                                                'avg_auc', 'accuracy_drop_from_clean'])
+        writer.writeheader()
+        writer.writerows(summary)
+    print(f'\nWrote compact robustness summary -> {out_csv}')
+    return summary
+
+
+def plot_robustness_chart(rows: list, out_png=str(OUTPUT_DIR / 'robustness_chart.png')):
+    """
+    Bar chart of accuracy per individual transform, with a horizontal
+    reference line at the clean-image accuracy — the "visual summary"
+    option for the deliverable. Saved as a static PNG so it can be embedded
+    directly in a README or Devpost writeup.
+    """
+    import matplotlib
+    matplotlib.use('Agg')  # no display needed — just render straight to file
+    import matplotlib.pyplot as plt
+
+    names = [r['transform'] for r in rows]
+    accs = [r['accuracy'] for r in rows]
+    clean_acc = next(r['accuracy'] for r in rows if r['transform'] == 'clean')
+
+    colors = ['#4C72B0' if n != 'clean' else '#55A868' for n in names]
+
+    fig, ax = plt.subplots(figsize=(11, 5))
+    ax.bar(names, accs, color=colors)
+    ax.axhline(clean_acc, color='red', linestyle='--', linewidth=1,
+               label=f'Clean baseline ({clean_acc:.3f})')
+    ax.set_ylabel('Accuracy')
+    ax.set_ylim(0, 1.0)
+    ax.set_title('Accuracy: Clean vs. Transformed Images')
+    ax.legend()
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=150)
+    plt.close(fig)
+    print(f'Wrote robustness chart -> {out_png}')
+    return out_png
+
+
+def write_overall_analysis(model, samples_raw, transform_name='clean',
+                            out_csv=str(OUTPUT_DIR / 'overall_analysis.csv'),
+                            out_json=str(OUTPUT_DIR / 'overall_analysis.json')):
+    """
+    Writes EVERY image's result (not just the top-k errors error_analysis_pil
+    focuses on) to both CSV and JSON, in the same row order and field values
+    in both — so the two files can be cross-checked against each other
+    directly, and against error_analysis.csv's extreme-case subset.
+    """
+    acc, auc, preds, labels, identifiers = run_transform_eval_pil(model, samples_raw, transform_name)
+
+    rows = []
+    for identifier, score, true_label in zip(identifiers, preds, labels):
+        predicted_label = 1 if score > 0.5 else 0
+        rows.append({
+            'image_path': identifier,
+            'pred': round(score, 4),
+            'true_label': true_label,
+            'predicted_label': predicted_label,
+            'correct': predicted_label == true_label,
+        })
+
+    with open(out_csv, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['image_path', 'pred', 'true_label',
+                                                'predicted_label', 'correct'])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    with open(out_json, 'w') as f:
+        json.dump(rows, f, indent=2)
+
+    print(f'Wrote full analysis of all {len(rows)} images -> {out_csv} and {out_json}')
+    print(f'Overall on "{transform_name}": accuracy={acc:.4f}, AUC={auc:.4f}')
+    return rows
+
+
+# One representative transform per family (not all 15) — keeps the example
+# folder small and readable while still showing what each category of
+# degradation actually looks like.
+TRANSFORM_EXAMPLES_TO_SHOW = ['jpeg_30', 'blur_2.0', 'resize_0.25',
+                              'noise_0.10', 'color_jitter', 'center_crop_80']
+N_TRANSFORM_EXAMPLE_IMAGES = 3
+
+
+def _save_comparison_grid(named_images: list, out_path, title: str = "", thumb_size: int = 224):
+    """named_images: list of (label_text, PIL Image) tuples, laid out left to right."""
+    from PIL import ImageDraw
+
+    n = len(named_images)
+    label_h = 24
+    title_h = 30 if title else 0
+    grid = Image.new("RGB", (thumb_size * n, thumb_size + label_h + title_h), "white")
+    draw = ImageDraw.Draw(grid)
+    if title:
+        draw.text((8, 6), title, fill="black")
+    for i, (label, img) in enumerate(named_images):
+        thumb = img.resize((thumb_size, thumb_size))
+        grid.paste(thumb, (i * thumb_size, title_h))
+        draw.text((i * thumb_size + 8, title_h + thumb_size + 4), label, fill="black")
+    grid.save(out_path)
+
+
+def save_transform_examples(samples_raw, n_images: int = N_TRANSFORM_EXAMPLE_IMAGES,
+                             transforms_to_show: list = None,
+                             out_dir=str(OUTPUT_DIR / 'transform_examples')):
+    """
+    Saves the clean version and several named transforms of a few sample
+    images as individual PNG files, plus one side-by-side comparison grid
+    per image — so before/after can be inspected visually, not just measured
+    numerically via the accuracy/AUC tables.
+    """
+    transforms_to_show = transforms_to_show or TRANSFORM_EXAMPLES_TO_SHOW
+    out_path = Path(out_dir)
+    out_path.mkdir(parents=True, exist_ok=True)
+
+    # eval_samples_raw is ordered real-then-fake (per source), so a plain
+    # samples_raw[:n_images] prefix slice would only ever pick real examples
+    # — deliberately split the request across both classes instead.
+    n_real = (n_images + 1) // 2
+    n_fake = n_images // 2
+    real_examples = [s for s in samples_raw if s[1] == 0][:n_real]
+    fake_examples = [s for s in samples_raw if s[1] == 1][:n_fake]
+    chosen = real_examples + fake_examples
+
+    for i, (img, label, identifier) in enumerate(chosen):
+        label_str = 'fake' if label == 1 else 'real'
+        stem = f"example_{i}_{label_str}"
+
+        img.save(out_path / f"{stem}_clean.png")
+        variants = [("clean", img)]
+        for t_name in transforms_to_show:
+            transformed = apply_named_transform(img, t_name)
+            transformed.save(out_path / f"{stem}_{t_name}.png")
+            variants.append((t_name, transformed))
+
+        _save_comparison_grid(
+            variants, out_path / f"{stem}_comparison_grid.png",
+            title=f"{stem}  (source: {identifier})  true label: {label_str.upper()}"
+        )
+
+    print(f"Wrote {len(chosen)} before/after transform example set(s) -> {out_path}")
+    return out_path
+
+
+def error_analysis_pil(model, samples_raw, transform_name='clean', top_k=10,
+                        out_csv=str(OUTPUT_DIR / 'error_analysis.csv')):
+    acc, auc, preds, labels, identifiers = run_transform_eval_pil(model, samples_raw, transform_name)
+    records = list(zip(identifiers, preds, labels))
 
     false_positives = sorted(
         [r for r in records if r[2] == 0 and r[1] > 0.5], key=lambda r: -r[1]
@@ -1439,12 +2149,27 @@ def error_analysis_pil(model, samples_raw, transform_name='clean', top_k=10):
     )[:top_k]
 
     print(f'Top {top_k} false positives (real flagged as fake):')
-    for name, score, _ in false_positives:
-        print(f'  {score:.3f}  {name}')
+    for identifier, score, _ in false_positives:
+        print(f'  {score:.3f}  {identifier}')
 
     print(f'\nTop {top_k} false negatives (fake missed as real):')
-    for name, score, _ in false_negatives:
-        print(f'  {score:.3f}  {name}')
+    for identifier, score, _ in false_negatives:
+        print(f'  {score:.3f}  {identifier}')
+
+    # Write a durable CSV — the console output above scrolls away, but this
+    # is what you'd actually open the referenced images from when writing
+    # the Error Analysis Note deliverable.
+    with open(out_csv, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['error_type', 'identifier', 'predicted_score', 'true_label'])
+        writer.writeheader()
+        for identifier, score, true_label in false_positives:
+            writer.writerow({'error_type': 'false_positive', 'identifier': identifier,
+                              'predicted_score': round(score, 4), 'true_label': true_label})
+        for identifier, score, true_label in false_negatives:
+            writer.writerow({'error_type': 'false_negative', 'identifier': identifier,
+                              'predicted_score': round(score, 4), 'true_label': true_label})
+    print(f'\nWrote error analysis (with real file paths) -> {out_csv}')
+    print(f'Overall on "{transform_name}": accuracy={acc:.4f}, AUC={auc:.4f}')
 
     return false_positives, false_negatives
 
@@ -1452,11 +2177,19 @@ def error_analysis_pil(model, samples_raw, transform_name='clean', top_k=10):
 model_eval = load_model(str(CHECKPOINT_DIR / 'best_model.pt'))
 
 print('=== In-distribution robustness ===')
-build_robustness_table_streaming(model_eval, eval_samples_raw,
-                                  str(OUTPUT_DIR / 'robustness_indist.csv'))
+_robustness_rows = build_robustness_table_streaming(model_eval, eval_samples_raw,
+                                                     str(OUTPUT_DIR / 'robustness_indist.csv'))
+summarize_robustness_compact(_robustness_rows)
+plot_robustness_chart(_robustness_rows)
 
 print('\n=== Error analysis (clean) ===')
 error_analysis_pil(model_eval, eval_samples_raw, transform_name='clean', top_k=10)
+
+print('\n=== Full analysis of all eval images ===')
+write_overall_analysis(model_eval, eval_samples_raw, transform_name='clean')
+
+print('\n=== Before/after transform examples ===')
+save_transform_examples(eval_samples_raw)
 
 # WildFake uses a local CSV of image paths — build this yourself from
 # COCO val2017 (real) + DALL-E Advanced (fake), per the hackathon's
