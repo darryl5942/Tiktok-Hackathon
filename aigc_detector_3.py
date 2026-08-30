@@ -612,7 +612,29 @@ import timm
 from sklearn.metrics import roc_auc_score
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"Using device: {DEVICE}")
+
+if DEVICE == "cuda":
+    print(f"Using device: cuda ({torch.cuda.get_device_name(0)})")
+else:
+    _has_cuda_build = "+cu" in torch.__version__
+    print("Using device: cpu")
+    print("WARNING: CUDA is not available. Training/inference will be dramatically "
+          "slower on CPU for this model. Most likely causes:")
+    if not _has_cuda_build:
+        print(f"  -> Your installed torch ({torch.__version__}) is a CPU-ONLY build — its "
+              f"version string has no '+cuXXX' suffix (a GPU build looks like "
+              f"'2.13.0+cu130'). This happens automatically if torch/torchvision are ever "
+              f"installed via a plain 'pip install torch' or 'pip install -r "
+              f"requirements.txt' — PyPI's default wheel has no CUDA support at all.")
+        print("     Fix:")
+        print("       pip uninstall torch torchvision -y")
+        print("       pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130")
+        print("     (check https://pytorch.org/get-started/locally/ for the exact CUDA tag "
+              "your driver supports if cu130 doesn't install)")
+    else:
+        print(f"  -> torch ({torch.__version__}) IS a CUDA build, but no GPU/driver was "
+              f"detected. Run 'nvidia-smi' in a terminal to check your driver is installed "
+              f"and recognizes your GPU.")
 
 """## 2b. Dataset & transform pool
 

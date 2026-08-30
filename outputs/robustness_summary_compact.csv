@@ -1,8 +1,8 @@
 transform_family,avg_accuracy,avg_auc,accuracy_drop_from_clean
-clean,0.9485,0.9904,0.0
-jpeg_compression,0.9439,0.9884,0.0046
-blur,0.8915,0.9564,0.057
-resize,0.8442,0.9194,0.1043
-noise,0.9388,0.9862,0.0097
-color_jitter,0.946,0.9884,0.0025
-center_crop,0.925,0.9821,0.0235
+clean,0.959,0.9929,0.0
+jpeg_compression,0.9549,0.991,0.0041
+blur,0.9162,0.966,0.0428
+resize,0.8667,0.9325,0.0923
+noise,0.9543,0.9905,0.0047
+color_jitter,0.9605,0.9925,-0.0015
+center_crop,0.934,0.9854,0.025
