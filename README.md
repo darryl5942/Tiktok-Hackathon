@@ -1,170 +1,113 @@
-# TikTok Hackathon AIGC Detector
+# TikTok TechJam 2026 - AIGC Detector
 
-An AI-generated image detector built for the TikTok TechJam hackathon. The project uses a two-branch PyTorch model that combines:
+Robust image-level AIGC detector for the TikTok TechJam problem statement: classify whether an image is AI-generated and stay reliable under common real-world transformations such as JPEG recompression, blur, resize, noise, color jitter, and center crop.
 
-- an RGB image encoder
-- a frequency-domain encoder based on FFT features
-- a lightweight fusion layer for final classification
+## What this project does
 
-The main script, [`aigc_detector_3.py`](./aigc_detector_3.py), handles:
+- Trains a two-branch detector that combines:
+  - a frozen CLIP ViT-H/14 RGB encoder
+  - a trainable ConvNeXt-Base frequency branch on FFT magnitude features
+- Runs inference on an input image directory and writes `outputs/preds.json`
+- Produces robustness summaries and error analysis for held-out evaluation data
+- Optionally evaluates an external OOD benchmark when a labeled CSV is provided
 
-- dataset loading
-- train/validation/test splitting
-- model training
-- checkpointing
-- single-folder inference
-- robustness evaluation under common image transformations
+## Repository Layout
 
-## What It Detects
+- `aigc_detector_3.py` - end-to-end training, inference, and evaluation script
+- `requirements.txt` - Python dependencies
+- `checkpoints/` - saved model checkpoints
+- `outputs/` - inference, robustness, and error-analysis artifacts
+- `split_manifest.json` - persistent train/validation split assignments
 
-The model is designed to classify images as:
+## Setup
 
-- `0` = real
-- `1` = AI-generated / fake
-
-It was built to be resilient to real-world perturbations such as:
-
-- JPEG compression
-- blur
-- resize
-- noise
-- color jitter
-- center crop
-
-## Project Structure
-
-- [`aigc_detector_3.py`](./aigc_detector_3.py) - end-to-end training, inference, and evaluation script
-- [`requirements.txt`](./requirements.txt) - Python dependencies
-- `checkpoints/` - saved model weights and training state
-- `outputs/` - inference predictions and evaluation CSVs
-- `inference_images/` - drop images here for local inference
-- `.cache/` - local Kaggle and Hugging Face caches
-
-## Requirements
-
-- Python 3.11 or newer
-- PyTorch and torchvision
-- Kaggle access for CIFAKE, if enabled
-- Hugging Face access token for SID_Set, if enabled
-
-Create and activate a virtual environment before installing packages:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install dependencies:
+1. Create and activate a Python 3.12 environment.
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If you need CUDA-enabled PyTorch, install `torch` and `torchvision` from the official PyTorch index first, then install the rest of the requirements.
+3. Create a `.env` file in the project root with the credentials required by the enabled data sources:
 
-## Setup
-
-Create a `.env` file in the project root if you want to use the remote datasets:
-
-```env
-KAGGLE_USERNAME=your_kaggle_username
-KAGGLE_KEY=your_kaggle_key
+```bash
+KAGGLE_USERNAME=your_username
+KAGGLE_KEY=your_key
 HF_TOKEN=your_huggingface_token
 ```
 
-Notes:
+## Run Modes
 
-- `KAGGLE_USERNAME` and `KAGGLE_KEY` are required only when `USE_CIFAKE = True`
-- `HF_TOKEN` is required only when `USE_SID_SET = True`
-- the script writes caches into the project directory, so it stays self-contained
+The script reads `AIGC_SKIP_TRAINING` from the environment:
 
-## Running The Script
+- `AIGC_SKIP_TRAINING=1` - skip training and run inference/evaluation using `checkpoints/best_model.pt`
+- `AIGC_SKIP_TRAINING=0` - train or resume, then save checkpoints and run the evaluation flow
 
-Open [`aigc_detector_3.py`](./aigc_detector_3.py) and check these flags near the top:
-
-- `USE_CIFAKE = True` to train/evaluate on CIFAKE
-- `USE_SID_SET = True` to add the SID_Set stream
-- `SKIP_TRAINING = True` to skip training and go straight to inference/eval using an existing checkpoint
-
-Then run:
+Example:
 
 ```bash
-python aigc_detector_3.py
+AIGC_SKIP_TRAINING=1 python aigc_detector_3.py
 ```
 
-### Training
+There is also a small CLI wrapper for clearer entrypoints:
 
-When `SKIP_TRAINING = False`, the script:
-
-1. downloads or streams the enabled datasets
-2. builds the train/validation split
-3. trains the model
-4. writes checkpoints into `checkpoints/`
-
-The script uses:
-
-- early stopping
-- cosine learning-rate scheduling
-- mixed precision when available
-- a persistent split manifest for reproducibility
-
-### Inference
-
-To run inference on local images:
-
-1. put images into [`inference_images/`](./inference_images) or pass another folder path to `run_inference()`
-2. load a trained checkpoint from `checkpoints/best_model.pt`
-3. write predictions to `outputs/preds.json`
-
-Expected output format:
-
-```json
-[
-  {
-    "image_path": "path/to/image.png",
-    "pred": 0.9732
-  }
-]
+```bash
+python techjam_cli.py train
+python techjam_cli.py infer --input-dir inference_images
+python techjam_cli.py eval --wildfake-labels-csv /path/to/wildfake_labels.csv
 ```
 
-The `pred` value is the model's confidence score for the fake class.
+## Optional External Benchmark
 
-### Robustness Evaluation
+If you have a labeled CSV for WildFake or another OOD benchmark, set:
 
-The script also evaluates the model on transformed versions of the held-out evaluation set and writes CSV reports to `outputs/`, including:
-
-- `robustness_indist.csv`
-- `robustness_table.csv` if you use the helper's default output path
-
-## Configuration Notes
-
-The script currently defaults to:
-
-- CIFAKE enabled
-- SID_Set disabled
-- training enabled
-
-If you only want inference on an existing checkpoint, set:
-
-```python
-SKIP_TRAINING = True
+```bash
+WILDFAKE_LABELS_CSV=/path/to/wildfake_labels.csv
 ```
 
-If you want to keep the run lightweight while testing the pipeline, you can also temporarily disable one of the data sources.
+The CSV must contain:
 
-## Reproducibility
+- `image_path`
+- `label` where `0=real` and `1=fake`
 
-The project stores a persistent `split_manifest.json` in the repo root so that image assignments to train and validation remain stable across runs. This helps keep experiments consistent when the same files are seen again.
+When present, the script writes:
 
-## Outputs
+- `outputs/robustness_wildfake.csv`
+- `outputs/robustness_wildfake_summary_compact.csv`
+- `outputs/robustness_wildfake_chart.png`
 
-After a run, expect to see files such as:
+The CSV is validated before evaluation, so missing columns or invalid labels fail early with a useful error.
 
-- `checkpoints/best_model.pt`
-- `checkpoints/latest_checkpoint.pt`
-- `outputs/preds.json`
-- `outputs/robustness_indist.csv`
+## Reproducing Results
 
-## License
+1. Ensure the expected datasets are available through Kaggle/Hugging Face credentials.
+2. Run the script with `AIGC_SKIP_TRAINING=0` to train or resume from checkpoints.
+3. Review the outputs in `outputs/`:
+   - `preds.json` for inference predictions
+   - `robustness_indist.csv` and `robustness_summary_compact.csv` for held-out robustness
+   - `error_analysis.csv` for false positives and false negatives
+   - `robustness_chart.png` for the visual summary
 
-No license has been specified yet. Add one if you plan to share or reuse the project publicly.
+## Current Observations
+
+The current held-out robustness summary shows:
+
+- clean accuracy around 0.9485
+- JPEG compression is only slightly worse than clean
+- blur and resize are the weakest transform families, which matches the problem statement’s emphasis on post-processing robustness
+
+The detector now also calibrates its decision threshold from the validation set and saves it to `outputs/decision_threshold.json`, which makes the final classification rule less arbitrary than a fixed 0.5 cutoff.
+
+The error analysis shows the model tends to struggle on heavily processed real images and some heavily degraded fake images, which is the main trade-off to address next.
+
+## Limitations
+
+- The project is still a hackathon-scale prototype, not a production moderation system.
+- The main script is intentionally single-file for speed of iteration, so it is less modular than a production repo.
+- External OOD evaluation depends on a local labeled CSV and is optional.
+- The model is robust, but resize and blur remain the biggest weak spots.
+
+## Notes
+
+- `split_manifest.json` is committed so train/validation assignments stay stable across runs.
+- Generated paths in CSV outputs are now normalized to avoid machine-specific absolute prefixes when possible.

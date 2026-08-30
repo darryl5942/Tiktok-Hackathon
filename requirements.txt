@@ -13,25 +13,27 @@
 # Check https://pytorch.org/get-started/locally/ for the exact CUDA tag your
 # driver supports before installing — using the wrong one silently falls
 # back to a CPU-only build.
- 
+
 # ── Core ML ──────────────────────────────────────────────────────────────
 torch==2.13.0             # PyTorch 2.13, GA Jul 8 2026. Fixes CVE-2026-24747
                            # (torch.load weights_only RCE, fixed in 2.10.0+).
 torchvision==0.28.0        # Matched release pair for torch 2.13.0.
 timm==1.0.28               # PyTorch Image Models — backbone architectures.
- 
+
 # ── Data handling ────────────────────────────────────────────────────────
 numpy==2.5.2                # Latest stable (Aug 9 2026). Requires Python >=3.11.
 pandas==3.0.5                # Latest stable (Jul 22 2026). Requires Python >=3.11.
 pillow==12.3.0             # Fixes CVE-2026-59203/-59204/-55379/-55380/-54060
                            # (DoS/decompression-bomb issues in EPS/GD parsers).
 scikit-learn==1.9.0         # roc_auc_score, train_test_split.
- 
+
 # ── Dataset sourcing ─────────────────────────────────────────────────────
 kagglehub>=1.0.2            # CIFAKE download. Latest non-vulnerable per Snyk.
 datasets==5.0.1             # HuggingFace streaming loader for SID_Set.
 huggingface_hub==1.27.0     # Backing client for `datasets`; also used directly
                            # if you call huggingface_hub.login().
- 
+python-dotenv==1.1.1        # Loads .env for Kaggle/HF credentials.
+
 # ── Utilities ────────────────────────────────────────────────────────────
 tqdm==4.67.3                # Progress bars in training/eval loops.
+matplotlib==3.10.8          # Robustness chart (Section 7 visual summary).

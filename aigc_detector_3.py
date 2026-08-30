@@ -54,6 +54,13 @@ rounds of real-world processing, not just one.
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from techjam_utils import (
+    benchmark_rows_to_samples,
+    env_flag,
+    find_best_threshold,
+    load_labeled_csv_rows,
+    portable_identifier,
+)
 
 load_dotenv()  # reads .env in the current working directory into environment variables
 
@@ -73,10 +80,10 @@ USE_AIGC_DETECTION_TRANSFORMED = True  # also load the dataset's own
                             # our own transform stack turned OFF for it —
                             # requires USE_AIGC_DETECTION = True, since it's
                             # a subfolder of the same download.
-SKIP_TRAINING = True  # set True to skip straight to inference/eval using an
-                       # existing checkpoints/best_model.pt, without building
-                       # the full training DataLoaders or downloading more
-                       # than Section 7's small eval pool needs.
+SKIP_TRAINING = env_flag("AIGC_SKIP_TRAINING", True)
+# Set AIGC_SKIP_TRAINING=0 to train/resume instead of going straight to
+# inference/eval. The old hard-coded default is preserved if the variable is
+# not set, but the active mode is now explicit and overrideable.
 
 # Fraction of each source's TRAIN pool held back as the early-stopping
 # validation set. The source's OFFICIAL test/validation split is reserved
@@ -680,6 +687,20 @@ TRANSFORM_POOL = {
 # over single-transform augmentation.
 
 _STACKABLE_TRANSFORM_NAMES = [k for k in TRANSFORM_POOL if k != "clean"]
+_ROBUST_STACK_PRIORITY = [
+    "blur_0.5",
+    "blur_1.0",
+    "blur_2.0",
+    "resize_0.5",
+    "resize_0.25",
+]
+
+
+def _weighted_stack_start() -> str:
+    """Biases the first stacked transform toward the prompt's weak spots."""
+    names = list(_STACKABLE_TRANSFORM_NAMES)
+    weights = [2.5 if name in _ROBUST_STACK_PRIORITY else 1.0 for name in names]
+    return random.choices(names, weights=weights, k=1)[0]
 
 
 def apply_random_transform_stack(img: Image.Image) -> Image.Image:
@@ -695,7 +716,12 @@ def apply_random_transform_stack(img: Image.Image) -> Image.Image:
     if random.random() < P_CLEAN:
         return img
     k = random.randint(1, MAX_STACKED_TRANSFORMS)
-    for name in random.sample(_STACKABLE_TRANSFORM_NAMES, k=k):
+    first = _weighted_stack_start()
+    img = TRANSFORM_POOL[first](img)
+    if k == 1:
+        return img
+    remaining = [name for name in _STACKABLE_TRANSFORM_NAMES if name != first]
+    for name in random.sample(remaining, k=k - 1):
         img = TRANSFORM_POOL[name](img)
     return img
 
@@ -1627,7 +1653,7 @@ def evaluate_accuracy(model, loader):
         rgb = batch['rgb'].to(DEVICE)
         freq = batch['freq'].to(DEVICE)
         labels = batch['label'].to(DEVICE)
-        preds = (torch.sigmoid(model(rgb, freq)) > 0.5).float()
+        preds = (torch.sigmoid(model(rgb, freq)) > TRAIN_EVAL_THRESHOLD).float()
         correct += (preds == labels).sum().item()
         total += labels.size(0)
         if total > 0:
@@ -1635,8 +1661,54 @@ def evaluate_accuracy(model, loader):
     return correct / total if total > 0 else 0.0
 
 
+@torch.no_grad()
+def collect_scores(model, loader):
+    """Collects labels and confidence scores for threshold calibration."""
+    model.eval()
+    labels, scores = [], []
+    pbar = tqdm(loader, desc='Calibrating', leave=False)
+    for batch in pbar:
+        rgb = batch['rgb'].to(DEVICE)
+        freq = batch['freq'].to(DEVICE)
+        batch_labels = batch['label'].detach().cpu().tolist()
+        batch_scores = torch.sigmoid(model(rgb, freq)).detach().cpu().tolist()
+        labels.extend(int(v) for v in batch_labels)
+        scores.extend(float(v) for v in batch_scores)
+    return labels, scores
+
+
+def save_decision_threshold(threshold: float, path: Path = OUTPUT_DIR / "decision_threshold.json") -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w") as f:
+        json.dump({"decision_threshold": threshold}, f, indent=2)
+    return path
+
+
+def load_decision_threshold(path: Path = OUTPUT_DIR / "decision_threshold.json", default: float = 0.5) -> float:
+    if not path.exists():
+        return default
+    try:
+        with open(path) as f:
+            payload = json.load(f)
+        return float(payload.get("decision_threshold", default))
+    except Exception as exc:
+        print(f"[warn] could not load calibrated threshold from {path}: {exc}")
+        return default
+
+
+def calibrate_decision_threshold(model, loader) -> float:
+    labels, scores = collect_scores(model, loader)
+    threshold, acc = find_best_threshold(labels, scores)
+    print(f"Calibrated decision threshold = {threshold:.4f} (val acc {acc:.4f})")
+    save_decision_threshold(threshold)
+    return threshold
+
+
 _default_checkpoint = str(CHECKPOINT_DIR / "best_model.pt")
 _latest_checkpoint = str(CHECKPOINT_DIR / "latest_checkpoint.pt")
+
+TRAIN_EVAL_THRESHOLD = 0.5
+DECISION_THRESHOLD = load_decision_threshold()
 
 if SKIP_TRAINING:
     if not Path(_default_checkpoint).exists():
@@ -1663,6 +1735,8 @@ else:
 
     model = train_model(train_loader, val_loader, resume_from=_resume_from, epochs=EPOCHS)
     persist_checkpoint(str(CHECKPOINT_DIR / "best_model.pt"))
+    DECISION_THRESHOLD = calibrate_decision_threshold(model, val_loader)
+    print(f"Saved calibrated decision threshold to {OUTPUT_DIR / 'decision_threshold.json'}")
 
 """## 6. Inference (required deliverable)
 
@@ -1870,7 +1944,7 @@ if USE_CIFAKE:
 
     for path, label in cifake_eval_paths:
         try:
-            eval_samples_raw.append((Image.open(path).convert('RGB'), label, str(path)))
+            eval_samples_raw.append((Image.open(path).convert('RGB'), label, portable_identifier(path, cifake_root / 'test')))
         except Exception as e:
             print(f'[warn] {path}: {e}')
 
@@ -1890,7 +1964,7 @@ if USE_AIGC_DETECTION:
 
     for path, label in aigc_det_eval_paths:
         try:
-            eval_samples_raw.append((Image.open(path).convert('RGB'), label, str(path)))
+            eval_samples_raw.append((Image.open(path).convert('RGB'), label, portable_identifier(path, aigc_detection_root / 'test')))
         except Exception as e:
             print(f'[warn] {path}: {e}')
 
@@ -1905,7 +1979,7 @@ if USE_SID_SET:
     # (or shuffle/stratify before capping) before trusting the results.
     sid_eval_stream = load_dataset('saberzl/SID_Set', split='validation', streaming=True)
     for i, item in enumerate(islice(sid_eval_stream, per_source_cap)):
-        identifier = item.get('image_path', f'sid_set_validation_row_{i}')
+        identifier = portable_identifier(item.get('image_path', f'sid_set_validation_row_{i}'))
         eval_samples_raw.append((item['image'].convert('RGB'), int(item['label']), identifier))
 
 print(f'Eval pool: {len(eval_samples_raw)} images ready.')
@@ -1924,7 +1998,7 @@ def run_transform_eval_pil(model, samples_raw: list, transform_name: str):
         labels.append(label)
         identifiers.append(identifier)
 
-    pred_labels = [1 if p > 0.5 else 0 for p in preds]
+    pred_labels = [1 if p > DECISION_THRESHOLD else 0 for p in preds]
     acc = sum(int(p == l) for p, l in zip(pred_labels, labels)) / len(labels)
     auc = roc_auc_score(labels, preds) if len(set(labels)) > 1 else float('nan')
     return acc, auc, preds, labels, identifiers
@@ -2045,7 +2119,7 @@ def write_overall_analysis(model, samples_raw, transform_name='clean',
 
     rows = []
     for identifier, score, true_label in zip(identifiers, preds, labels):
-        predicted_label = 1 if score > 0.5 else 0
+        predicted_label = 1 if score > DECISION_THRESHOLD else 0
         rows.append({
             'image_path': identifier,
             'pred': round(score, 4),
@@ -2191,18 +2265,45 @@ write_overall_analysis(model_eval, eval_samples_raw, transform_name='clean')
 print('\n=== Before/after transform examples ===')
 save_transform_examples(eval_samples_raw)
 
-# WildFake uses a local CSV of image paths — build this yourself from
-# COCO val2017 (real) + DALL-E Advanced (fake), per the hackathon's
-# validation-dataset instructions.
-# def load_labels_csv(csv_path: str) -> list:
-#     with open(csv_path) as f:
-#         return [(row["image_path"], int(row["label"])) for row in csv.DictReader(f)]
-#
-# wildfake_samples_raw = [(Image.open(p).convert('RGB'), l)
-#                          for p, l in load_labels_csv('wildfake_labels.csv')]
-# print('=== WildFake (out-of-distribution) robustness ===')
-# build_robustness_table_streaming(model_eval, wildfake_samples_raw,
-#                                   str(OUTPUT_DIR / 'robustness_wildfake.csv'))
+def build_local_benchmark_samples(csv_path: str):
+    """Converts a labeled CSV into the `(PIL Image, label, identifier)` format used by eval."""
+    samples = []
+    rows = load_labeled_csv_rows(csv_path)
+    for image_path, label in benchmark_rows_to_samples(rows):
+        p = Path(image_path)
+        try:
+            samples.append((Image.open(p).convert("RGB"), label, portable_identifier(p)))
+        except Exception as e:
+            print(f"[warn] {p}: {e}")
+    return samples
+
+
+WILDFAKE_LABELS_CSV = Path(os.environ.get("WILDFAKE_LABELS_CSV", PROJECT_ROOT / "wildfake_labels.csv"))
+if WILDFAKE_LABELS_CSV.exists():
+    print('\n=== WildFake (out-of-distribution) robustness ===')
+    wildfake_samples_raw = build_local_benchmark_samples(str(WILDFAKE_LABELS_CSV))
+    if wildfake_samples_raw:
+        wildfake_rows = build_robustness_table_streaming(
+            model_eval,
+            wildfake_samples_raw,
+            str(OUTPUT_DIR / 'robustness_wildfake.csv'),
+        )
+        summarize_robustness_compact(
+            wildfake_rows,
+            str(OUTPUT_DIR / 'robustness_wildfake_summary_compact.csv'),
+        )
+        plot_robustness_chart(
+            wildfake_rows,
+            str(OUTPUT_DIR / 'robustness_wildfake_chart.png'),
+        )
+    else:
+        print(f"No valid WildFake samples could be loaded from {WILDFAKE_LABELS_CSV}.")
+else:
+    print(
+        f"\nWildFake labels CSV not found at {WILDFAKE_LABELS_CSV} — skipping external "
+        f"benchmark evaluation. Provide a labeled CSV with image_path,label columns "
+        f"to enable it."
+    )
 
 import pandas as pd
 

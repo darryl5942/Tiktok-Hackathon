@@ -1,0 +1,21 @@
+error_type,identifier,predicted_score,true_label
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00388__v2__center_crop-80_resize-x0.25_noise-sigma_0.02_jpeg-q30.png,0.9976,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00295__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.9921,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00849__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.9745,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\birdy654\cifake-real-and-ai-generated-synthetic-images\versions\3\test\REAL\0026 (8).jpg,0.9727,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00388__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q50.png,0.9726,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\birdy654\cifake-real-and-ai-generated-synthetic-images\versions\3\test\REAL\0007.jpg,0.9694,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00592__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_jpeg-q70.png,0.9622,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\birdy654\cifake-real-and-ai-generated-synthetic-images\versions\3\test\REAL\0013 (10).jpg,0.9612,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00672__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9591,0
+false_positive,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\real\real_00586__v2__resize-x0.5_color-minus20_noise-sigma_0.1.png,0.9552,0
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00487__v3__resize-x0.25_color-minus20_blur-sigma_1_jpeg-q70.png,0.0026,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\birdy654\cifake-real-and-ai-generated-synthetic-images\versions\3\test\FAKE\137.jpg,0.0027,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00348__v2__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q50.png,0.0057,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00525__v2__center_crop-80_resize-x0.5_color-minus20_jpeg-q90.png,0.0168,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00207__v3__center_crop-80_resize-x0.25_blur-sigma_2.png,0.03,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00161__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q90.png,0.0302,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00821__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q70.png,0.0331,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\birdy654\cifake-real-and-ai-generated-synthetic-images\versions\3\test\FAKE\102 (9).jpg,0.0331,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00013__v3__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q90.png,0.0427,1
+false_negative,D:\TikTok TechJam 2026\.cache\kagglehub\datasets\shxrlenee\aigc-detection-dataset\versions\3\test\fake\adm\adm_00828__v3__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.02_jpeg-q90.png,0.0464,1
