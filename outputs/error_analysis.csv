@@ -1,21 +1,16 @@
 error_type,identifier,predicted_score,true_label
-false_positive,real\real_00388__v2__center_crop-80_resize-x0.25_noise-sigma_0.02_jpeg-q30.png,0.9997,0
-false_positive,real\real_00388__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q50.png,0.9995,0
-false_positive,real\real_00295__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.9992,0
-false_positive,real\real_00592__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_jpeg-q70.png,0.9974,0
-false_positive,real\real_00586__v2__resize-x0.5_color-minus20_noise-sigma_0.1.png,0.9973,0
-false_positive,real\real_00653__v3__center_crop-80_color-minus20_blur-sigma_2.png,0.9965,0
-false_positive,REAL\0005 (3).jpg,0.9961,0
-false_positive,real\real_00672__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9949,0
-false_positive,real\real_00579__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.1.png,0.9937,0
-false_positive,real\real_00952__v1__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.9933,0
-false_negative,FAKE\137.jpg,0.002,1
-false_negative,fake\adm\adm_00207__v3__center_crop-80_resize-x0.25_blur-sigma_2.png,0.0044,1
-false_negative,fake\adm\adm_00706__v3__resize-x0.25_color-plus20_blur-sigma_2.png,0.0045,1
-false_negative,fake\adm\adm_00490__v3__center_crop-80_resize-x0.25_color-plus20_jpeg-q30.png,0.0067,1
-false_negative,fake\adm\adm_00487__v3__resize-x0.25_color-minus20_blur-sigma_1_jpeg-q70.png,0.0111,1
-false_negative,fake\adm\adm_00769__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q70.png,0.0121,1
-false_negative,fake\adm\adm_00986__v2__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.0192,1
-false_negative,fake\adm\adm_00821__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q70.png,0.0224,1
-false_negative,fake\adm\adm_00844__v1__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q30.png,0.0352,1
-false_negative,FAKE\117 (3).jpg,0.0573,1
+false_positive,REAL/0026 (8).jpg,0.9727,0
+false_positive,REAL/0007.jpg,0.9694,0
+false_positive,REAL/0013 (10).jpg,0.9612,0
+false_positive,REAL/0018 (4).jpg,0.9452,0
+false_positive,REAL/0039 (10).jpg,0.9417,0
+false_positive,REAL/0005 (4).jpg,0.9322,0
+false_positive,REAL/0001 (3).jpg,0.928,0
+false_positive,REAL/0036 (9).jpg,0.8587,0
+false_positive,REAL/0049 (2).jpg,0.8098,0
+false_positive,REAL/0019 (9).jpg,0.7789,0
+false_negative,FAKE/137.jpg,0.0027,1
+false_negative,FAKE/102 (9).jpg,0.0331,1
+false_negative,FAKE/106 (3).jpg,0.0772,1
+false_negative,FAKE/117 (3).jpg,0.1544,1
+false_negative,FAKE/125 (8).jpg,0.3473,1

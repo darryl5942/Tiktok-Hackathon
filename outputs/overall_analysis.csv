@@ -1,2001 +1,1001 @@
 image_path,pred,true_label,predicted_label,correct
-REAL\0000 (10).jpg,0.0004,0,0,True
-REAL\0000 (2).jpg,0.001,0,0,True
-REAL\0000 (3).jpg,0.0034,0,0,True
-REAL\0000 (4).jpg,0.0483,0,0,True
-REAL\0000 (5).jpg,0.0245,0,0,True
-REAL\0000 (6).jpg,0.0026,0,0,True
-REAL\0000 (7).jpg,0.0001,0,0,True
-REAL\0000 (8).jpg,0.0508,0,0,True
-REAL\0000 (9).jpg,0.0249,0,0,True
-REAL\0000.jpg,0.001,0,0,True
-REAL\0001 (10).jpg,0.0154,0,0,True
-REAL\0001 (2).jpg,0.0002,0,0,True
-REAL\0001 (3).jpg,0.8868,0,1,False
-REAL\0001 (4).jpg,0.0001,0,0,True
-REAL\0001 (5).jpg,0.0043,0,0,True
-REAL\0001 (6).jpg,0.0768,0,0,True
-REAL\0001 (7).jpg,0.0095,0,0,True
-REAL\0001 (8).jpg,0.0006,0,0,True
-REAL\0001 (9).jpg,0.0016,0,0,True
-REAL\0001.jpg,0.0027,0,0,True
-REAL\0002 (10).jpg,0.0025,0,0,True
-REAL\0002 (2).jpg,0.0001,0,0,True
-REAL\0002 (3).jpg,0.0003,0,0,True
-REAL\0002 (4).jpg,0.0001,0,0,True
-REAL\0002 (5).jpg,0.0003,0,0,True
-REAL\0002 (6).jpg,0.0006,0,0,True
-REAL\0002 (7).jpg,0.0013,0,0,True
-REAL\0002 (8).jpg,0.0002,0,0,True
-REAL\0002 (9).jpg,0.0008,0,0,True
-REAL\0002.jpg,0.0026,0,0,True
-REAL\0003 (10).jpg,0.0005,0,0,True
-REAL\0003 (2).jpg,0.0003,0,0,True
-REAL\0003 (3).jpg,0.0027,0,0,True
-REAL\0003 (4).jpg,0.0003,0,0,True
-REAL\0003 (5).jpg,0.0025,0,0,True
-REAL\0003 (6).jpg,0.0851,0,0,True
-REAL\0003 (7).jpg,0.0005,0,0,True
-REAL\0003 (8).jpg,0.0001,0,0,True
-REAL\0003 (9).jpg,0.0006,0,0,True
-REAL\0003.jpg,0.0006,0,0,True
-REAL\0004 (10).jpg,0.0097,0,0,True
-REAL\0004 (2).jpg,0.0986,0,0,True
-REAL\0004 (3).jpg,0.0038,0,0,True
-REAL\0004 (4).jpg,0.0047,0,0,True
-REAL\0004 (5).jpg,0.0371,0,0,True
-REAL\0004 (6).jpg,0.0003,0,0,True
-REAL\0004 (7).jpg,0.0029,0,0,True
-REAL\0004 (8).jpg,0.0016,0,0,True
-REAL\0004 (9).jpg,0.02,0,0,True
-REAL\0004.jpg,0.6812,0,1,False
-REAL\0005 (10).jpg,0.0008,0,0,True
-REAL\0005 (2).jpg,0.0001,0,0,True
-REAL\0005 (3).jpg,0.9961,0,1,False
-REAL\0005 (4).jpg,0.9708,0,1,False
-REAL\0005 (5).jpg,0.0003,0,0,True
-REAL\0005 (6).jpg,0.0053,0,0,True
-REAL\0005 (7).jpg,0.0006,0,0,True
-REAL\0005 (8).jpg,0.0061,0,0,True
-REAL\0005 (9).jpg,0.001,0,0,True
-REAL\0005.jpg,0.0011,0,0,True
-REAL\0006 (10).jpg,0.0005,0,0,True
-REAL\0006 (2).jpg,0.0002,0,0,True
-REAL\0006 (3).jpg,0.0003,0,0,True
-REAL\0006 (4).jpg,0.2853,0,0,True
-REAL\0006 (5).jpg,0.0052,0,0,True
-REAL\0006 (6).jpg,0.0047,0,0,True
-REAL\0006 (7).jpg,0.0018,0,0,True
-REAL\0006 (8).jpg,0.005,0,0,True
-REAL\0006 (9).jpg,0.0553,0,0,True
-REAL\0006.jpg,0.3749,0,0,True
-REAL\0007 (10).jpg,0.0026,0,0,True
-REAL\0007 (2).jpg,0.0001,0,0,True
-REAL\0007 (3).jpg,0.0396,0,0,True
-REAL\0007 (4).jpg,0.0019,0,0,True
-REAL\0007 (5).jpg,0.0002,0,0,True
-REAL\0007 (6).jpg,0.0006,0,0,True
-REAL\0007 (7).jpg,0.0005,0,0,True
-REAL\0007 (8).jpg,0.0,0,0,True
-REAL\0007 (9).jpg,0.0094,0,0,True
-REAL\0007.jpg,0.5434,0,1,False
-REAL\0008 (10).jpg,0.0038,0,0,True
-REAL\0008 (2).jpg,0.0003,0,0,True
-REAL\0008 (3).jpg,0.4158,0,0,True
-REAL\0008 (4).jpg,0.0008,0,0,True
-REAL\0008 (5).jpg,0.0011,0,0,True
-REAL\0008 (6).jpg,0.0002,0,0,True
-REAL\0008 (7).jpg,0.0012,0,0,True
-REAL\0008 (8).jpg,0.0018,0,0,True
-REAL\0008 (9).jpg,0.0102,0,0,True
-REAL\0008.jpg,0.0077,0,0,True
-REAL\0009 (10).jpg,0.1993,0,0,True
-REAL\0009 (2).jpg,0.0001,0,0,True
-REAL\0009 (3).jpg,0.001,0,0,True
-REAL\0009 (4).jpg,0.0039,0,0,True
-REAL\0009 (5).jpg,0.0008,0,0,True
-REAL\0009 (6).jpg,0.0024,0,0,True
-REAL\0009 (7).jpg,0.0001,0,0,True
-REAL\0009 (8).jpg,0.0224,0,0,True
-REAL\0009 (9).jpg,0.0002,0,0,True
-REAL\0009.jpg,0.0,0,0,True
-REAL\0010 (10).jpg,0.0002,0,0,True
-REAL\0010 (2).jpg,0.0001,0,0,True
-REAL\0010 (3).jpg,0.0005,0,0,True
-REAL\0010 (4).jpg,0.0007,0,0,True
-REAL\0010 (5).jpg,0.0006,0,0,True
-REAL\0010 (6).jpg,0.0002,0,0,True
-REAL\0010 (7).jpg,0.0433,0,0,True
-REAL\0010 (8).jpg,0.0038,0,0,True
-REAL\0010 (9).jpg,0.0002,0,0,True
-REAL\0010.jpg,0.005,0,0,True
-REAL\0011 (10).jpg,0.0028,0,0,True
-REAL\0011 (2).jpg,0.0,0,0,True
-REAL\0011 (3).jpg,0.0032,0,0,True
-REAL\0011 (4).jpg,0.0081,0,0,True
-REAL\0011 (5).jpg,0.0093,0,0,True
-REAL\0011 (6).jpg,0.0093,0,0,True
-REAL\0011 (7).jpg,0.0024,0,0,True
-REAL\0011 (8).jpg,0.59,0,1,False
-REAL\0011 (9).jpg,0.0014,0,0,True
-REAL\0011.jpg,0.0597,0,0,True
-REAL\0012 (10).jpg,0.0003,0,0,True
-REAL\0012 (2).jpg,0.0002,0,0,True
-REAL\0012 (3).jpg,0.0014,0,0,True
-REAL\0012 (4).jpg,0.0009,0,0,True
-REAL\0012 (5).jpg,0.0007,0,0,True
-REAL\0012 (6).jpg,0.0023,0,0,True
-REAL\0012 (7).jpg,0.001,0,0,True
-REAL\0012 (8).jpg,0.007,0,0,True
-REAL\0012 (9).jpg,0.001,0,0,True
-REAL\0012.jpg,0.0668,0,0,True
-REAL\0013 (10).jpg,0.9493,0,1,False
-REAL\0013 (2).jpg,0.0005,0,0,True
-REAL\0013 (3).jpg,0.0049,0,0,True
-REAL\0013 (4).jpg,0.0686,0,0,True
-REAL\0013 (5).jpg,0.0278,0,0,True
-REAL\0013 (6).jpg,0.0007,0,0,True
-REAL\0013 (7).jpg,0.0015,0,0,True
-REAL\0013 (8).jpg,0.004,0,0,True
-REAL\0013 (9).jpg,0.0002,0,0,True
-REAL\0013.jpg,0.0027,0,0,True
-REAL\0014 (10).jpg,0.0016,0,0,True
-REAL\0014 (2).jpg,0.0003,0,0,True
-REAL\0014 (3).jpg,0.001,0,0,True
-REAL\0014 (4).jpg,0.0059,0,0,True
-REAL\0014 (5).jpg,0.0001,0,0,True
-REAL\0014 (6).jpg,0.0002,0,0,True
-REAL\0014 (7).jpg,0.0002,0,0,True
-REAL\0014 (8).jpg,0.0003,0,0,True
-REAL\0014 (9).jpg,0.0043,0,0,True
-REAL\0014.jpg,0.0006,0,0,True
-REAL\0015 (10).jpg,0.0027,0,0,True
-REAL\0015 (2).jpg,0.0001,0,0,True
-REAL\0015 (3).jpg,0.0036,0,0,True
-REAL\0015 (4).jpg,0.0002,0,0,True
-REAL\0015 (5).jpg,0.0101,0,0,True
-REAL\0015 (6).jpg,0.0078,0,0,True
-REAL\0015 (7).jpg,0.0029,0,0,True
-REAL\0015 (8).jpg,0.0002,0,0,True
-REAL\0015 (9).jpg,0.0003,0,0,True
-REAL\0015.jpg,0.0242,0,0,True
-REAL\0016 (10).jpg,0.0003,0,0,True
-REAL\0016 (2).jpg,0.0,0,0,True
-REAL\0016 (3).jpg,0.0004,0,0,True
-REAL\0016 (4).jpg,0.0006,0,0,True
-REAL\0016 (5).jpg,0.0005,0,0,True
-REAL\0016 (6).jpg,0.0002,0,0,True
-REAL\0016 (7).jpg,0.0606,0,0,True
-REAL\0016 (8).jpg,0.0048,0,0,True
-REAL\0016 (9).jpg,0.742,0,1,False
-REAL\0016.jpg,0.0001,0,0,True
-REAL\0017 (10).jpg,0.9312,0,1,False
-REAL\0017 (2).jpg,0.0109,0,0,True
-REAL\0017 (3).jpg,0.9352,0,1,False
-REAL\0017 (4).jpg,0.007,0,0,True
-REAL\0017 (5).jpg,0.003,0,0,True
-REAL\0017 (6).jpg,0.0009,0,0,True
-REAL\0017 (7).jpg,0.0063,0,0,True
-REAL\0017 (8).jpg,0.026,0,0,True
-REAL\0017 (9).jpg,0.0022,0,0,True
-REAL\0017.jpg,0.0002,0,0,True
-REAL\0018 (10).jpg,0.0033,0,0,True
-REAL\0018 (2).jpg,0.0001,0,0,True
-REAL\0018 (3).jpg,0.0361,0,0,True
-REAL\0018 (4).jpg,0.7408,0,1,False
-REAL\0018 (5).jpg,0.0006,0,0,True
-REAL\0018 (6).jpg,0.0008,0,0,True
-REAL\0018 (7).jpg,0.2917,0,0,True
-REAL\0018 (8).jpg,0.005,0,0,True
-REAL\0018 (9).jpg,0.0013,0,0,True
-REAL\0018.jpg,0.0097,0,0,True
-REAL\0019 (10).jpg,0.0012,0,0,True
-REAL\0019 (2).jpg,0.0016,0,0,True
-REAL\0019 (3).jpg,0.5424,0,1,False
-REAL\0019 (4).jpg,0.0001,0,0,True
-REAL\0019 (5).jpg,0.0006,0,0,True
-REAL\0019 (6).jpg,0.0009,0,0,True
-REAL\0019 (7).jpg,0.0001,0,0,True
-REAL\0019 (8).jpg,0.0219,0,0,True
-REAL\0019 (9).jpg,0.6579,0,1,False
-REAL\0019.jpg,0.6039,0,1,False
-REAL\0020 (10).jpg,0.0004,0,0,True
-REAL\0020 (2).jpg,0.0002,0,0,True
-REAL\0020 (3).jpg,0.0171,0,0,True
-REAL\0020 (4).jpg,0.0142,0,0,True
-REAL\0020 (5).jpg,0.001,0,0,True
-REAL\0020 (6).jpg,0.0006,0,0,True
-REAL\0020 (7).jpg,0.0001,0,0,True
-REAL\0020 (8).jpg,0.012,0,0,True
-REAL\0020 (9).jpg,0.5001,0,1,False
-REAL\0020.jpg,0.001,0,0,True
-REAL\0021 (10).jpg,0.0009,0,0,True
-REAL\0021 (2).jpg,0.0001,0,0,True
-REAL\0021 (3).jpg,0.0013,0,0,True
-REAL\0021 (4).jpg,0.027,0,0,True
-REAL\0021 (5).jpg,0.0002,0,0,True
-REAL\0021 (6).jpg,0.0121,0,0,True
-REAL\0021 (7).jpg,0.0005,0,0,True
-REAL\0021 (8).jpg,0.0014,0,0,True
-REAL\0021 (9).jpg,0.0991,0,0,True
-REAL\0021.jpg,0.0,0,0,True
-REAL\0022 (10).jpg,0.0996,0,0,True
-REAL\0022 (2).jpg,0.0007,0,0,True
-REAL\0022 (3).jpg,0.0023,0,0,True
-REAL\0022 (4).jpg,0.3772,0,0,True
-REAL\0022 (5).jpg,0.0002,0,0,True
-REAL\0022 (6).jpg,0.0091,0,0,True
-REAL\0022 (7).jpg,0.0025,0,0,True
-REAL\0022 (8).jpg,0.0002,0,0,True
-REAL\0022 (9).jpg,0.824,0,1,False
-REAL\0022.jpg,0.6122,0,1,False
-REAL\0023 (10).jpg,0.0006,0,0,True
-REAL\0023 (2).jpg,0.0,0,0,True
-REAL\0023 (3).jpg,0.1412,0,0,True
-REAL\0023 (4).jpg,0.002,0,0,True
-REAL\0023 (5).jpg,0.0,0,0,True
-REAL\0023 (6).jpg,0.0001,0,0,True
-REAL\0023 (7).jpg,0.0204,0,0,True
-REAL\0023 (8).jpg,0.0001,0,0,True
-REAL\0023 (9).jpg,0.0006,0,0,True
-REAL\0023.jpg,0.0019,0,0,True
-REAL\0024 (10).jpg,0.0058,0,0,True
-REAL\0024 (2).jpg,0.0001,0,0,True
-REAL\0024 (3).jpg,0.0018,0,0,True
-REAL\0024 (4).jpg,0.0005,0,0,True
-REAL\0024 (5).jpg,0.0225,0,0,True
-REAL\0024 (6).jpg,0.0003,0,0,True
-REAL\0024 (7).jpg,0.0001,0,0,True
-REAL\0024 (8).jpg,0.0145,0,0,True
-REAL\0024 (9).jpg,0.0039,0,0,True
-REAL\0024.jpg,0.0017,0,0,True
-REAL\0025 (10).jpg,0.145,0,0,True
-REAL\0025 (2).jpg,0.0001,0,0,True
-REAL\0025 (3).jpg,0.0003,0,0,True
-REAL\0025 (4).jpg,0.0087,0,0,True
-REAL\0025 (5).jpg,0.0059,0,0,True
-REAL\0025 (6).jpg,0.0002,0,0,True
-REAL\0025 (7).jpg,0.0429,0,0,True
-REAL\0025 (8).jpg,0.0,0,0,True
-REAL\0025 (9).jpg,0.0003,0,0,True
-REAL\0025.jpg,0.001,0,0,True
-REAL\0026 (10).jpg,0.0009,0,0,True
-REAL\0026 (2).jpg,0.0,0,0,True
-REAL\0026 (3).jpg,0.3667,0,0,True
-REAL\0026 (4).jpg,0.0026,0,0,True
-REAL\0026 (5).jpg,0.0002,0,0,True
-REAL\0026 (6).jpg,0.1446,0,0,True
-REAL\0026 (7).jpg,0.0029,0,0,True
-REAL\0026 (8).jpg,0.7002,0,1,False
-REAL\0026 (9).jpg,0.0005,0,0,True
-REAL\0026.jpg,0.0285,0,0,True
-REAL\0027 (10).jpg,0.0021,0,0,True
-REAL\0027 (2).jpg,0.0001,0,0,True
-REAL\0027 (3).jpg,0.0015,0,0,True
-REAL\0027 (4).jpg,0.0127,0,0,True
-REAL\0027 (5).jpg,0.0004,0,0,True
-REAL\0027 (6).jpg,0.0064,0,0,True
-REAL\0027 (7).jpg,0.8286,0,1,False
-REAL\0027 (8).jpg,0.0002,0,0,True
-REAL\0027 (9).jpg,0.0001,0,0,True
-REAL\0027.jpg,0.0006,0,0,True
-REAL\0028 (10).jpg,0.0007,0,0,True
-REAL\0028 (2).jpg,0.0001,0,0,True
-REAL\0028 (3).jpg,0.0018,0,0,True
-REAL\0028 (4).jpg,0.0045,0,0,True
-REAL\0028 (5).jpg,0.0005,0,0,True
-REAL\0028 (6).jpg,0.0006,0,0,True
-REAL\0028 (7).jpg,0.0007,0,0,True
-REAL\0028 (8).jpg,0.0001,0,0,True
-REAL\0028 (9).jpg,0.3655,0,0,True
-REAL\0028.jpg,0.0419,0,0,True
-REAL\0029 (10).jpg,0.0419,0,0,True
-REAL\0029 (2).jpg,0.0003,0,0,True
-REAL\0029 (3).jpg,0.0149,0,0,True
-REAL\0029 (4).jpg,0.0018,0,0,True
-REAL\0029 (5).jpg,0.0273,0,0,True
-REAL\0029 (6).jpg,0.0171,0,0,True
-REAL\0029 (7).jpg,0.002,0,0,True
-REAL\0029 (8).jpg,0.0017,0,0,True
-REAL\0029 (9).jpg,0.051,0,0,True
-REAL\0029.jpg,0.0001,0,0,True
-REAL\0030 (10).jpg,0.07,0,0,True
-REAL\0030 (2).jpg,0.0012,0,0,True
-REAL\0030 (3).jpg,0.0036,0,0,True
-REAL\0030 (4).jpg,0.0076,0,0,True
-REAL\0030 (5).jpg,0.0011,0,0,True
-REAL\0030 (6).jpg,0.0033,0,0,True
-REAL\0030 (7).jpg,0.0002,0,0,True
-REAL\0030 (8).jpg,0.0005,0,0,True
-REAL\0030 (9).jpg,0.0,0,0,True
-REAL\0030.jpg,0.003,0,0,True
-REAL\0031 (10).jpg,0.1264,0,0,True
-REAL\0031 (2).jpg,0.0,0,0,True
-REAL\0031 (3).jpg,0.013,0,0,True
-REAL\0031 (4).jpg,0.016,0,0,True
-REAL\0031 (5).jpg,0.0019,0,0,True
-REAL\0031 (6).jpg,0.0546,0,0,True
-REAL\0031 (7).jpg,0.0002,0,0,True
-REAL\0031 (8).jpg,0.003,0,0,True
-REAL\0031 (9).jpg,0.0004,0,0,True
-REAL\0031.jpg,0.0567,0,0,True
-REAL\0032 (10).jpg,0.6073,0,1,False
-REAL\0032 (2).jpg,0.0003,0,0,True
-REAL\0032 (3).jpg,0.0073,0,0,True
-REAL\0032 (4).jpg,0.0004,0,0,True
-REAL\0032 (5).jpg,0.0002,0,0,True
-REAL\0032 (6).jpg,0.0002,0,0,True
-REAL\0032 (7).jpg,0.0015,0,0,True
-REAL\0032 (8).jpg,0.0002,0,0,True
-REAL\0032 (9).jpg,0.0021,0,0,True
-REAL\0032.jpg,0.0195,0,0,True
-REAL\0033 (10).jpg,0.0008,0,0,True
-REAL\0033 (2).jpg,0.0021,0,0,True
-REAL\0033 (3).jpg,0.0003,0,0,True
-REAL\0033 (4).jpg,0.0039,0,0,True
-REAL\0033 (5).jpg,0.0005,0,0,True
-REAL\0033 (6).jpg,0.4815,0,0,True
-REAL\0033 (7).jpg,0.0005,0,0,True
-REAL\0033 (8).jpg,0.0698,0,0,True
-REAL\0033 (9).jpg,0.0019,0,0,True
-REAL\0033.jpg,0.0038,0,0,True
-REAL\0034 (10).jpg,0.0003,0,0,True
-REAL\0034 (2).jpg,0.002,0,0,True
-REAL\0034 (3).jpg,0.007,0,0,True
-REAL\0034 (4).jpg,0.0142,0,0,True
-REAL\0034 (5).jpg,0.0597,0,0,True
-REAL\0034 (6).jpg,0.0004,0,0,True
-REAL\0034 (7).jpg,0.0138,0,0,True
-REAL\0034 (8).jpg,0.004,0,0,True
-REAL\0034 (9).jpg,0.0007,0,0,True
-REAL\0034.jpg,0.0328,0,0,True
-REAL\0035 (10).jpg,0.0,0,0,True
-REAL\0035 (2).jpg,0.0001,0,0,True
-REAL\0035 (3).jpg,0.0108,0,0,True
-REAL\0035 (4).jpg,0.0014,0,0,True
-REAL\0035 (5).jpg,0.0013,0,0,True
-REAL\0035 (6).jpg,0.0017,0,0,True
-REAL\0035 (7).jpg,0.0004,0,0,True
-REAL\0035 (8).jpg,0.0004,0,0,True
-REAL\0035 (9).jpg,0.3454,0,0,True
-REAL\0035.jpg,0.0013,0,0,True
-REAL\0036 (10).jpg,0.0011,0,0,True
-REAL\0036 (2).jpg,0.0004,0,0,True
-REAL\0036 (3).jpg,0.0627,0,0,True
-REAL\0036 (4).jpg,0.0006,0,0,True
-REAL\0036 (5).jpg,0.0062,0,0,True
-REAL\0036 (6).jpg,0.0008,0,0,True
-REAL\0036 (7).jpg,0.0002,0,0,True
-REAL\0036 (8).jpg,0.0001,0,0,True
-REAL\0036 (9).jpg,0.0312,0,0,True
-REAL\0036.jpg,0.0004,0,0,True
-REAL\0037 (10).jpg,0.0138,0,0,True
-REAL\0037 (2).jpg,0.0,0,0,True
-REAL\0037 (3).jpg,0.0025,0,0,True
-REAL\0037 (4).jpg,0.0006,0,0,True
-REAL\0037 (5).jpg,0.0001,0,0,True
-REAL\0037 (6).jpg,0.0003,0,0,True
-REAL\0037 (7).jpg,0.1858,0,0,True
-REAL\0037 (8).jpg,0.0026,0,0,True
-REAL\0037 (9).jpg,0.0001,0,0,True
-REAL\0037.jpg,0.0001,0,0,True
-REAL\0038 (10).jpg,0.0058,0,0,True
-REAL\0038 (2).jpg,0.001,0,0,True
-REAL\0038 (3).jpg,0.0012,0,0,True
-REAL\0038 (4).jpg,0.1091,0,0,True
-REAL\0038 (5).jpg,0.0004,0,0,True
-REAL\0038 (6).jpg,0.0071,0,0,True
-REAL\0038 (7).jpg,0.0006,0,0,True
-REAL\0038 (8).jpg,0.0342,0,0,True
-REAL\0038 (9).jpg,0.0204,0,0,True
-REAL\0038.jpg,0.0054,0,0,True
-REAL\0039 (10).jpg,0.9926,0,1,False
-REAL\0039 (2).jpg,0.0004,0,0,True
-REAL\0039 (3).jpg,0.4496,0,0,True
-REAL\0039 (4).jpg,0.0005,0,0,True
-REAL\0039 (5).jpg,0.0073,0,0,True
-REAL\0039 (6).jpg,0.0011,0,0,True
-REAL\0039 (7).jpg,0.0002,0,0,True
-REAL\0039 (8).jpg,0.0006,0,0,True
-REAL\0039 (9).jpg,0.0387,0,0,True
-REAL\0039.jpg,0.0015,0,0,True
-REAL\0040 (10).jpg,0.0038,0,0,True
-REAL\0040 (2).jpg,0.0001,0,0,True
-REAL\0040 (3).jpg,0.001,0,0,True
-REAL\0040 (4).jpg,0.0033,0,0,True
-REAL\0040 (5).jpg,0.0007,0,0,True
-REAL\0040 (6).jpg,0.0006,0,0,True
-REAL\0040 (7).jpg,0.0004,0,0,True
-REAL\0040 (8).jpg,0.0014,0,0,True
-REAL\0040 (9).jpg,0.0201,0,0,True
-REAL\0040.jpg,0.0025,0,0,True
-REAL\0041 (10).jpg,0.0002,0,0,True
-REAL\0041 (2).jpg,0.0001,0,0,True
-REAL\0041 (3).jpg,0.0018,0,0,True
-REAL\0041 (4).jpg,0.0109,0,0,True
-REAL\0041 (5).jpg,0.0003,0,0,True
-REAL\0041 (6).jpg,0.0155,0,0,True
-REAL\0041 (7).jpg,0.0009,0,0,True
-REAL\0041 (8).jpg,0.0026,0,0,True
-REAL\0041 (9).jpg,0.0007,0,0,True
-REAL\0041.jpg,0.0002,0,0,True
-REAL\0042 (10).jpg,0.0001,0,0,True
-REAL\0042 (2).jpg,0.0002,0,0,True
-REAL\0042 (3).jpg,0.0148,0,0,True
-REAL\0042 (4).jpg,0.0046,0,0,True
-REAL\0042 (5).jpg,0.0002,0,0,True
-REAL\0042 (6).jpg,0.002,0,0,True
-REAL\0042 (7).jpg,0.0004,0,0,True
-REAL\0042 (8).jpg,0.0552,0,0,True
-REAL\0042 (9).jpg,0.0021,0,0,True
-REAL\0042.jpg,0.0039,0,0,True
-REAL\0043 (10).jpg,0.0026,0,0,True
-REAL\0043 (2).jpg,0.0004,0,0,True
-REAL\0043 (3).jpg,0.473,0,0,True
-REAL\0043 (4).jpg,0.0022,0,0,True
-REAL\0043 (5).jpg,0.0004,0,0,True
-REAL\0043 (6).jpg,0.0009,0,0,True
-REAL\0043 (7).jpg,0.0002,0,0,True
-REAL\0043 (8).jpg,0.001,0,0,True
-REAL\0043 (9).jpg,0.0002,0,0,True
-REAL\0043.jpg,0.0001,0,0,True
-REAL\0044 (10).jpg,0.0001,0,0,True
-REAL\0044 (2).jpg,0.0001,0,0,True
-REAL\0044 (3).jpg,0.0002,0,0,True
-REAL\0044 (4).jpg,0.0002,0,0,True
-REAL\0044 (5).jpg,0.0007,0,0,True
-REAL\0044 (6).jpg,0.0102,0,0,True
-REAL\0044 (7).jpg,0.001,0,0,True
-REAL\0044 (8).jpg,0.0159,0,0,True
-REAL\0044 (9).jpg,0.0103,0,0,True
-REAL\0044.jpg,0.3959,0,0,True
-REAL\0045 (10).jpg,0.0005,0,0,True
-REAL\0045 (2).jpg,0.0001,0,0,True
-REAL\0045 (3).jpg,0.0027,0,0,True
-REAL\0045 (4).jpg,0.0007,0,0,True
-REAL\0045 (5).jpg,0.0003,0,0,True
-REAL\0045 (6).jpg,0.0007,0,0,True
-REAL\0045 (7).jpg,0.0055,0,0,True
-REAL\0045 (8).jpg,0.0002,0,0,True
-REAL\0045 (9).jpg,0.6777,0,1,False
-REAL\0045.jpg,0.6211,0,1,False
-REAL\0046 (10).jpg,0.0146,0,0,True
-REAL\0046 (2).jpg,0.0002,0,0,True
-REAL\0046 (3).jpg,0.0005,0,0,True
-REAL\0046 (4).jpg,0.0004,0,0,True
-REAL\0046 (5).jpg,0.0669,0,0,True
-REAL\0046 (6).jpg,0.0014,0,0,True
-REAL\0046 (7).jpg,0.0887,0,0,True
-REAL\0046 (8).jpg,0.0001,0,0,True
-REAL\0046 (9).jpg,0.0002,0,0,True
-REAL\0046.jpg,0.0001,0,0,True
-REAL\0047 (10).jpg,0.0004,0,0,True
-REAL\0047 (2).jpg,0.0,0,0,True
-REAL\0047 (3).jpg,0.0508,0,0,True
-REAL\0047 (4).jpg,0.0012,0,0,True
-REAL\0047 (5).jpg,0.0369,0,0,True
-REAL\0047 (6).jpg,0.0023,0,0,True
-REAL\0047 (7).jpg,0.0004,0,0,True
-REAL\0047 (8).jpg,0.0026,0,0,True
-REAL\0047 (9).jpg,0.0312,0,0,True
-REAL\0047.jpg,0.0057,0,0,True
-REAL\0048 (10).jpg,0.0027,0,0,True
-REAL\0048 (2).jpg,0.0,0,0,True
-REAL\0048 (3).jpg,0.0006,0,0,True
-REAL\0048 (4).jpg,0.0002,0,0,True
-REAL\0048 (5).jpg,0.0019,0,0,True
-REAL\0048 (6).jpg,0.0002,0,0,True
-REAL\0048 (7).jpg,0.0233,0,0,True
-REAL\0048 (8).jpg,0.5517,0,1,False
-REAL\0048 (9).jpg,0.0081,0,0,True
-REAL\0048.jpg,0.003,0,0,True
-REAL\0049 (10).jpg,0.0029,0,0,True
-REAL\0049 (2).jpg,0.4584,0,0,True
-REAL\0049 (3).jpg,0.0025,0,0,True
-REAL\0049 (4).jpg,0.0004,0,0,True
-REAL\0049 (5).jpg,0.049,0,0,True
-REAL\0049 (6).jpg,0.0009,0,0,True
-REAL\0049 (7).jpg,0.0001,0,0,True
-REAL\0049 (8).jpg,0.0005,0,0,True
-REAL\0049 (9).jpg,0.0023,0,0,True
-REAL\0049.jpg,0.0003,0,0,True
-FAKE\0 (10).jpg,1.0,1,1,True
-FAKE\0 (2).jpg,0.9971,1,1,True
-FAKE\0 (3).jpg,1.0,1,1,True
-FAKE\0 (4).jpg,1.0,1,1,True
-FAKE\0 (5).jpg,1.0,1,1,True
-FAKE\0 (6).jpg,1.0,1,1,True
-FAKE\0 (7).jpg,1.0,1,1,True
-FAKE\0 (8).jpg,1.0,1,1,True
-FAKE\0 (9).jpg,0.9995,1,1,True
-FAKE\0.jpg,0.9998,1,1,True
-FAKE\1 (10).jpg,0.9997,1,1,True
-FAKE\1 (2).jpg,1.0,1,1,True
-FAKE\1 (3).jpg,0.9976,1,1,True
-FAKE\1 (4).jpg,1.0,1,1,True
-FAKE\1 (5).jpg,1.0,1,1,True
-FAKE\1 (6).jpg,1.0,1,1,True
-FAKE\1 (7).jpg,1.0,1,1,True
-FAKE\1 (8).jpg,0.9998,1,1,True
-FAKE\1 (9).jpg,0.9998,1,1,True
-FAKE\1.jpg,0.9997,1,1,True
-FAKE\10 (10).jpg,1.0,1,1,True
-FAKE\10 (2).jpg,1.0,1,1,True
-FAKE\10 (3).jpg,1.0,1,1,True
-FAKE\10 (4).jpg,1.0,1,1,True
-FAKE\10 (5).jpg,1.0,1,1,True
-FAKE\10 (6).jpg,0.9976,1,1,True
-FAKE\10 (7).jpg,1.0,1,1,True
-FAKE\10 (8).jpg,1.0,1,1,True
-FAKE\10 (9).jpg,0.9997,1,1,True
-FAKE\10.jpg,0.999,1,1,True
-FAKE\100 (10).jpg,0.9998,1,1,True
-FAKE\100 (2).jpg,0.9996,1,1,True
-FAKE\100 (3).jpg,0.9988,1,1,True
-FAKE\100 (4).jpg,1.0,1,1,True
-FAKE\100 (5).jpg,0.9985,1,1,True
-FAKE\100 (6).jpg,0.9999,1,1,True
-FAKE\100 (7).jpg,1.0,1,1,True
-FAKE\100 (8).jpg,1.0,1,1,True
-FAKE\100 (9).jpg,0.9909,1,1,True
-FAKE\100.jpg,0.8755,1,1,True
-FAKE\101 (10).jpg,0.9999,1,1,True
-FAKE\101 (2).jpg,0.9997,1,1,True
-FAKE\101 (3).jpg,0.9998,1,1,True
-FAKE\101 (4).jpg,1.0,1,1,True
-FAKE\101 (5).jpg,1.0,1,1,True
-FAKE\101 (6).jpg,0.9999,1,1,True
-FAKE\101 (7).jpg,1.0,1,1,True
-FAKE\101 (8).jpg,1.0,1,1,True
-FAKE\101 (9).jpg,0.9998,1,1,True
-FAKE\101.jpg,0.998,1,1,True
-FAKE\102 (10).jpg,0.9818,1,1,True
-FAKE\102 (2).jpg,0.9986,1,1,True
-FAKE\102 (3).jpg,0.9998,1,1,True
-FAKE\102 (4).jpg,0.9999,1,1,True
-FAKE\102 (5).jpg,1.0,1,1,True
-FAKE\102 (6).jpg,0.9994,1,1,True
-FAKE\102 (7).jpg,1.0,1,1,True
-FAKE\102 (8).jpg,0.9947,1,1,True
-FAKE\102 (9).jpg,0.1495,1,0,False
-FAKE\102.jpg,1.0,1,1,True
-FAKE\103 (10).jpg,0.9987,1,1,True
-FAKE\103 (2).jpg,0.9991,1,1,True
-FAKE\103 (3).jpg,0.9998,1,1,True
-FAKE\103 (4).jpg,1.0,1,1,True
-FAKE\103 (5).jpg,1.0,1,1,True
-FAKE\103 (6).jpg,0.9999,1,1,True
-FAKE\103 (7).jpg,1.0,1,1,True
-FAKE\103 (8).jpg,0.9998,1,1,True
-FAKE\103 (9).jpg,0.9998,1,1,True
-FAKE\103.jpg,0.9575,1,1,True
-FAKE\104 (10).jpg,1.0,1,1,True
-FAKE\104 (2).jpg,0.9999,1,1,True
-FAKE\104 (3).jpg,0.9891,1,1,True
-FAKE\104 (4).jpg,0.9948,1,1,True
-FAKE\104 (5).jpg,1.0,1,1,True
-FAKE\104 (6).jpg,0.9999,1,1,True
-FAKE\104 (7).jpg,1.0,1,1,True
-FAKE\104 (8).jpg,1.0,1,1,True
-FAKE\104 (9).jpg,0.9998,1,1,True
-FAKE\104.jpg,0.9791,1,1,True
-FAKE\105 (10).jpg,0.9664,1,1,True
-FAKE\105 (2).jpg,0.9999,1,1,True
-FAKE\105 (3).jpg,0.993,1,1,True
-FAKE\105 (4).jpg,1.0,1,1,True
-FAKE\105 (5).jpg,1.0,1,1,True
-FAKE\105 (6).jpg,0.9796,1,1,True
-FAKE\105 (7).jpg,1.0,1,1,True
-FAKE\105 (8).jpg,1.0,1,1,True
-FAKE\105 (9).jpg,0.9837,1,1,True
-FAKE\105.jpg,0.9994,1,1,True
-FAKE\106 (10).jpg,0.9981,1,1,True
-FAKE\106 (2).jpg,0.9997,1,1,True
-FAKE\106 (3).jpg,0.8896,1,1,True
-FAKE\106 (4).jpg,0.9991,1,1,True
-FAKE\106 (5).jpg,1.0,1,1,True
-FAKE\106 (6).jpg,1.0,1,1,True
-FAKE\106 (7).jpg,1.0,1,1,True
-FAKE\106 (8).jpg,1.0,1,1,True
-FAKE\106 (9).jpg,0.9999,1,1,True
-FAKE\106.jpg,0.9987,1,1,True
-FAKE\107 (10).jpg,0.9989,1,1,True
-FAKE\107 (2).jpg,1.0,1,1,True
-FAKE\107 (3).jpg,0.9999,1,1,True
-FAKE\107 (4).jpg,0.9999,1,1,True
-FAKE\107 (5).jpg,0.9966,1,1,True
-FAKE\107 (6).jpg,1.0,1,1,True
-FAKE\107 (7).jpg,1.0,1,1,True
-FAKE\107 (8).jpg,0.9968,1,1,True
-FAKE\107 (9).jpg,0.9986,1,1,True
-FAKE\107.jpg,0.9998,1,1,True
-FAKE\108 (10).jpg,1.0,1,1,True
-FAKE\108 (2).jpg,1.0,1,1,True
-FAKE\108 (3).jpg,0.9999,1,1,True
-FAKE\108 (4).jpg,1.0,1,1,True
-FAKE\108 (5).jpg,1.0,1,1,True
-FAKE\108 (6).jpg,1.0,1,1,True
-FAKE\108 (7).jpg,0.9999,1,1,True
-FAKE\108 (8).jpg,1.0,1,1,True
-FAKE\108 (9).jpg,0.999,1,1,True
-FAKE\108.jpg,0.9997,1,1,True
-FAKE\109 (10).jpg,0.9913,1,1,True
-FAKE\109 (2).jpg,1.0,1,1,True
-FAKE\109 (3).jpg,0.9962,1,1,True
-FAKE\109 (4).jpg,0.7908,1,1,True
-FAKE\109 (5).jpg,0.9999,1,1,True
-FAKE\109 (6).jpg,0.9992,1,1,True
-FAKE\109 (7).jpg,1.0,1,1,True
-FAKE\109 (8).jpg,0.9999,1,1,True
-FAKE\109 (9).jpg,0.981,1,1,True
-FAKE\109.jpg,0.9974,1,1,True
-FAKE\11 (10).jpg,0.9997,1,1,True
-FAKE\11 (2).jpg,1.0,1,1,True
-FAKE\11 (3).jpg,1.0,1,1,True
-FAKE\11 (4).jpg,0.992,1,1,True
-FAKE\11 (5).jpg,1.0,1,1,True
-FAKE\11 (6).jpg,1.0,1,1,True
-FAKE\11 (7).jpg,0.9967,1,1,True
-FAKE\11 (8).jpg,0.9999,1,1,True
-FAKE\11 (9).jpg,0.9988,1,1,True
-FAKE\11.jpg,0.9998,1,1,True
-FAKE\110 (10).jpg,0.9793,1,1,True
-FAKE\110 (2).jpg,1.0,1,1,True
-FAKE\110 (3).jpg,1.0,1,1,True
-FAKE\110 (4).jpg,1.0,1,1,True
-FAKE\110 (5).jpg,1.0,1,1,True
-FAKE\110 (6).jpg,1.0,1,1,True
-FAKE\110 (7).jpg,1.0,1,1,True
-FAKE\110 (8).jpg,0.9996,1,1,True
-FAKE\110 (9).jpg,0.9998,1,1,True
-FAKE\110.jpg,0.958,1,1,True
-FAKE\111 (10).jpg,0.9999,1,1,True
-FAKE\111 (2).jpg,0.9493,1,1,True
-FAKE\111 (3).jpg,0.9999,1,1,True
-FAKE\111 (4).jpg,0.9999,1,1,True
-FAKE\111 (5).jpg,0.9999,1,1,True
-FAKE\111 (6).jpg,0.9998,1,1,True
-FAKE\111 (7).jpg,1.0,1,1,True
-FAKE\111 (8).jpg,1.0,1,1,True
-FAKE\111 (9).jpg,0.9986,1,1,True
-FAKE\111.jpg,0.9901,1,1,True
-FAKE\112 (10).jpg,0.9978,1,1,True
-FAKE\112 (2).jpg,0.9998,1,1,True
-FAKE\112 (3).jpg,0.9963,1,1,True
-FAKE\112 (4).jpg,1.0,1,1,True
-FAKE\112 (5).jpg,1.0,1,1,True
-FAKE\112 (6).jpg,0.9869,1,1,True
-FAKE\112 (7).jpg,1.0,1,1,True
-FAKE\112 (8).jpg,1.0,1,1,True
-FAKE\112 (9).jpg,0.9998,1,1,True
-FAKE\112.jpg,0.9999,1,1,True
-FAKE\113 (10).jpg,0.9961,1,1,True
-FAKE\113 (2).jpg,0.9999,1,1,True
-FAKE\113 (3).jpg,0.994,1,1,True
-FAKE\113 (4).jpg,0.9999,1,1,True
-FAKE\113 (5).jpg,1.0,1,1,True
-FAKE\113 (6).jpg,1.0,1,1,True
-FAKE\113 (7).jpg,1.0,1,1,True
-FAKE\113 (8).jpg,1.0,1,1,True
-FAKE\113 (9).jpg,0.9991,1,1,True
-FAKE\113.jpg,0.9998,1,1,True
-FAKE\114 (10).jpg,1.0,1,1,True
-FAKE\114 (2).jpg,0.9862,1,1,True
-FAKE\114 (3).jpg,0.9997,1,1,True
-FAKE\114 (4).jpg,1.0,1,1,True
-FAKE\114 (5).jpg,1.0,1,1,True
-FAKE\114 (6).jpg,1.0,1,1,True
-FAKE\114 (7).jpg,0.8803,1,1,True
-FAKE\114 (8).jpg,0.9999,1,1,True
-FAKE\114 (9).jpg,1.0,1,1,True
-FAKE\114.jpg,0.57,1,1,True
-FAKE\115 (10).jpg,0.9998,1,1,True
-FAKE\115 (2).jpg,1.0,1,1,True
-FAKE\115 (3).jpg,0.9761,1,1,True
-FAKE\115 (4).jpg,0.7947,1,1,True
-FAKE\115 (5).jpg,0.9994,1,1,True
-FAKE\115 (6).jpg,0.9999,1,1,True
-FAKE\115 (7).jpg,1.0,1,1,True
-FAKE\115 (8).jpg,0.9999,1,1,True
-FAKE\115 (9).jpg,0.9991,1,1,True
-FAKE\115.jpg,0.9962,1,1,True
-FAKE\116 (10).jpg,1.0,1,1,True
-FAKE\116 (2).jpg,0.9994,1,1,True
-FAKE\116 (3).jpg,0.9999,1,1,True
-FAKE\116 (4).jpg,1.0,1,1,True
-FAKE\116 (5).jpg,1.0,1,1,True
-FAKE\116 (6).jpg,0.9999,1,1,True
-FAKE\116 (7).jpg,1.0,1,1,True
-FAKE\116 (8).jpg,1.0,1,1,True
-FAKE\116 (9).jpg,1.0,1,1,True
-FAKE\116.jpg,0.9987,1,1,True
-FAKE\117 (10).jpg,0.9999,1,1,True
-FAKE\117 (2).jpg,1.0,1,1,True
-FAKE\117 (3).jpg,0.0573,1,0,False
-FAKE\117 (4).jpg,1.0,1,1,True
-FAKE\117 (5).jpg,1.0,1,1,True
-FAKE\117 (6).jpg,0.9998,1,1,True
-FAKE\117 (7).jpg,1.0,1,1,True
-FAKE\117 (8).jpg,0.9999,1,1,True
-FAKE\117 (9).jpg,0.9686,1,1,True
-FAKE\117.jpg,0.9998,1,1,True
-FAKE\118 (10).jpg,0.9996,1,1,True
-FAKE\118 (2).jpg,1.0,1,1,True
-FAKE\118 (3).jpg,0.9986,1,1,True
-FAKE\118 (4).jpg,0.9961,1,1,True
-FAKE\118 (5).jpg,1.0,1,1,True
-FAKE\118 (6).jpg,1.0,1,1,True
-FAKE\118 (7).jpg,1.0,1,1,True
-FAKE\118 (8).jpg,0.9999,1,1,True
-FAKE\118 (9).jpg,0.9997,1,1,True
-FAKE\118.jpg,0.91,1,1,True
-FAKE\119 (10).jpg,0.9993,1,1,True
-FAKE\119 (2).jpg,1.0,1,1,True
-FAKE\119 (3).jpg,0.9975,1,1,True
-FAKE\119 (4).jpg,0.9997,1,1,True
-FAKE\119 (5).jpg,1.0,1,1,True
-FAKE\119 (6).jpg,0.9929,1,1,True
-FAKE\119 (7).jpg,0.9999,1,1,True
-FAKE\119 (8).jpg,0.9981,1,1,True
-FAKE\119 (9).jpg,0.9996,1,1,True
-FAKE\119.jpg,0.998,1,1,True
-FAKE\12 (10).jpg,0.9879,1,1,True
-FAKE\12 (2).jpg,1.0,1,1,True
-FAKE\12 (3).jpg,0.9955,1,1,True
-FAKE\12 (4).jpg,1.0,1,1,True
-FAKE\12 (5).jpg,1.0,1,1,True
-FAKE\12 (6).jpg,0.9622,1,1,True
-FAKE\12 (7).jpg,1.0,1,1,True
-FAKE\12 (8).jpg,1.0,1,1,True
-FAKE\12 (9).jpg,0.9989,1,1,True
-FAKE\12.jpg,0.99,1,1,True
-FAKE\120 (10).jpg,1.0,1,1,True
-FAKE\120 (2).jpg,1.0,1,1,True
-FAKE\120 (3).jpg,0.9988,1,1,True
-FAKE\120 (4).jpg,1.0,1,1,True
-FAKE\120 (5).jpg,1.0,1,1,True
-FAKE\120 (6).jpg,0.9994,1,1,True
-FAKE\120 (7).jpg,1.0,1,1,True
-FAKE\120 (8).jpg,0.9987,1,1,True
-FAKE\120 (9).jpg,1.0,1,1,True
-FAKE\120.jpg,0.9904,1,1,True
-FAKE\121 (10).jpg,0.9991,1,1,True
-FAKE\121 (2).jpg,0.9998,1,1,True
-FAKE\121 (3).jpg,0.9999,1,1,True
-FAKE\121 (4).jpg,0.9999,1,1,True
-FAKE\121 (5).jpg,1.0,1,1,True
-FAKE\121 (6).jpg,0.9998,1,1,True
-FAKE\121 (7).jpg,1.0,1,1,True
-FAKE\121 (8).jpg,1.0,1,1,True
-FAKE\121 (9).jpg,0.9997,1,1,True
-FAKE\121.jpg,0.9999,1,1,True
-FAKE\122 (10).jpg,0.9994,1,1,True
-FAKE\122 (2).jpg,1.0,1,1,True
-FAKE\122 (3).jpg,0.9927,1,1,True
-FAKE\122 (4).jpg,1.0,1,1,True
-FAKE\122 (5).jpg,1.0,1,1,True
-FAKE\122 (6).jpg,0.9999,1,1,True
-FAKE\122 (7).jpg,1.0,1,1,True
-FAKE\122 (8).jpg,1.0,1,1,True
-FAKE\122 (9).jpg,0.9894,1,1,True
-FAKE\122.jpg,0.9997,1,1,True
-FAKE\123 (10).jpg,0.9985,1,1,True
-FAKE\123 (2).jpg,1.0,1,1,True
-FAKE\123 (3).jpg,0.9995,1,1,True
-FAKE\123 (4).jpg,0.9957,1,1,True
-FAKE\123 (5).jpg,1.0,1,1,True
-FAKE\123 (6).jpg,0.9998,1,1,True
-FAKE\123 (7).jpg,1.0,1,1,True
-FAKE\123 (8).jpg,0.9999,1,1,True
-FAKE\123 (9).jpg,1.0,1,1,True
-FAKE\123.jpg,0.9999,1,1,True
-FAKE\124 (10).jpg,0.8044,1,1,True
-FAKE\124 (2).jpg,1.0,1,1,True
-FAKE\124 (3).jpg,0.9858,1,1,True
-FAKE\124 (4).jpg,0.9992,1,1,True
-FAKE\124 (5).jpg,1.0,1,1,True
-FAKE\124 (6).jpg,0.9999,1,1,True
-FAKE\124 (7).jpg,1.0,1,1,True
-FAKE\124 (8).jpg,1.0,1,1,True
-FAKE\124 (9).jpg,0.9906,1,1,True
-FAKE\124.jpg,0.9999,1,1,True
-FAKE\125 (10).jpg,0.9993,1,1,True
-FAKE\125 (2).jpg,1.0,1,1,True
-FAKE\125 (3).jpg,0.9999,1,1,True
-FAKE\125 (4).jpg,1.0,1,1,True
-FAKE\125 (5).jpg,1.0,1,1,True
-FAKE\125 (6).jpg,1.0,1,1,True
-FAKE\125 (7).jpg,1.0,1,1,True
-FAKE\125 (8).jpg,0.9296,1,1,True
-FAKE\125 (9).jpg,0.9998,1,1,True
-FAKE\125.jpg,0.999,1,1,True
-FAKE\126 (10).jpg,0.9993,1,1,True
-FAKE\126 (2).jpg,0.9999,1,1,True
-FAKE\126 (3).jpg,1.0,1,1,True
-FAKE\126 (4).jpg,0.999,1,1,True
-FAKE\126 (5).jpg,1.0,1,1,True
-FAKE\126 (6).jpg,0.9884,1,1,True
-FAKE\126 (7).jpg,1.0,1,1,True
-FAKE\126 (8).jpg,1.0,1,1,True
-FAKE\126 (9).jpg,0.9995,1,1,True
-FAKE\126.jpg,0.9911,1,1,True
-FAKE\127 (10).jpg,0.9995,1,1,True
-FAKE\127 (2).jpg,1.0,1,1,True
-FAKE\127 (3).jpg,0.9982,1,1,True
-FAKE\127 (4).jpg,0.9995,1,1,True
-FAKE\127 (5).jpg,1.0,1,1,True
-FAKE\127 (6).jpg,1.0,1,1,True
-FAKE\127 (7).jpg,1.0,1,1,True
-FAKE\127 (8).jpg,0.9998,1,1,True
-FAKE\127 (9).jpg,0.9913,1,1,True
-FAKE\127.jpg,0.9989,1,1,True
-FAKE\128 (10).jpg,0.9998,1,1,True
-FAKE\128 (2).jpg,1.0,1,1,True
-FAKE\128 (3).jpg,0.9994,1,1,True
-FAKE\128 (4).jpg,1.0,1,1,True
-FAKE\128 (5).jpg,1.0,1,1,True
-FAKE\128 (6).jpg,0.9652,1,1,True
-FAKE\128 (7).jpg,1.0,1,1,True
-FAKE\128 (8).jpg,1.0,1,1,True
-FAKE\128 (9).jpg,0.9993,1,1,True
-FAKE\128.jpg,1.0,1,1,True
-FAKE\129 (10).jpg,0.9989,1,1,True
-FAKE\129 (2).jpg,1.0,1,1,True
-FAKE\129 (3).jpg,1.0,1,1,True
-FAKE\129 (4).jpg,1.0,1,1,True
-FAKE\129 (5).jpg,1.0,1,1,True
-FAKE\129 (6).jpg,0.9999,1,1,True
-FAKE\129 (7).jpg,1.0,1,1,True
-FAKE\129 (8).jpg,0.9999,1,1,True
-FAKE\129 (9).jpg,0.9998,1,1,True
-FAKE\129.jpg,0.9792,1,1,True
-FAKE\13 (10).jpg,0.9997,1,1,True
-FAKE\13 (2).jpg,1.0,1,1,True
-FAKE\13 (3).jpg,0.999,1,1,True
-FAKE\13 (4).jpg,1.0,1,1,True
-FAKE\13 (5).jpg,1.0,1,1,True
-FAKE\13 (6).jpg,1.0,1,1,True
-FAKE\13 (7).jpg,1.0,1,1,True
-FAKE\13 (8).jpg,1.0,1,1,True
-FAKE\13 (9).jpg,0.9778,1,1,True
-FAKE\13.jpg,0.9993,1,1,True
-FAKE\130 (10).jpg,0.9997,1,1,True
-FAKE\130 (2).jpg,1.0,1,1,True
-FAKE\130 (3).jpg,0.9975,1,1,True
-FAKE\130 (4).jpg,0.9997,1,1,True
-FAKE\130 (5).jpg,0.9997,1,1,True
-FAKE\130 (6).jpg,1.0,1,1,True
-FAKE\130 (7).jpg,1.0,1,1,True
-FAKE\130 (8).jpg,1.0,1,1,True
-FAKE\130 (9).jpg,0.9995,1,1,True
-FAKE\130.jpg,0.9948,1,1,True
-FAKE\131 (10).jpg,0.9993,1,1,True
-FAKE\131 (2).jpg,1.0,1,1,True
-FAKE\131 (3).jpg,0.9998,1,1,True
-FAKE\131 (4).jpg,0.9945,1,1,True
-FAKE\131 (5).jpg,1.0,1,1,True
-FAKE\131 (6).jpg,0.9999,1,1,True
-FAKE\131 (7).jpg,1.0,1,1,True
-FAKE\131 (8).jpg,0.9999,1,1,True
-FAKE\131 (9).jpg,0.9987,1,1,True
-FAKE\131.jpg,0.9995,1,1,True
-FAKE\132 (10).jpg,0.9999,1,1,True
-FAKE\132 (2).jpg,0.9986,1,1,True
-FAKE\132 (3).jpg,0.9997,1,1,True
-FAKE\132 (4).jpg,0.9995,1,1,True
-FAKE\132 (5).jpg,1.0,1,1,True
-FAKE\132 (6).jpg,0.9999,1,1,True
-FAKE\132 (7).jpg,1.0,1,1,True
-FAKE\132 (8).jpg,0.9982,1,1,True
-FAKE\132 (9).jpg,0.9998,1,1,True
-FAKE\132.jpg,0.5996,1,1,True
-FAKE\133 (10).jpg,0.9835,1,1,True
-FAKE\133 (2).jpg,1.0,1,1,True
-FAKE\133 (3).jpg,0.9254,1,1,True
-FAKE\133 (4).jpg,0.9999,1,1,True
-FAKE\133 (5).jpg,0.9999,1,1,True
-FAKE\133 (6).jpg,0.9999,1,1,True
-FAKE\133 (7).jpg,0.9996,1,1,True
-FAKE\133 (8).jpg,0.9999,1,1,True
-FAKE\133 (9).jpg,0.9997,1,1,True
-FAKE\133.jpg,0.9888,1,1,True
-FAKE\134 (10).jpg,0.9045,1,1,True
-FAKE\134 (2).jpg,0.9999,1,1,True
-FAKE\134 (3).jpg,1.0,1,1,True
-FAKE\134 (4).jpg,1.0,1,1,True
-FAKE\134 (5).jpg,0.9994,1,1,True
-FAKE\134 (6).jpg,0.9996,1,1,True
-FAKE\134 (7).jpg,1.0,1,1,True
-FAKE\134 (8).jpg,0.7822,1,1,True
-FAKE\134 (9).jpg,0.9999,1,1,True
-FAKE\134.jpg,0.9945,1,1,True
-FAKE\135 (10).jpg,0.9997,1,1,True
-FAKE\135 (2).jpg,1.0,1,1,True
-FAKE\135 (3).jpg,1.0,1,1,True
-FAKE\135 (4).jpg,0.9999,1,1,True
-FAKE\135 (5).jpg,1.0,1,1,True
-FAKE\135 (6).jpg,1.0,1,1,True
-FAKE\135 (7).jpg,1.0,1,1,True
-FAKE\135 (8).jpg,0.999,1,1,True
-FAKE\135 (9).jpg,0.9977,1,1,True
-FAKE\135.jpg,0.9921,1,1,True
-FAKE\136 (10).jpg,1.0,1,1,True
-FAKE\136 (2).jpg,1.0,1,1,True
-FAKE\136 (3).jpg,0.9998,1,1,True
-FAKE\136 (4).jpg,0.983,1,1,True
-FAKE\136 (5).jpg,0.2475,1,0,False
-FAKE\136 (6).jpg,0.9999,1,1,True
-FAKE\136 (7).jpg,1.0,1,1,True
-FAKE\136 (8).jpg,0.9999,1,1,True
-FAKE\136 (9).jpg,0.9934,1,1,True
-FAKE\136.jpg,0.9996,1,1,True
-FAKE\137 (10).jpg,0.9995,1,1,True
-FAKE\137 (2).jpg,0.9998,1,1,True
-FAKE\137 (3).jpg,1.0,1,1,True
-FAKE\137 (4).jpg,1.0,1,1,True
-FAKE\137 (5).jpg,1.0,1,1,True
-FAKE\137 (6).jpg,0.999,1,1,True
-FAKE\137 (7).jpg,1.0,1,1,True
-FAKE\137 (8).jpg,1.0,1,1,True
-FAKE\137 (9).jpg,0.9764,1,1,True
-FAKE\137.jpg,0.002,1,0,False
-FAKE\138 (10).jpg,1.0,1,1,True
-FAKE\138 (2).jpg,0.9998,1,1,True
-FAKE\138 (3).jpg,0.9885,1,1,True
-FAKE\138 (4).jpg,1.0,1,1,True
-FAKE\138 (5).jpg,1.0,1,1,True
-FAKE\138 (6).jpg,1.0,1,1,True
-FAKE\138 (7).jpg,1.0,1,1,True
-FAKE\138 (8).jpg,0.9999,1,1,True
-FAKE\138 (9).jpg,0.9758,1,1,True
-FAKE\138.jpg,0.9995,1,1,True
-FAKE\139 (10).jpg,1.0,1,1,True
-FAKE\139 (2).jpg,1.0,1,1,True
-FAKE\139 (3).jpg,0.8113,1,1,True
-FAKE\139 (4).jpg,1.0,1,1,True
-FAKE\139 (5).jpg,1.0,1,1,True
-FAKE\139 (6).jpg,0.999,1,1,True
-FAKE\139 (7).jpg,1.0,1,1,True
-FAKE\139 (8).jpg,0.9881,1,1,True
-FAKE\139 (9).jpg,0.9977,1,1,True
-FAKE\139.jpg,0.7427,1,1,True
-FAKE\14 (10).jpg,0.9995,1,1,True
-FAKE\14 (2).jpg,1.0,1,1,True
-FAKE\14 (3).jpg,1.0,1,1,True
-FAKE\14 (4).jpg,0.999,1,1,True
-FAKE\14 (5).jpg,0.2049,1,0,False
-FAKE\14 (6).jpg,0.9999,1,1,True
-FAKE\14 (7).jpg,1.0,1,1,True
-FAKE\14 (8).jpg,1.0,1,1,True
-FAKE\14 (9).jpg,0.9999,1,1,True
-FAKE\14.jpg,0.9997,1,1,True
-FAKE\140 (10).jpg,0.9994,1,1,True
-FAKE\140 (2).jpg,1.0,1,1,True
-FAKE\140 (3).jpg,0.9996,1,1,True
-FAKE\140 (4).jpg,1.0,1,1,True
-FAKE\140 (5).jpg,1.0,1,1,True
-FAKE\140 (6).jpg,0.9952,1,1,True
-FAKE\140 (7).jpg,1.0,1,1,True
-FAKE\140 (8).jpg,1.0,1,1,True
-FAKE\140 (9).jpg,0.999,1,1,True
-FAKE\140.jpg,0.9999,1,1,True
-FAKE\141 (10).jpg,0.7872,1,1,True
-FAKE\141 (2).jpg,1.0,1,1,True
-FAKE\141 (3).jpg,0.9972,1,1,True
-FAKE\141 (4).jpg,1.0,1,1,True
-FAKE\141 (5).jpg,1.0,1,1,True
-FAKE\141 (6).jpg,0.9892,1,1,True
-FAKE\141 (7).jpg,1.0,1,1,True
-FAKE\141 (8).jpg,1.0,1,1,True
-FAKE\141 (9).jpg,0.9994,1,1,True
-FAKE\141.jpg,0.9992,1,1,True
-FAKE\142 (10).jpg,0.9962,1,1,True
-FAKE\142 (2).jpg,1.0,1,1,True
-FAKE\142 (3).jpg,0.9991,1,1,True
-FAKE\142 (4).jpg,1.0,1,1,True
-FAKE\142 (5).jpg,1.0,1,1,True
-FAKE\142 (6).jpg,0.9999,1,1,True
-FAKE\142 (7).jpg,1.0,1,1,True
-FAKE\142 (8).jpg,1.0,1,1,True
-FAKE\142 (9).jpg,0.9999,1,1,True
-FAKE\142.jpg,0.9998,1,1,True
-real\real_00000__v1__center_crop-80_blur-sigma_1_noise-sigma_0.1.png,0.001,0,0,True
-real\real_00000__v2__resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.0004,0,0,True
-real\real_00000__v3__center_crop-80_resize-x0.25_blur-sigma_1.png,0.0012,0,0,True
-real\real_00005__v1__resize-x0.25_blur-sigma_2_noise-sigma_0.1.png,0.0002,0,0,True
-real\real_00005__v2__resize-x0.25_color-minus20_blur-sigma_1.png,0.0011,0,0,True
-real\real_00005__v3__center_crop-80_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.0002,0,0,True
-real\real_00012__v1__center_crop-80_resize-x0.25_jpeg-q50.png,0.002,0,0,True
-real\real_00012__v2__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.1004,0,0,True
-real\real_00012__v3__color-plus20_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.1407,0,0,True
-real\real_00013__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.001,0,0,True
-real\real_00013__v2__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q50.png,0.0003,0,0,True
-real\real_00013__v3__center_crop-80_resize-x0.25_color-minus20_jpeg-q50.png,0.0004,0,0,True
-real\real_00021__v1__center_crop-80_color-plus20_blur-sigma_0.5.png,0.0004,0,0,True
-real\real_00021__v2__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,0.0003,0,0,True
-real\real_00021__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_jpeg-q30.png,0.0001,0,0,True
-real\real_00022__v1__resize-x0.5_color-minus20_blur-sigma_1_jpeg-q90.png,0.0,0,0,True
-real\real_00022__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.05.png,0.0,0,0,True
-real\real_00022__v3__resize-x0.25_blur-sigma_0.5_noise-sigma_0.02.png,0.0001,0,0,True
-real\real_00023__v1__blur-sigma_2_noise-sigma_0.02_jpeg-q30.png,0.0003,0,0,True
-real\real_00023__v2__center_crop-80_blur-sigma_1_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00023__v3__center_crop-80_resize-x0.25_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00036__v1__resize-x0.5_blur-sigma_0.5_jpeg-q30.png,0.0002,0,0,True
-real\real_00036__v2__resize-x0.5_color-plus20_noise-sigma_0.05.png,0.0001,0,0,True
-real\real_00036__v3__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.0001,0,0,True
-real\real_00038__v1__center_crop-80_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.0005,0,0,True
-real\real_00038__v2__center_crop-80_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.0005,0,0,True
-real\real_00038__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q30.png,0.0015,0,0,True
-real\real_00044__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q50.png,0.9544,0,1,False
-real\real_00044__v2__resize-x0.5_blur-sigma_2_jpeg-q50.png,0.7058,0,1,False
-real\real_00044__v3__center_crop-80_noise-sigma_0.02_jpeg-q90.png,0.0015,0,0,True
-real\real_00059__v1__resize-x0.5_blur-sigma_2_noise-sigma_0.1.png,0.0016,0,0,True
-real\real_00059__v2__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0004,0,0,True
-real\real_00059__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0142,0,0,True
-real\real_00065__v1__center_crop-80_color-plus20_noise-sigma_0.02_jpeg-q90.png,0.0022,0,0,True
-real\real_00065__v2__center_crop-80_resize-x0.5_noise-sigma_0.1_jpeg-q70.png,0.0068,0,0,True
-real\real_00065__v3__center_crop-80_resize-x0.5_color-plus20_jpeg-q70.png,0.0007,0,0,True
-real\real_00067__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0001,0,0,True
-real\real_00067__v2__center_crop-80_resize-x0.25_color-minus20_jpeg-q70.png,0.0001,0,0,True
-real\real_00067__v3__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.0001,0,0,True
-real\real_00078__v1__center_crop-80_resize-x0.5_noise-sigma_0.05_jpeg-q90.png,0.0001,0,0,True
-real\real_00078__v2__center_crop-80_color-plus20_noise-sigma_0.1_jpeg-q90.png,0.0116,0,0,True
-real\real_00078__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q90.png,0.0006,0,0,True
-real\real_00081__v1__resize-x0.5_noise-sigma_0.02_jpeg-q90.png,0.0,0,0,True
-real\real_00081__v2__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.0001,0,0,True
-real\real_00081__v3__blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.0001,0,0,True
-real\real_00084__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.0015,0,0,True
-real\real_00084__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q90.png,0.0004,0,0,True
-real\real_00084__v3__center_crop-80_resize-x0.25_jpeg-q50.png,0.0022,0,0,True
-real\real_00106__v1__center_crop-80_blur-sigma_0.5_jpeg-q90.png,0.0041,0,0,True
-real\real_00106__v2__color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q90.png,0.002,0,0,True
-real\real_00106__v3__resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.05.png,0.0007,0,0,True
-real\real_00107__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q50.png,0.9197,0,1,False
-real\real_00107__v2__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.6006,0,1,False
-real\real_00107__v3__center_crop-80_resize-x0.5_blur-sigma_1_jpeg-q90.png,0.1535,0,0,True
-real\real_00110__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.9527,0,1,False
-real\real_00110__v2__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.0052,0,0,True
-real\real_00110__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1.png,0.7541,0,1,False
-real\real_00119__v1__resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q90.png,0.0001,0,0,True
-real\real_00119__v2__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.0002,0,0,True
-real\real_00119__v3__resize-x0.5_color-plus20_jpeg-q30.png,0.0001,0,0,True
-real\real_00122__v1__center_crop-80_color-plus20_jpeg-q30.png,0.0013,0,0,True
-real\real_00122__v2__center_crop-80_color-plus20_blur-sigma_1.png,0.0018,0,0,True
-real\real_00122__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.0069,0,0,True
-real\real_00131__v1__resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.0001,0,0,True
-real\real_00131__v2__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.0422,0,0,True
-real\real_00131__v3__color-minus20_noise-sigma_0.1_jpeg-q30.png,0.0005,0,0,True
-real\real_00138__v1__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.0008,0,0,True
-real\real_00138__v2__center_crop-80_color-plus20_jpeg-q50.png,0.0007,0,0,True
-real\real_00138__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.0004,0,0,True
-real\real_00154__v1__resize-x0.25_blur-sigma_2_jpeg-q70.png,0.1161,0,0,True
-real\real_00154__v2__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.1.png,0.0005,0,0,True
-real\real_00154__v3__center_crop-80_resize-x0.25_color-minus20_jpeg-q90.png,0.0001,0,0,True
-real\real_00155__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.0006,0,0,True
-real\real_00155__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q50.png,0.0005,0,0,True
-real\real_00155__v3__center_crop-80_color-plus20_jpeg-q70.png,0.0005,0,0,True
-real\real_00160__v1__center_crop-80_resize-x0.5_noise-sigma_0.05.png,0.0016,0,0,True
-real\real_00160__v2__center_crop-80_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.0023,0,0,True
-real\real_00160__v3__color-plus20_blur-sigma_0.5_jpeg-q70.png,0.1028,0,0,True
-real\real_00161__v1__center_crop-80_resize-x0.5_color-minus20_jpeg-q50.png,0.0031,0,0,True
-real\real_00161__v2__center_crop-80_resize-x0.5_noise-sigma_0.05_jpeg-q30.png,0.0006,0,0,True
-real\real_00161__v3__color-minus20_blur-sigma_0.5_jpeg-q70.png,0.0014,0,0,True
-real\real_00168__v1__center_crop-80_resize-x0.5_color-minus20.png,0.0005,0,0,True
-real\real_00168__v2__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.0002,0,0,True
-real\real_00168__v3__center_crop-80_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.0003,0,0,True
-real\real_00169__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0006,0,0,True
-real\real_00169__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q50.png,0.0002,0,0,True
-real\real_00169__v3__center_crop-80_blur-sigma_1_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00170__v1__resize-x0.25_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.0001,0,0,True
-real\real_00170__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q50.png,0.0081,0,0,True
-real\real_00170__v3__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05.png,0.5534,0,1,False
-real\real_00187__v1__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.05.png,0.0007,0,0,True
-real\real_00187__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q90.png,0.0002,0,0,True
-real\real_00187__v3__center_crop-80_resize-x0.25_noise-sigma_0.1_jpeg-q30.png,0.0004,0,0,True
-real\real_00191__v1__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q70.png,0.0004,0,0,True
-real\real_00191__v2__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.1_jpeg-q30.png,0.0003,0,0,True
-real\real_00191__v3__center_crop-80_color-plus20_noise-sigma_0.1.png,0.0012,0,0,True
-real\real_00195__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.0002,0,0,True
-real\real_00195__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.0003,0,0,True
-real\real_00195__v3__center_crop-80_color-plus20_blur-sigma_0.5_jpeg-q30.png,0.0003,0,0,True
-real\real_00197__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1.png,0.0005,0,0,True
-real\real_00197__v2__center_crop-80_color-minus20_jpeg-q50.png,0.0006,0,0,True
-real\real_00197__v3__center_crop-80_color-minus20_blur-sigma_1.png,0.0007,0,0,True
-real\real_00198__v1__center_crop-80_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.0006,0,0,True
-real\real_00198__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_jpeg-q70.png,0.0002,0,0,True
-real\real_00198__v3__color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.0002,0,0,True
-real\real_00206__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.1.png,0.0012,0,0,True
-real\real_00206__v2__center_crop-80_color-minus20_noise-sigma_0.05_jpeg-q70.png,0.0004,0,0,True
-real\real_00206__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_jpeg-q70.png,0.0008,0,0,True
-real\real_00232__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q30.png,0.0005,0,0,True
-real\real_00232__v2__center_crop-80_color-minus20_blur-sigma_1.png,0.0014,0,0,True
-real\real_00232__v3__resize-x0.5_color-plus20_noise-sigma_0.05.png,0.0009,0,0,True
-real\real_00241__v1__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.05_jpeg-q50.png,0.0001,0,0,True
-real\real_00241__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.0002,0,0,True
-real\real_00241__v3__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02.png,0.0004,0,0,True
-real\real_00242__v1__center_crop-80_resize-x0.5_color-minus20_jpeg-q30.png,0.0002,0,0,True
-real\real_00242__v2__center_crop-80_color-plus20_jpeg-q30.png,0.0005,0,0,True
-real\real_00242__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0008,0,0,True
-real\real_00250__v1__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.05.png,0.0015,0,0,True
-real\real_00250__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.05.png,0.0016,0,0,True
-real\real_00250__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q50.png,0.0003,0,0,True
-real\real_00256__v1__color-minus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0002,0,0,True
-real\real_00256__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q70.png,0.0003,0,0,True
-real\real_00256__v3__center_crop-80_color-plus20_noise-sigma_0.05_jpeg-q50.png,0.0002,0,0,True
-real\real_00257__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q50.png,0.0006,0,0,True
-real\real_00257__v2__center_crop-80_color-plus20_blur-sigma_0.5.png,0.0009,0,0,True
-real\real_00257__v3__resize-x0.5_color-plus20_blur-sigma_2_jpeg-q30.png,0.0001,0,0,True
-real\real_00273__v1__resize-x0.25_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.0012,0,0,True
-real\real_00273__v2__center_crop-80_color-minus20_blur-sigma_1_jpeg-q90.png,0.0026,0,0,True
-real\real_00273__v3__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.02.png,0.0008,0,0,True
-real\real_00277__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.02.png,0.0002,0,0,True
-real\real_00277__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0005,0,0,True
-real\real_00277__v3__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00280__v1__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q70.png,0.0002,0,0,True
-real\real_00280__v2__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.0001,0,0,True
-real\real_00280__v3__resize-x0.25_color-plus20_noise-sigma_0.02.png,0.0002,0,0,True
-real\real_00295__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.9992,0,1,False
-real\real_00295__v2__resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.0004,0,0,True
-real\real_00295__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q50.png,0.0008,0,0,True
-real\real_00301__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.134,0,0,True
-real\real_00301__v2__resize-x0.25_color-plus20_blur-sigma_2.png,0.0017,0,0,True
-real\real_00301__v3__center_crop-80_blur-sigma_0.5_noise-sigma_0.02.png,0.0021,0,0,True
-real\real_00304__v1__resize-x0.5_blur-sigma_1_noise-sigma_0.02.png,0.1062,0,0,True
-real\real_00304__v2__resize-x0.5_color-minus20_jpeg-q90.png,0.0034,0,0,True
-real\real_00304__v3__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.0012,0,0,True
-real\real_00309__v1__center_crop-80_color-plus20_blur-sigma_1.png,0.0058,0,0,True
-real\real_00309__v2__color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0005,0,0,True
-real\real_00309__v3__resize-x0.5_noise-sigma_0.05_jpeg-q90.png,0.0005,0,0,True
-real\real_00325__v1__center_crop-80_resize-x0.5_color-plus20_jpeg-q70.png,0.0005,0,0,True
-real\real_00325__v2__resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.0004,0,0,True
-real\real_00325__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.0006,0,0,True
-real\real_00326__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0007,0,0,True
-real\real_00326__v2__center_crop-80_color-minus20_noise-sigma_0.02_jpeg-q50.png,0.0067,0,0,True
-real\real_00326__v3__center_crop-80_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.0209,0,0,True
-real\real_00342__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0002,0,0,True
-real\real_00342__v2__center_crop-80_color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0002,0,0,True
-real\real_00342__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05.png,0.0006,0,0,True
-real\real_00365__v1__center_crop-80_blur-sigma_1_jpeg-q70.png,0.0004,0,0,True
-real\real_00365__v2__resize-x0.25_color-minus20_noise-sigma_0.1.png,0.0004,0,0,True
-real\real_00365__v3__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00368__v1__resize-x0.5_blur-sigma_0.5_noise-sigma_0.05_jpeg-q70.png,0.813,0,1,False
-real\real_00368__v2__color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.9906,0,1,False
-real\real_00368__v3__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.5837,0,1,False
-real\real_00370__v1__center_crop-80_noise-sigma_0.02_jpeg-q30.png,0.0008,0,0,True
-real\real_00370__v2__center_crop-80_color-plus20_blur-sigma_2_jpeg-q30.png,0.0001,0,0,True
-real\real_00370__v3__resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.0004,0,0,True
-real\real_00388__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q50.png,0.9995,0,1,False
-real\real_00388__v2__center_crop-80_resize-x0.25_noise-sigma_0.02_jpeg-q30.png,0.9997,0,1,False
-real\real_00388__v3__resize-x0.25_blur-sigma_2_noise-sigma_0.1.png,0.0003,0,0,True
-real\real_00398__v1__center_crop-80_resize-x0.25_color-plus20_jpeg-q50.png,0.0002,0,0,True
-real\real_00398__v2__resize-x0.25_blur-sigma_0.5_jpeg-q30.png,0.0002,0,0,True
-real\real_00398__v3__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0005,0,0,True
-real\real_00404__v1__center_crop-80_noise-sigma_0.1_jpeg-q90.png,0.0163,0,0,True
-real\real_00404__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q90.png,0.0019,0,0,True
-real\real_00404__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_jpeg-q30.png,0.0005,0,0,True
-real\real_00414__v1__resize-x0.5_color-plus20_blur-sigma_0.5.png,0.0005,0,0,True
-real\real_00414__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q90.png,0.0006,0,0,True
-real\real_00414__v3__resize-x0.25_color-plus20_blur-sigma_1_jpeg-q90.png,0.0003,0,0,True
-real\real_00417__v1__resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.0003,0,0,True
-real\real_00417__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q50.png,0.001,0,0,True
-real\real_00417__v3__center_crop-80_resize-x0.25_color-minus20.png,0.0002,0,0,True
-real\real_00419__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.1_jpeg-q90.png,0.0001,0,0,True
-real\real_00419__v2__color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q30.png,0.0009,0,0,True
-real\real_00419__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.1.png,0.001,0,0,True
-real\real_00438__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q30.png,0.0016,0,0,True
-real\real_00438__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q50.png,0.0001,0,0,True
-real\real_00438__v3__center_crop-80_color-minus20_noise-sigma_0.02.png,0.0003,0,0,True
-real\real_00447__v1__center_crop-80_blur-sigma_1_noise-sigma_0.05_jpeg-q50.png,0.0001,0,0,True
-real\real_00447__v2__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.02_jpeg-q30.png,0.0001,0,0,True
-real\real_00447__v3__center_crop-80_resize-x0.5_blur-sigma_1_jpeg-q70.png,0.0002,0,0,True
-real\real_00452__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q70.png,0.0027,0,0,True
-real\real_00452__v2__center_crop-80_color-plus20_blur-sigma_2.png,0.0017,0,0,True
-real\real_00452__v3__center_crop-80_resize-x0.25_blur-sigma_0.5.png,0.0014,0,0,True
-real\real_00463__v1__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0103,0,0,True
-real\real_00463__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q90.png,0.9266,0,1,False
-real\real_00463__v3__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.1168,0,0,True
-real\real_00465__v1__resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.0002,0,0,True
-real\real_00465__v2__resize-x0.5_color-plus20_noise-sigma_0.1.png,0.0003,0,0,True
-real\real_00465__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.0002,0,0,True
-real\real_00466__v1__center_crop-80_noise-sigma_0.1_jpeg-q50.png,0.0056,0,0,True
-real\real_00466__v2__color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.0007,0,0,True
-real\real_00466__v3__center_crop-80_blur-sigma_2_noise-sigma_0.1.png,0.0409,0,0,True
-real\real_00475__v1__center_crop-80_color-minus20_blur-sigma_1_jpeg-q50.png,0.0008,0,0,True
-real\real_00475__v2__resize-x0.25_color-plus20_jpeg-q90.png,0.0002,0,0,True
-real\real_00475__v3__center_crop-80_resize-x0.5_blur-sigma_1_jpeg-q90.png,0.0001,0,0,True
-real\real_00488__v1__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0032,0,0,True
-real\real_00488__v2__center_crop-80_resize-x0.25_color-plus20.png,0.003,0,0,True
-real\real_00488__v3__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.002,0,0,True
-real\real_00490__v1__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.1_jpeg-q50.png,0.017,0,0,True
-real\real_00490__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.0695,0,0,True
-real\real_00490__v3__center_crop-80_resize-x0.5_noise-sigma_0.05_jpeg-q30.png,0.0205,0,0,True
-real\real_00492__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2.png,0.0004,0,0,True
-real\real_00492__v2__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.05_jpeg-q30.png,0.0011,0,0,True
-real\real_00492__v3__center_crop-80_color-plus20_blur-sigma_0.5.png,0.0011,0,0,True
-real\real_00498__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q50.png,0.009,0,0,True
-real\real_00498__v2__center_crop-80_noise-sigma_0.1_jpeg-q30.png,0.0002,0,0,True
-real\real_00498__v3__resize-x0.5_noise-sigma_0.1_jpeg-q90.png,0.0008,0,0,True
-real\real_00517__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q90.png,0.0004,0,0,True
-real\real_00517__v2__color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.0004,0,0,True
-real\real_00517__v3__resize-x0.25_color-minus20_blur-sigma_2.png,0.0007,0,0,True
-real\real_00530__v1__center_crop-80_color-plus20_blur-sigma_2_jpeg-q30.png,0.0007,0,0,True
-real\real_00530__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.0001,0,0,True
-real\real_00530__v3__center_crop-80_color-minus20_blur-sigma_0.5.png,0.0007,0,0,True
-real\real_00531__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.0017,0,0,True
-real\real_00531__v2__resize-x0.5_color-plus20_blur-sigma_2_jpeg-q70.png,0.0087,0,0,True
-real\real_00531__v3__color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,0.0339,0,0,True
-real\real_00534__v1__resize-x0.25_noise-sigma_0.02_jpeg-q50.png,0.0,0,0,True
-real\real_00534__v2__resize-x0.25_color-minus20_blur-sigma_2_jpeg-q50.png,0.0001,0,0,True
-real\real_00534__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1.png,0.0001,0,0,True
-real\real_00546__v1__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00546__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.0006,0,0,True
-real\real_00546__v3__center_crop-80_resize-x0.25_color-plus20.png,0.0003,0,0,True
-real\real_00557__v1__center_crop-80_blur-sigma_0.5_jpeg-q50.png,0.0002,0,0,True
-real\real_00557__v2__center_crop-80_blur-sigma_2_noise-sigma_0.05.png,0.0022,0,0,True
-real\real_00557__v3__center_crop-80_blur-sigma_0.5_noise-sigma_0.05.png,0.0008,0,0,True
-real\real_00558__v1__center_crop-80_resize-x0.5_noise-sigma_0.1_jpeg-q30.png,0.0002,0,0,True
-real\real_00558__v2__color-minus20_blur-sigma_2_jpeg-q70.png,0.0002,0,0,True
-real\real_00558__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.1.png,0.0006,0,0,True
-real\real_00560__v1__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.0009,0,0,True
-real\real_00560__v2__color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0007,0,0,True
-real\real_00560__v3__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q90.png,0.0013,0,0,True
-real\real_00562__v1__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.02_jpeg-q50.png,0.0006,0,0,True
-real\real_00562__v2__center_crop-80_resize-x0.5_jpeg-q50.png,0.0008,0,0,True
-real\real_00562__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1_jpeg-q50.png,0.0004,0,0,True
-real\real_00568__v1__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.0002,0,0,True
-real\real_00568__v2__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.0003,0,0,True
-real\real_00568__v3__resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0001,0,0,True
-real\real_00572__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.05.png,0.0017,0,0,True
-real\real_00572__v2__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.0002,0,0,True
-real\real_00572__v3__center_crop-80_noise-sigma_0.05_jpeg-q30.png,0.0004,0,0,True
-real\real_00574__v1__center_crop-80_resize-x0.25_noise-sigma_0.02.png,0.0073,0,0,True
-real\real_00574__v2__color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.0041,0,0,True
-real\real_00574__v3__color-minus20_noise-sigma_0.02_jpeg-q50.png,0.0007,0,0,True
-real\real_00577__v1__center_crop-80_resize-x0.25_color-minus20_jpeg-q90.png,0.0006,0,0,True
-real\real_00577__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5.png,0.0013,0,0,True
-real\real_00577__v3__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,0.0017,0,0,True
-real\real_00579__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.1.png,0.9937,0,1,False
-real\real_00579__v2__center_crop-80_color-plus20_blur-sigma_1_jpeg-q30.png,0.022,0,0,True
-real\real_00579__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5.png,0.0067,0,0,True
-real\real_00581__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0013,0,0,True
-real\real_00581__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1.png,0.0006,0,0,True
-real\real_00581__v3__center_crop-80_blur-sigma_2_noise-sigma_0.1.png,0.0019,0,0,True
-real\real_00586__v1__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.9562,0,1,False
-real\real_00586__v2__resize-x0.5_color-minus20_noise-sigma_0.1.png,0.9973,0,1,False
-real\real_00586__v3__center_crop-80_blur-sigma_0.5_noise-sigma_0.02.png,0.0021,0,0,True
-real\real_00592__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_jpeg-q70.png,0.9974,0,1,False
-real\real_00592__v2__center_crop-80_blur-sigma_1_jpeg-q90.png,0.0029,0,0,True
-real\real_00592__v3__center_crop-80_resize-x0.5_blur-sigma_0.5.png,0.0026,0,0,True
-real\real_00605__v1__center_crop-80_color-plus20_noise-sigma_0.05.png,0.0008,0,0,True
-real\real_00605__v2__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1_jpeg-q50.png,0.0003,0,0,True
-real\real_00605__v3__resize-x0.25_color-minus20_blur-sigma_2_jpeg-q90.png,0.0004,0,0,True
-real\real_00608__v1__color-minus20_blur-sigma_1_jpeg-q70.png,0.0008,0,0,True
-real\real_00608__v2__color-minus20_blur-sigma_1_jpeg-q30.png,0.0006,0,0,True
-real\real_00608__v3__color-minus20_noise-sigma_0.1_jpeg-q50.png,0.0005,0,0,True
-real\real_00616__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.8528,0,1,False
-real\real_00616__v2__blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.1166,0,0,True
-real\real_00616__v3__center_crop-80_color-minus20_blur-sigma_1_jpeg-q70.png,0.4081,0,0,True
-real\real_00626__v1__resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.0005,0,0,True
-real\real_00626__v2__resize-x0.5_blur-sigma_2_noise-sigma_0.05.png,0.0025,0,0,True
-real\real_00626__v3__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05.png,0.0017,0,0,True
-real\real_00630__v1__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.0003,0,0,True
-real\real_00630__v2__center_crop-80_color-plus20_noise-sigma_0.02_jpeg-q90.png,0.0023,0,0,True
-real\real_00630__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q90.png,0.0004,0,0,True
-real\real_00637__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05.png,0.0023,0,0,True
-real\real_00637__v2__center_crop-80_resize-x0.5_noise-sigma_0.05.png,0.0004,0,0,True
-real\real_00637__v3__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.0005,0,0,True
-real\real_00646__v1__center_crop-80_color-plus20_noise-sigma_0.02.png,0.0027,0,0,True
-real\real_00646__v2__center_crop-80_noise-sigma_0.1_jpeg-q70.png,0.0021,0,0,True
-real\real_00646__v3__center_crop-80_color-minus20_jpeg-q30.png,0.0025,0,0,True
-real\real_00653__v1__center_crop-80_resize-x0.25_blur-sigma_0.5_jpeg-q90.png,0.9468,0,1,False
-real\real_00653__v2__center_crop-80_color-minus20_blur-sigma_1.png,0.9891,0,1,False
-real\real_00653__v3__center_crop-80_color-minus20_blur-sigma_2.png,0.9965,0,1,False
-real\real_00656__v1__resize-x0.25_color-minus20_noise-sigma_0.05_jpeg-q70.png,0.0002,0,0,True
-real\real_00656__v2__color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0003,0,0,True
-real\real_00656__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0002,0,0,True
-real\real_00664__v1__center_crop-80_resize-x0.25_color-minus20_jpeg-q50.png,0.0002,0,0,True
-real\real_00664__v2__center_crop-80_resize-x0.5_blur-sigma_0.5.png,0.0008,0,0,True
-real\real_00664__v3__resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q90.png,0.0015,0,0,True
-real\real_00668__v1__color-minus20_noise-sigma_0.02_jpeg-q50.png,0.0003,0,0,True
-real\real_00668__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5.png,0.0064,0,0,True
-real\real_00668__v3__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.0,0,0,True
-real\real_00672__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9949,0,1,False
-real\real_00672__v2__resize-x0.25_noise-sigma_0.02_jpeg-q90.png,0.0614,0,0,True
-real\real_00672__v3__center_crop-80_color-minus20_jpeg-q90.png,0.0535,0,0,True
-real\real_00678__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.1_jpeg-q50.png,0.0003,0,0,True
-real\real_00678__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_jpeg-q70.png,0.0002,0,0,True
-real\real_00678__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q50.png,0.1259,0,0,True
-real\real_00699__v1__resize-x0.25_color-minus20_noise-sigma_0.1.png,0.0002,0,0,True
-real\real_00699__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.02_jpeg-q70.png,0.0007,0,0,True
-real\real_00699__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.0069,0,0,True
-real\real_00700__v1__resize-x0.5_color-minus20_jpeg-q30.png,0.0003,0,0,True
-real\real_00700__v2__resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.05.png,0.0009,0,0,True
-real\real_00700__v3__resize-x0.25_blur-sigma_0.5_noise-sigma_0.05.png,0.0001,0,0,True
-real\real_00708__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.0005,0,0,True
-real\real_00708__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q30.png,0.0006,0,0,True
-real\real_00708__v3__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.0018,0,0,True
-real\real_00711__v1__center_crop-80_resize-x0.25_noise-sigma_0.1_jpeg-q70.png,0.0004,0,0,True
-real\real_00711__v2__resize-x0.5_color-minus20_blur-sigma_2.png,0.0006,0,0,True
-real\real_00711__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0012,0,0,True
-real\real_00716__v1__color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.001,0,0,True
-real\real_00716__v2__resize-x0.5_color-minus20_jpeg-q70.png,0.0009,0,0,True
-real\real_00716__v3__resize-x0.25_color-plus20_jpeg-q90.png,0.0015,0,0,True
-real\real_00725__v1__resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.1.png,0.0005,0,0,True
-real\real_00725__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1.png,0.0015,0,0,True
-real\real_00725__v3__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.0006,0,0,True
-real\real_00729__v1__resize-x0.5_blur-sigma_0.5_noise-sigma_0.02.png,0.0001,0,0,True
-real\real_00729__v2__center_crop-80_color-plus20_noise-sigma_0.1_jpeg-q70.png,0.0004,0,0,True
-real\real_00729__v3__center_crop-80_color-minus20_blur-sigma_2_jpeg-q30.png,0.0001,0,0,True
-real\real_00730__v1__center_crop-80_resize-x0.25_noise-sigma_0.05_jpeg-q70.png,0.0,0,0,True
-real\real_00730__v2__center_crop-80_resize-x0.25_blur-sigma_1.png,0.0004,0,0,True
-real\real_00730__v3__center_crop-80_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.0002,0,0,True
-real\real_00761__v1__center_crop-80_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.0001,0,0,True
-real\real_00761__v2__center_crop-80_resize-x0.5_noise-sigma_0.1.png,0.0003,0,0,True
-real\real_00761__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.05.png,0.0054,0,0,True
-real\real_00766__v1__center_crop-80_resize-x0.25_color-plus20.png,0.0,0,0,True
-real\real_00766__v2__resize-x0.5_noise-sigma_0.02_jpeg-q30.png,0.0001,0,0,True
-real\real_00766__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q90.png,0.0009,0,0,True
-real\real_00770__v1__center_crop-80_resize-x0.25_color-plus20.png,0.0003,0,0,True
-real\real_00770__v2__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0008,0,0,True
-real\real_00770__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.0015,0,0,True
-real\real_00775__v1__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.1_jpeg-q90.png,0.0005,0,0,True
-real\real_00775__v2__center_crop-80_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.0004,0,0,True
-real\real_00775__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5.png,0.0019,0,0,True
-real\real_00785__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5.png,0.925,0,1,False
-real\real_00785__v2__resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.1817,0,0,True
-real\real_00785__v3__center_crop-80_color-plus20_blur-sigma_1.png,0.8076,0,1,False
-real\real_00787__v1__resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,0.0007,0,0,True
-real\real_00787__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00787__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_jpeg-q70.png,0.0002,0,0,True
-real\real_00796__v1__resize-x0.25_blur-sigma_2_noise-sigma_0.1.png,0.0019,0,0,True
-real\real_00796__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.0004,0,0,True
-real\real_00796__v3__blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0003,0,0,True
-real\real_00801__v1__blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.0004,0,0,True
-real\real_00801__v2__center_crop-80_resize-x0.25_blur-sigma_0.5.png,0.0003,0,0,True
-real\real_00801__v3__center_crop-80_color-minus20_jpeg-q70.png,0.0005,0,0,True
-real\real_00804__v1__blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0576,0,0,True
-real\real_00804__v2__resize-x0.5_color-plus20_noise-sigma_0.1_jpeg-q70.png,0.0075,0,0,True
-real\real_00804__v3__color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.0075,0,0,True
-real\real_00829__v1__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.0005,0,0,True
-real\real_00829__v2__center_crop-80_color-minus20_blur-sigma_0.5_jpeg-q70.png,0.0004,0,0,True
-real\real_00829__v3__color-minus20_blur-sigma_1_jpeg-q50.png,0.0004,0,0,True
-real\real_00833__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.0001,0,0,True
-real\real_00833__v2__center_crop-80_color-plus20_blur-sigma_2_jpeg-q70.png,0.0004,0,0,True
-real\real_00833__v3__resize-x0.25_color-minus20_jpeg-q90.png,0.0002,0,0,True
-real\real_00836__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1.png,0.0007,0,0,True
-real\real_00836__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q70.png,0.0002,0,0,True
-real\real_00836__v3__color-minus20_blur-sigma_1_jpeg-q50.png,0.8223,0,1,False
-real\real_00839__v1__center_crop-80_color-plus20_noise-sigma_0.02.png,0.0015,0,0,True
-real\real_00839__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.0001,0,0,True
-real\real_00839__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.0001,0,0,True
-real\real_00840__v1__center_crop-80_blur-sigma_2_noise-sigma_0.05.png,0.695,0,1,False
-real\real_00840__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.019,0,0,True
-real\real_00840__v3__color-plus20_blur-sigma_1_jpeg-q70.png,0.019,0,0,True
-real\real_00841__v1__color-minus20_noise-sigma_0.02_jpeg-q70.png,0.0009,0,0,True
-real\real_00841__v2__center_crop-80_resize-x0.25_noise-sigma_0.1.png,0.0003,0,0,True
-real\real_00841__v3__resize-x0.25_color-minus20_jpeg-q30.png,0.0001,0,0,True
-real\real_00847__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q70.png,0.0002,0,0,True
-real\real_00847__v2__color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.0002,0,0,True
-real\real_00847__v3__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.0001,0,0,True
-real\real_00849__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0006,0,0,True
-real\real_00849__v2__color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.0074,0,0,True
-real\real_00849__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.9689,0,1,False
-real\real_00852__v1__color-plus20_noise-sigma_0.05_jpeg-q70.png,0.0008,0,0,True
-real\real_00852__v2__resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0006,0,0,True
-real\real_00852__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.0027,0,0,True
-real\real_00858__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.0003,0,0,True
-real\real_00858__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q50.png,0.0003,0,0,True
-real\real_00858__v3__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.1_jpeg-q50.png,0.0004,0,0,True
-real\real_00865__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.0004,0,0,True
-real\real_00865__v2__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.0001,0,0,True
-real\real_00865__v3__center_crop-80_color-minus20_blur-sigma_0.5.png,0.0025,0,0,True
-real\real_00871__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0004,0,0,True
-real\real_00871__v2__center_crop-80_resize-x0.5_blur-sigma_2.png,0.0006,0,0,True
-real\real_00871__v3__resize-x0.25_color-plus20_blur-sigma_0.5.png,0.0003,0,0,True
-real\real_00880__v1__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q30.png,0.3173,0,0,True
-real\real_00880__v2__center_crop-80_resize-x0.5_noise-sigma_0.1_jpeg-q30.png,0.0001,0,0,True
-real\real_00880__v3__center_crop-80_blur-sigma_1_noise-sigma_0.05.png,0.0005,0,0,True
-real\real_00881__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0007,0,0,True
-real\real_00881__v2__resize-x0.5_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.0005,0,0,True
-real\real_00881__v3__color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0005,0,0,True
-real\real_00882__v1__center_crop-80_color-minus20_blur-sigma_0.5_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00882__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q30.png,0.0002,0,0,True
-real\real_00882__v3__center_crop-80_resize-x0.5_noise-sigma_0.1_jpeg-q70.png,0.0004,0,0,True
-real\real_00886__v1__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00886__v2__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q90.png,0.0011,0,0,True
-real\real_00886__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q50.png,0.0005,0,0,True
-real\real_00890__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1.png,0.0008,0,0,True
-real\real_00890__v2__resize-x0.5_color-minus20_noise-sigma_0.02.png,0.0003,0,0,True
-real\real_00890__v3__center_crop-80_color-plus20_blur-sigma_2_jpeg-q30.png,0.0002,0,0,True
-real\real_00901__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.0001,0,0,True
-real\real_00901__v2__center_crop-80_color-plus20_jpeg-q50.png,0.0003,0,0,True
-real\real_00901__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2.png,0.0005,0,0,True
-real\real_00908__v1__resize-x0.5_color-minus20_blur-sigma_2.png,0.0002,0,0,True
-real\real_00908__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00908__v3__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00911__v1__center_crop-80_color-minus20_blur-sigma_2.png,0.0018,0,0,True
-real\real_00911__v2__center_crop-80_resize-x0.5_noise-sigma_0.05.png,0.0006,0,0,True
-real\real_00911__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.0016,0,0,True
-real\real_00912__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05.png,0.0004,0,0,True
-real\real_00912__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.05.png,0.0002,0,0,True
-real\real_00912__v3__resize-x0.25_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.0001,0,0,True
-real\real_00920__v1__center_crop-80_noise-sigma_0.1_jpeg-q30.png,0.0106,0,0,True
-real\real_00920__v2__resize-x0.25_color-minus20_blur-sigma_1_jpeg-q70.png,0.0004,0,0,True
-real\real_00920__v3__center_crop-80_resize-x0.25_blur-sigma_2.png,0.0364,0,0,True
-real\real_00924__v1__resize-x0.5_color-plus20_blur-sigma_2.png,0.0537,0,0,True
-real\real_00924__v2__resize-x0.5_blur-sigma_2_noise-sigma_0.02_jpeg-q50.png,0.0008,0,0,True
-real\real_00924__v3__center_crop-80_color-plus20_blur-sigma_0.5.png,0.8749,0,1,False
-real\real_00931__v1__center_crop-80_color-minus20_jpeg-q50.png,0.0008,0,0,True
-real\real_00931__v2__center_crop-80_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.0013,0,0,True
-real\real_00931__v3__center_crop-80_color-plus20_noise-sigma_0.1_jpeg-q50.png,0.0008,0,0,True
-real\real_00938__v1__resize-x0.25_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.0002,0,0,True
-real\real_00938__v2__center_crop-80_color-minus20_jpeg-q90.png,0.0006,0,0,True
-real\real_00938__v3__resize-x0.25_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.0001,0,0,True
-real\real_00940__v1__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0004,0,0,True
-real\real_00940__v2__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.0003,0,0,True
-real\real_00940__v3__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.0003,0,0,True
-real\real_00941__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q50.png,0.0,0,0,True
-real\real_00941__v2__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.0,0,0,True
-real\real_00941__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.05.png,0.0008,0,0,True
-real\real_00944__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q90.png,0.1003,0,0,True
-real\real_00944__v2__center_crop-80_blur-sigma_1_jpeg-q90.png,0.0003,0,0,True
-real\real_00944__v3__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.0006,0,0,True
-real\real_00947__v1__center_crop-80_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.0002,0,0,True
-real\real_00947__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_jpeg-q70.png,0.0002,0,0,True
-real\real_00947__v3__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.1_jpeg-q50.png,0.0001,0,0,True
-real\real_00950__v1__center_crop-80_color-minus20_jpeg-q30.png,0.0004,0,0,True
-real\real_00950__v2__center_crop-80_resize-x0.5_jpeg-q90.png,0.0002,0,0,True
-real\real_00950__v3__center_crop-80_color-minus20_blur-sigma_0.5_jpeg-q90.png,0.0004,0,0,True
-real\real_00952__v1__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.9933,0,1,False
-real\real_00952__v2__center_crop-80_color-minus20_jpeg-q90.png,0.0089,0,0,True
-real\real_00952__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q50.png,0.0003,0,0,True
-real\real_00970__v1__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.0009,0,0,True
-real\real_00970__v2__color-minus20_noise-sigma_0.02_jpeg-q30.png,0.0002,0,0,True
-real\real_00970__v3__resize-x0.25_noise-sigma_0.1_jpeg-q30.png,0.0001,0,0,True
-real\real_00978__v1__center_crop-80_resize-x0.25_blur-sigma_1.png,0.1892,0,0,True
-real\real_00978__v2__center_crop-80_resize-x0.5_noise-sigma_0.02_jpeg-q70.png,0.0015,0,0,True
-real\real_00978__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02.png,0.0025,0,0,True
-real\real_00984__v1__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.1.png,0.001,0,0,True
-real\real_00984__v2__resize-x0.25_color-plus20_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00984__v3__center_crop-80_color-minus20_noise-sigma_0.05.png,0.0003,0,0,True
-real\real_00987__v1__center_crop-80_resize-x0.5_jpeg-q30.png,0.0339,0,0,True
-real\real_00987__v2__center_crop-80_resize-x0.25_jpeg-q30.png,0.5849,0,1,False
-real\real_00987__v3__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q90.png,0.2661,0,0,True
-real\real_00991__v1__center_crop-80_resize-x0.5_color-plus20_jpeg-q30.png,0.0001,0,0,True
-real\real_00991__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q70.png,0.0003,0,0,True
-real\real_00991__v3__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.1.png,0.0492,0,0,True
-real\real_00999__v1__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.0019,0,0,True
-real\real_00999__v2__center_crop-80_color-plus20_jpeg-q70.png,0.0021,0,0,True
-real\real_00999__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.0013,0,0,True
-real\real_01002__v1__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q30.png,0.0071,0,0,True
-real\real_01002__v2__resize-x0.25_noise-sigma_0.1_jpeg-q50.png,0.0,0,0,True
-real\real_01002__v3__center_crop-80_resize-x0.25_color-plus20.png,0.0003,0,0,True
-real\real_01004__v1__resize-x0.25_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.0003,0,0,True
-real\real_01004__v2__center_crop-80_resize-x0.5_color-plus20_jpeg-q90.png,0.0005,0,0,True
-real\real_01004__v3__resize-x0.25_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.0002,0,0,True
-real\real_01007__v1__center_crop-80_blur-sigma_2_jpeg-q50.png,0.0004,0,0,True
-real\real_01007__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.0022,0,0,True
-real\real_01007__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1.png,0.0011,0,0,True
-real\real_01008__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.0004,0,0,True
-real\real_01008__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_jpeg-q90.png,0.0,0,0,True
-real\real_01008__v3__center_crop-80_resize-x0.5_color-minus20_jpeg-q70.png,0.0005,0,0,True
-real\real_01011__v1__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.0003,0,0,True
-real\real_01011__v2__resize-x0.5_color-minus20_jpeg-q70.png,0.0002,0,0,True
-real\real_01011__v3__center_crop-80_color-minus20_jpeg-q50.png,0.0004,0,0,True
-real\real_01013__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.0008,0,0,True
-real\real_01013__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q50.png,0.0009,0,0,True
-real\real_01013__v3__center_crop-80_resize-x0.5_blur-sigma_1.png,0.0006,0,0,True
-real\real_01015__v1__color-minus20_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.0004,0,0,True
-real\real_01015__v2__center_crop-80_resize-x0.25_noise-sigma_0.05.png,0.0005,0,0,True
-real\real_01015__v3__center_crop-80_blur-sigma_0.5_jpeg-q70.png,0.0004,0,0,True
-real\real_01036__v1__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q70.png,0.0002,0,0,True
-real\real_01036__v2__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.0008,0,0,True
-real\real_01036__v3__resize-x0.25_blur-sigma_1_noise-sigma_0.05_jpeg-q30.png,0.0002,0,0,True
-real\real_01039__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.02.png,0.0002,0,0,True
-real\real_01039__v2__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.1_jpeg-q90.png,0.0002,0,0,True
-real\real_01039__v3__center_crop-80_resize-x0.5_color-minus20.png,0.0004,0,0,True
-real\real_01043__v1__color-plus20_blur-sigma_2_jpeg-q70.png,0.0006,0,0,True
-real\real_01043__v2__center_crop-80_blur-sigma_2_jpeg-q90.png,0.0008,0,0,True
-real\real_01043__v3__center_crop-80_blur-sigma_2_noise-sigma_0.05.png,0.001,0,0,True
-real\real_01045__v1__center_crop-80_resize-x0.5_noise-sigma_0.1.png,0.0004,0,0,True
-real\real_01045__v2__color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.1228,0,0,True
-fake\adm\adm_00005__v1__center_crop-80_color-plus20_blur-sigma_2.png,0.9999,1,1,True
-fake\adm\adm_00005__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00005__v3__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.1.png,0.9997,1,1,True
-fake\adm\adm_00013__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00013__v2__resize-x0.5_color-minus20_jpeg-q30.png,0.999,1,1,True
-fake\adm\adm_00013__v3__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q90.png,0.9554,1,1,True
-fake\adm\adm_00032__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.02.png,1.0,1,1,True
-fake\adm\adm_00032__v2__color-minus20_noise-sigma_0.02_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00032__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00034__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00034__v2__center_crop-80_noise-sigma_0.02_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00034__v3__center_crop-80_resize-x0.5_blur-sigma_1.png,1.0,1,1,True
-fake\adm\adm_00037__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00037__v2__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00037__v3__resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00039__v1__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.05.png,1.0,1,1,True
-fake\adm\adm_00039__v2__resize-x0.5_color-plus20_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00039__v3__resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00041__v1__center_crop-80_resize-x0.25_color-plus20.png,0.9999,1,1,True
-fake\adm\adm_00041__v2__center_crop-80_noise-sigma_0.02_jpeg-q30.png,0.9996,1,1,True
-fake\adm\adm_00041__v3__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00042__v1__resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9992,1,1,True
-fake\adm\adm_00042__v2__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9991,1,1,True
-fake\adm\adm_00042__v3__center_crop-80_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.9998,1,1,True
-fake\adm\adm_00049__v1__center_crop-80_resize-x0.25_color-plus20.png,0.9999,1,1,True
-fake\adm\adm_00049__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00049__v3__resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00063__v1__center_crop-80_resize-x0.5_color-minus20.png,1.0,1,1,True
-fake\adm\adm_00063__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9992,1,1,True
-fake\adm\adm_00063__v3__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00065__v1__color-minus20_blur-sigma_2_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00065__v2__blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00065__v3__center_crop-80_resize-x0.5_blur-sigma_2.png,0.9018,1,1,True
-fake\adm\adm_00076__v1__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00076__v2__resize-x0.25_color-plus20_blur-sigma_2_jpeg-q30.png,0.823,1,1,True
-fake\adm\adm_00076__v3__blur-sigma_2_noise-sigma_0.02_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00081__v1__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9917,1,1,True
-fake\adm\adm_00081__v2__center_crop-80_resize-x0.25_noise-sigma_0.1_jpeg-q70.png,0.9966,1,1,True
-fake\adm\adm_00081__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.3457,1,0,False
-fake\adm\adm_00093__v1__center_crop-80_blur-sigma_0.5_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00093__v2__resize-x0.25_noise-sigma_0.1_jpeg-q30.png,0.9987,1,1,True
-fake\adm\adm_00093__v3__resize-x0.5_color-minus20_jpeg-q70.png,0.9995,1,1,True
-fake\adm\adm_00095__v1__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.971,1,1,True
-fake\adm\adm_00095__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2.png,0.9809,1,1,True
-fake\adm\adm_00095__v3__center_crop-80_color-minus20_noise-sigma_0.1_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00102__v1__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00102__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.9938,1,1,True
-fake\adm\adm_00102__v3__center_crop-80_resize-x0.5_noise-sigma_0.1_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00105__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,1.0,1,1,True
-fake\adm\adm_00105__v2__resize-x0.5_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.9992,1,1,True
-fake\adm\adm_00105__v3__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00106__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02.png,0.4149,1,0,False
-fake\adm\adm_00106__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.7914,1,1,True
-fake\adm\adm_00106__v3__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.05.png,0.9776,1,1,True
-fake\adm\adm_00117__v1__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00117__v2__center_crop-80_color-plus20_blur-sigma_1_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00117__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00141__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9947,1,1,True
-fake\adm\adm_00141__v2__center_crop-80_resize-x0.25_jpeg-q50.png,0.9793,1,1,True
-fake\adm\adm_00141__v3__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.9995,1,1,True
-fake\adm\adm_00149__v1__center_crop-80_noise-sigma_0.02_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00149__v2__color-plus20_blur-sigma_1_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00149__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00161__v1__center_crop-80_color-minus20_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00161__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q90.png,0.5716,1,1,True
-fake\adm\adm_00161__v3__center_crop-80_color-minus20_jpeg-q50.png,0.987,1,1,True
-fake\adm\adm_00167__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00167__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00167__v3__resize-x0.25_noise-sigma_0.1_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00177__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5.png,0.9999,1,1,True
-fake\adm\adm_00177__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.1.png,0.9383,1,1,True
-fake\adm\adm_00177__v3__resize-x0.25_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.8313,1,1,True
-fake\adm\adm_00182__v1__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00182__v2__center_crop-80_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00182__v3__resize-x0.5_color-minus20_blur-sigma_2_jpeg-q50.png,0.9951,1,1,True
-fake\adm\adm_00189__v1__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.05_jpeg-q30.png,0.9622,1,1,True
-fake\adm\adm_00189__v2__center_crop-80_color-minus20_blur-sigma_0.5_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00189__v3__color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00205__v1__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00205__v2__blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00205__v3__center_crop-80_resize-x0.25_noise-sigma_0.1.png,0.9981,1,1,True
-fake\adm\adm_00207__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q50.png,0.9977,1,1,True
-fake\adm\adm_00207__v2__center_crop-80_blur-sigma_1_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00207__v3__center_crop-80_resize-x0.25_blur-sigma_2.png,0.0044,1,0,False
-fake\adm\adm_00212__v1__center_crop-80_blur-sigma_2_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00212__v2__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00212__v3__center_crop-80_noise-sigma_0.05_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00251__v1__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.7422,1,1,True
-fake\adm\adm_00251__v2__resize-x0.25_blur-sigma_1_jpeg-q30.png,0.0685,1,0,False
-fake\adm\adm_00251__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_jpeg-q90.png,0.9983,1,1,True
-fake\adm\adm_00266__v1__center_crop-80_resize-x0.5_jpeg-q70.png,0.9998,1,1,True
-fake\adm\adm_00266__v2__resize-x0.5_color-minus20_blur-sigma_2.png,0.9995,1,1,True
-fake\adm\adm_00266__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00270__v1__blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00270__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.05.png,0.999,1,1,True
-fake\adm\adm_00270__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.9998,1,1,True
-fake\adm\adm_00275__v1__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,1.0,1,1,True
-fake\adm\adm_00275__v2__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00275__v3__color-minus20_noise-sigma_0.1_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00277__v1__resize-x0.5_noise-sigma_0.1_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00277__v2__center_crop-80_resize-x0.25_color-plus20_jpeg-q90.png,0.9996,1,1,True
-fake\adm\adm_00277__v3__center_crop-80_resize-x0.25_blur-sigma_2.png,0.6939,1,1,True
-fake\adm\adm_00279__v1__resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q50.png,0.9989,1,1,True
-fake\adm\adm_00279__v2__resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.9928,1,1,True
-fake\adm\adm_00279__v3__resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00286__v1__center_crop-80_resize-x0.25_jpeg-q30.png,0.9175,1,1,True
-fake\adm\adm_00286__v2__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02.png,0.9984,1,1,True
-fake\adm\adm_00286__v3__center_crop-80_color-plus20_jpeg-q30.png,0.9977,1,1,True
-fake\adm\adm_00287__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00287__v2__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00287__v3__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.9992,1,1,True
-fake\adm\adm_00290__v1__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00290__v2__center_crop-80_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00290__v3__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00296__v1__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00296__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_2_jpeg-q70.png,0.9964,1,1,True
-fake\adm\adm_00296__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5.png,0.9999,1,1,True
-fake\adm\adm_00300__v1__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00300__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1.png,0.999,1,1,True
-fake\adm\adm_00300__v3__resize-x0.5_blur-sigma_2_noise-sigma_0.1_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00301__v1__resize-x0.5_blur-sigma_0.5_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00301__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00301__v3__center_crop-80_color-minus20_blur-sigma_2_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00311__v1__center_crop-80_resize-x0.5_noise-sigma_0.02.png,0.9994,1,1,True
-fake\adm\adm_00311__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1.png,0.9993,1,1,True
-fake\adm\adm_00311__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02.png,1.0,1,1,True
-fake\adm\adm_00313__v1__color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00313__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00313__v3__blur-sigma_2_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00314__v1__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q90.png,0.964,1,1,True
-fake\adm\adm_00314__v2__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00314__v3__center_crop-80_color-minus20_blur-sigma_2_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00316__v1__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1.png,0.9988,1,1,True
-fake\adm\adm_00316__v2__color-plus20_noise-sigma_0.02_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00316__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00317__v1__resize-x0.25_color-minus20_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00317__v2__color-plus20_noise-sigma_0.05_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00317__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.9911,1,1,True
-fake\adm\adm_00323__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00323__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.1_jpeg-q30.png,0.9935,1,1,True
-fake\adm\adm_00323__v3__resize-x0.25_color-minus20_noise-sigma_0.05_jpeg-q30.png,0.9986,1,1,True
-fake\adm\adm_00329__v1__color-plus20_noise-sigma_0.02_jpeg-q50.png,0.9998,1,1,True
-fake\adm\adm_00329__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9995,1,1,True
-fake\adm\adm_00329__v3__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.9986,1,1,True
-fake\adm\adm_00333__v1__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.9961,1,1,True
-fake\adm\adm_00333__v2__color-minus20_blur-sigma_0.5_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00333__v3__center_crop-80_color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00335__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.977,1,1,True
-fake\adm\adm_00335__v2__center_crop-80_resize-x0.25_color-plus20_jpeg-q30.png,0.3036,1,0,False
-fake\adm\adm_00335__v3__blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00339__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05.png,0.9998,1,1,True
-fake\adm\adm_00339__v2__center_crop-80_color-minus20_blur-sigma_1_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00339__v3__resize-x0.25_blur-sigma_2_noise-sigma_0.1_jpeg-q30.png,0.9973,1,1,True
-fake\adm\adm_00348__v1__color-minus20_blur-sigma_2_noise-sigma_0.1.png,0.9998,1,1,True
-fake\adm\adm_00348__v2__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q50.png,0.0765,1,0,False
-fake\adm\adm_00348__v3__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00349__v1__center_crop-80_resize-x0.5_jpeg-q70.png,0.9973,1,1,True
-fake\adm\adm_00349__v2__center_crop-80_blur-sigma_1_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00349__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9969,1,1,True
-fake\adm\adm_00362__v1__center_crop-80_resize-x0.5_blur-sigma_0.5.png,0.9997,1,1,True
-fake\adm\adm_00362__v2__resize-x0.25_color-plus20_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00362__v3__center_crop-80_blur-sigma_0.5_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00364__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1.png,0.7317,1,1,True
-fake\adm\adm_00364__v2__resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00364__v3__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.02.png,0.9955,1,1,True
-fake\adm\adm_00372__v1__center_crop-80_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00372__v2__center_crop-80_resize-x0.5_color-plus20_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00372__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2.png,0.2525,1,0,False
-fake\adm\adm_00376__v1__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q90.png,0.9986,1,1,True
-fake\adm\adm_00376__v2__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.9969,1,1,True
-fake\adm\adm_00376__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.9994,1,1,True
-fake\adm\adm_00392__v1__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00392__v2__resize-x0.5_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00392__v3__color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00407__v1__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00407__v2__resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.05.png,0.9994,1,1,True
-fake\adm\adm_00407__v3__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.1_jpeg-q50.png,0.8956,1,1,True
-fake\adm\adm_00410__v1__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.02.png,0.9995,1,1,True
-fake\adm\adm_00410__v2__center_crop-80_resize-x0.25_blur-sigma_0.5.png,0.9997,1,1,True
-fake\adm\adm_00410__v3__resize-x0.5_color-plus20_noise-sigma_0.05.png,0.9995,1,1,True
-fake\adm\adm_00411__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1.png,0.9999,1,1,True
-fake\adm\adm_00411__v2__resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00411__v3__resize-x0.5_noise-sigma_0.02_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00416__v1__center_crop-80_resize-x0.5_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00416__v2__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9109,1,1,True
-fake\adm\adm_00416__v3__center_crop-80_resize-x0.5_blur-sigma_0.5_jpeg-q30.png,0.9796,1,1,True
-fake\adm\adm_00428__v1__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.948,1,1,True
-fake\adm\adm_00428__v2__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q90.png,0.843,1,1,True
-fake\adm\adm_00428__v3__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1_jpeg-q90.png,0.9993,1,1,True
-fake\adm\adm_00432__v1__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.1_jpeg-q70.png,0.9985,1,1,True
-fake\adm\adm_00432__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q30.png,0.9978,1,1,True
-fake\adm\adm_00432__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_1_jpeg-q50.png,0.5209,1,1,True
-fake\adm\adm_00437__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.9992,1,1,True
-fake\adm\adm_00437__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.9997,1,1,True
-fake\adm\adm_00437__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_1_jpeg-q30.png,0.9291,1,1,True
-fake\adm\adm_00440__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1.png,0.9995,1,1,True
-fake\adm\adm_00440__v2__center_crop-80_resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00440__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00442__v1__center_crop-80_blur-sigma_2_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00442__v2__center_crop-80_color-minus20_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00442__v3__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.9988,1,1,True
-fake\adm\adm_00450__v1__resize-x0.5_noise-sigma_0.05_jpeg-q50.png,0.9997,1,1,True
-fake\adm\adm_00450__v2__color-plus20_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00450__v3__center_crop-80_resize-x0.25_noise-sigma_0.02_jpeg-q30.png,0.9996,1,1,True
-fake\adm\adm_00451__v1__resize-x0.25_noise-sigma_0.05_jpeg-q70.png,0.9998,1,1,True
-fake\adm\adm_00451__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00451__v3__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00452__v1__center_crop-80_blur-sigma_0.5_noise-sigma_0.05.png,1.0,1,1,True
-fake\adm\adm_00452__v2__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9996,1,1,True
-fake\adm\adm_00452__v3__center_crop-80_color-minus20_blur-sigma_2.png,0.9999,1,1,True
-fake\adm\adm_00458__v1__blur-sigma_1_noise-sigma_0.1_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00458__v2__center_crop-80_color-minus20_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00458__v3__blur-sigma_2_noise-sigma_0.1_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00487__v1__resize-x0.25_color-minus20_noise-sigma_0.02_jpeg-q50.png,0.9936,1,1,True
-fake\adm\adm_00487__v2__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.2568,1,0,False
-fake\adm\adm_00487__v3__resize-x0.25_color-minus20_blur-sigma_1_jpeg-q70.png,0.0111,1,0,False
-fake\adm\adm_00490__v1__center_crop-80_resize-x0.25_color-minus20_jpeg-q50.png,0.41,1,0,False
-fake\adm\adm_00490__v2__resize-x0.5_color-minus20_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00490__v3__center_crop-80_resize-x0.25_color-plus20_jpeg-q30.png,0.0067,1,0,False
-fake\adm\adm_00491__v1__resize-x0.25_blur-sigma_2_noise-sigma_0.1.png,0.9942,1,1,True
-fake\adm\adm_00491__v2__resize-x0.5_blur-sigma_0.5_noise-sigma_0.05.png,0.9991,1,1,True
-fake\adm\adm_00491__v3__blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00499__v1__color-plus20_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00499__v2__center_crop-80_noise-sigma_0.05_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00499__v3__color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00500__v1__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9996,1,1,True
-fake\adm\adm_00500__v2__center_crop-80_blur-sigma_1_jpeg-q90.png,0.9996,1,1,True
-fake\adm\adm_00500__v3__resize-x0.5_color-plus20_noise-sigma_0.05.png,0.9997,1,1,True
-fake\adm\adm_00507__v1__resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00507__v2__resize-x0.25_noise-sigma_0.1_jpeg-q30.png,0.9997,1,1,True
-fake\adm\adm_00507__v3__resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00523__v1__resize-x0.25_noise-sigma_0.02_jpeg-q30.png,0.9936,1,1,True
-fake\adm\adm_00523__v2__center_crop-80_color-plus20_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00523__v3__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.9987,1,1,True
-fake\adm\adm_00525__v1__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5.png,0.9932,1,1,True
-fake\adm\adm_00525__v2__center_crop-80_resize-x0.5_color-minus20_jpeg-q90.png,0.9926,1,1,True
-fake\adm\adm_00525__v3__center_crop-80_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9994,1,1,True
-fake\adm\adm_00528__v1__center_crop-80_color-minus20_blur-sigma_1_jpeg-q30.png,0.9863,1,1,True
-fake\adm\adm_00528__v2__center_crop-80_resize-x0.25_color-plus20.png,0.6108,1,1,True
-fake\adm\adm_00528__v3__center_crop-80_blur-sigma_1_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00533__v1__center_crop-80_blur-sigma_0.5_noise-sigma_0.1.png,0.8251,1,1,True
-fake\adm\adm_00533__v2__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.9778,1,1,True
-fake\adm\adm_00533__v3__center_crop-80_resize-x0.25_blur-sigma_0.5.png,0.989,1,1,True
-fake\adm\adm_00534__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9994,1,1,True
-fake\adm\adm_00534__v2__color-minus20_blur-sigma_2_noise-sigma_0.02.png,0.9993,1,1,True
-fake\adm\adm_00534__v3__resize-x0.25_color-minus20_jpeg-q70.png,0.998,1,1,True
-fake\adm\adm_00535__v1__color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.9912,1,1,True
-fake\adm\adm_00535__v2__center_crop-80_noise-sigma_0.1_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00535__v3__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q30.png,0.9084,1,1,True
-fake\adm\adm_00543__v1__resize-x0.25_noise-sigma_0.02_jpeg-q70.png,0.9996,1,1,True
-fake\adm\adm_00543__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02_jpeg-q90.png,0.9968,1,1,True
-fake\adm\adm_00543__v3__resize-x0.5_blur-sigma_0.5_jpeg-q30.png,0.999,1,1,True
-fake\adm\adm_00555__v1__color-plus20_blur-sigma_0.5_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00555__v2__center_crop-80_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00555__v3__center_crop-80_resize-x0.5_noise-sigma_0.02_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00560__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q70.png,0.9989,1,1,True
-fake\adm\adm_00560__v2__resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.9986,1,1,True
-fake\adm\adm_00560__v3__center_crop-80_resize-x0.25_color-minus20_jpeg-q70.png,0.4506,1,0,False
-fake\adm\adm_00564__v1__center_crop-80_resize-x0.25_color-minus20.png,0.7849,1,1,True
-fake\adm\adm_00564__v2__center_crop-80_resize-x0.5_color-minus20.png,0.9994,1,1,True
-fake\adm\adm_00564__v3__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.9995,1,1,True
-fake\adm\adm_00566__v1__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q70.png,0.994,1,1,True
-fake\adm\adm_00566__v2__resize-x0.5_color-plus20_blur-sigma_1.png,1.0,1,1,True
-fake\adm\adm_00566__v3__center_crop-80_blur-sigma_2_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00617__v1__resize-x0.5_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.9839,1,1,True
-fake\adm\adm_00617__v2__center_crop-80_color-minus20_blur-sigma_0.5.png,1.0,1,1,True
-fake\adm\adm_00617__v3__color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00621__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1_jpeg-q50.png,0.2469,1,0,False
-fake\adm\adm_00621__v2__resize-x0.25_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9995,1,1,True
-fake\adm\adm_00621__v3__resize-x0.5_color-plus20_noise-sigma_0.1_jpeg-q90.png,0.9693,1,1,True
-fake\adm\adm_00622__v1__resize-x0.25_blur-sigma_0.5_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00622__v2__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.05.png,0.9977,1,1,True
-fake\adm\adm_00622__v3__resize-x0.5_color-minus20_noise-sigma_0.02.png,0.9888,1,1,True
-fake\adm\adm_00628__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.999,1,1,True
-fake\adm\adm_00628__v2__center_crop-80_color-plus20_blur-sigma_1.png,0.9998,1,1,True
-fake\adm\adm_00628__v3__color-minus20_noise-sigma_0.05_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00633__v1__resize-x0.25_color-plus20_noise-sigma_0.1.png,0.9995,1,1,True
-fake\adm\adm_00633__v2__center_crop-80_resize-x0.5_color-minus20.png,0.9996,1,1,True
-fake\adm\adm_00633__v3__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.9728,1,1,True
-fake\adm\adm_00641__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.9972,1,1,True
-fake\adm\adm_00641__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00641__v3__center_crop-80_resize-x0.5_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00642__v1__color-minus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00642__v2__resize-x0.25_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00642__v3__resize-x0.5_blur-sigma_0.5_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00654__v1__center_crop-80_resize-x0.25_jpeg-q90.png,0.9963,1,1,True
-fake\adm\adm_00654__v2__center_crop-80_color-plus20_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00654__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q70.png,0.9996,1,1,True
-fake\adm\adm_00665__v1__resize-x0.5_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q50.png,0.7493,1,1,True
-fake\adm\adm_00665__v2__center_crop-80_resize-x0.25_blur-sigma_2_jpeg-q90.png,0.6985,1,1,True
-fake\adm\adm_00665__v3__resize-x0.5_color-minus20_blur-sigma_2.png,0.9589,1,1,True
-fake\adm\adm_00667__v1__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q70.png,0.9987,1,1,True
-fake\adm\adm_00667__v2__resize-x0.5_color-plus20_noise-sigma_0.02.png,0.9682,1,1,True
-fake\adm\adm_00667__v3__center_crop-80_resize-x0.25_noise-sigma_0.1_jpeg-q70.png,0.9995,1,1,True
-fake\adm\adm_00669__v1__center_crop-80_blur-sigma_0.5_jpeg-q50.png,0.9669,1,1,True
-fake\adm\adm_00669__v2__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9963,1,1,True
-fake\adm\adm_00669__v3__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q70.png,0.4248,1,0,False
-fake\adm\adm_00672__v1__center_crop-80_color-plus20_blur-sigma_1.png,0.9473,1,1,True
-fake\adm\adm_00672__v2__resize-x0.25_blur-sigma_1_noise-sigma_0.05.png,0.9946,1,1,True
-fake\adm\adm_00672__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.9977,1,1,True
-fake\adm\adm_00675__v1__resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q50.png,0.999,1,1,True
-fake\adm\adm_00675__v2__resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q70.png,0.9997,1,1,True
-fake\adm\adm_00675__v3__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q70.png,0.9993,1,1,True
-fake\adm\adm_00687__v1__center_crop-80_color-minus20_noise-sigma_0.05_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00687__v2__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00687__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00689__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9995,1,1,True
-fake\adm\adm_00689__v2__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.1.png,0.9996,1,1,True
-fake\adm\adm_00689__v3__center_crop-80_resize-x0.25_color-plus20_jpeg-q70.png,0.9953,1,1,True
-fake\adm\adm_00706__v1__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.02_jpeg-q50.png,0.9989,1,1,True
-fake\adm\adm_00706__v2__resize-x0.5_color-minus20_noise-sigma_0.05.png,0.9453,1,1,True
-fake\adm\adm_00706__v3__resize-x0.25_color-plus20_blur-sigma_2.png,0.0045,1,0,False
-fake\adm\adm_00718__v1__center_crop-80_resize-x0.25_noise-sigma_0.05_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00718__v2__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q30.png,0.9186,1,1,True
-fake\adm\adm_00718__v3__center_crop-80_resize-x0.5_blur-sigma_1_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00721__v1__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.1.png,0.9994,1,1,True
-fake\adm\adm_00721__v2__center_crop-80_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.9997,1,1,True
-fake\adm\adm_00721__v3__center_crop-80_color-minus20_blur-sigma_0.5.png,0.9999,1,1,True
-fake\adm\adm_00727__v1__color-minus20_noise-sigma_0.05_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00727__v2__center_crop-80_color-plus20_blur-sigma_0.5_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00727__v3__color-minus20_blur-sigma_1_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00730__v1__center_crop-80_resize-x0.5_color-minus20_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00730__v2__center_crop-80_color-plus20_noise-sigma_0.05_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00730__v3__center_crop-80_noise-sigma_0.05_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00732__v1__center_crop-80_resize-x0.25_color-plus20_jpeg-q30.png,0.9975,1,1,True
-fake\adm\adm_00732__v2__resize-x0.5_blur-sigma_1_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_00732__v3__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,1.0,1,1,True
-fake\adm\adm_00735__v1__blur-sigma_0.5_noise-sigma_0.05_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00735__v2__center_crop-80_color-plus20_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_00735__v3__center_crop-80_resize-x0.5_blur-sigma_2_noise-sigma_0.1_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00749__v1__resize-x0.25_color-minus20_noise-sigma_0.05_jpeg-q50.png,0.9996,1,1,True
-fake\adm\adm_00749__v2__resize-x0.5_blur-sigma_2_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00749__v3__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.1_jpeg-q50.png,0.999,1,1,True
-fake\adm\adm_00752__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9985,1,1,True
-fake\adm\adm_00752__v2__center_crop-80_resize-x0.5_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00752__v3__resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00760__v1__color-plus20_noise-sigma_0.1_jpeg-q30.png,0.9997,1,1,True
-fake\adm\adm_00760__v2__resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q70.png,0.999,1,1,True
-fake\adm\adm_00760__v3__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.02.png,0.8849,1,1,True
-fake\adm\adm_00763__v1__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00763__v2__color-plus20_blur-sigma_2_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00763__v3__center_crop-80_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00769__v1__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q70.png,0.0121,1,0,False
-fake\adm\adm_00769__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.9631,1,1,True
-fake\adm\adm_00769__v3__color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00779__v1__center_crop-80_color-minus20_blur-sigma_1_jpeg-q90.png,0.9976,1,1,True
-fake\adm\adm_00779__v2__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.02_jpeg-q30.png,0.2265,1,0,False
-fake\adm\adm_00779__v3__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.1_jpeg-q30.png,0.9951,1,1,True
-fake\adm\adm_00788__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.02_jpeg-q90.png,0.9996,1,1,True
-fake\adm\adm_00788__v2__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_00788__v3__center_crop-80_resize-x0.25_color-minus20.png,0.9993,1,1,True
-fake\adm\adm_00799__v1__resize-x0.25_color-minus20_blur-sigma_2_noise-sigma_0.05_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00799__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00799__v3__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00809__v1__center_crop-80_resize-x0.25_blur-sigma_0.5.png,0.9999,1,1,True
-fake\adm\adm_00809__v2__center_crop-80_blur-sigma_0.5_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00809__v3__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00820__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q90.png,0.9908,1,1,True
-fake\adm\adm_00820__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05_jpeg-q70.png,0.9569,1,1,True
-fake\adm\adm_00820__v3__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.9994,1,1,True
-fake\adm\adm_00821__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_jpeg-q70.png,0.0224,1,0,False
-fake\adm\adm_00821__v2__center_crop-80_resize-x0.5_jpeg-q90.png,0.971,1,1,True
-fake\adm\adm_00821__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5.png,0.9997,1,1,True
-fake\adm\adm_00828__v1__center_crop-80_color-plus20_blur-sigma_2_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00828__v2__center_crop-80_color-minus20_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00828__v3__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.02_jpeg-q90.png,0.9904,1,1,True
-fake\adm\adm_00840__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q70.png,0.9998,1,1,True
-fake\adm\adm_00840__v2__resize-x0.25_color-plus20_blur-sigma_0.5_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00840__v3__center_crop-80_resize-x0.5_blur-sigma_0.5.png,0.9997,1,1,True
-fake\adm\adm_00844__v1__center_crop-80_resize-x0.25_blur-sigma_1_jpeg-q30.png,0.0352,1,0,False
-fake\adm\adm_00844__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.02.png,0.9974,1,1,True
-fake\adm\adm_00844__v3__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00846__v1__center_crop-80_color-minus20_noise-sigma_0.02_jpeg-q30.png,0.9996,1,1,True
-fake\adm\adm_00846__v2__resize-x0.25_blur-sigma_1_jpeg-q70.png,0.9983,1,1,True
-fake\adm\adm_00846__v3__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.1_jpeg-q90.png,0.9915,1,1,True
-fake\adm\adm_00851__v1__resize-x0.25_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00851__v2__center_crop-80_color-plus20_noise-sigma_0.05.png,1.0,1,1,True
-fake\adm\adm_00851__v3__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00861__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_00861__v2__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.1_jpeg-q30.png,0.9998,1,1,True
-fake\adm\adm_00861__v3__resize-x0.25_color-minus20_blur-sigma_1.png,0.992,1,1,True
-fake\adm\adm_00862__v1__center_crop-80_color-minus20_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00862__v2__resize-x0.25_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.9991,1,1,True
-fake\adm\adm_00862__v3__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00873__v1__color-minus20_blur-sigma_1_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00873__v2__center_crop-80_resize-x0.5_noise-sigma_0.05_jpeg-q50.png,0.9996,1,1,True
-fake\adm\adm_00873__v3__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q90.png,0.9988,1,1,True
-fake\adm\adm_00878__v1__resize-x0.5_color-minus20_noise-sigma_0.05.png,0.5324,1,1,True
-fake\adm\adm_00878__v2__center_crop-80_color-plus20_noise-sigma_0.1_jpeg-q90.png,0.5138,1,1,True
-fake\adm\adm_00878__v3__color-plus20_noise-sigma_0.02_jpeg-q90.png,0.9997,1,1,True
-fake\adm\adm_00888__v1__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9998,1,1,True
-fake\adm\adm_00888__v2__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.05_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00888__v3__resize-x0.5_color-minus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00893__v1__center_crop-80_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00893__v2__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,0.9981,1,1,True
-fake\adm\adm_00893__v3__center_crop-80_resize-x0.25_color-minus20.png,0.9999,1,1,True
-fake\adm\adm_00894__v1__center_crop-80_color-minus20_blur-sigma_1.png,0.999,1,1,True
-fake\adm\adm_00894__v2__center_crop-80_blur-sigma_2_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_00894__v3__center_crop-80_resize-x0.25_jpeg-q50.png,0.9996,1,1,True
-fake\adm\adm_00908__v1__resize-x0.5_blur-sigma_1_noise-sigma_0.1_jpeg-q30.png,0.9987,1,1,True
-fake\adm\adm_00908__v2__center_crop-80_color-minus20_blur-sigma_2_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00908__v3__resize-x0.25_color-plus20_blur-sigma_1_noise-sigma_0.1.png,0.9858,1,1,True
-fake\adm\adm_00910__v1__center_crop-80_color-plus20_blur-sigma_0.5_noise-sigma_0.1_jpeg-q90.png,1.0,1,1,True
-fake\adm\adm_00910__v2__center_crop-80_resize-x0.25_jpeg-q50.png,0.9999,1,1,True
-fake\adm\adm_00910__v3__center_crop-80_blur-sigma_1_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00919__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00919__v2__color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00919__v3__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00949__v1__color-minus20_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_00949__v2__center_crop-80_noise-sigma_0.1_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00949__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q50.png,0.5854,1,1,True
-fake\adm\adm_00951__v1__color-plus20_blur-sigma_2_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_00951__v2__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05.png,0.2401,1,0,False
-fake\adm\adm_00951__v3__center_crop-80_resize-x0.25_blur-sigma_2_noise-sigma_0.05.png,0.7319,1,1,True
-fake\adm\adm_00961__v1__resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.992,1,1,True
-fake\adm\adm_00961__v2__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00961__v3__center_crop-80_color-plus20_noise-sigma_0.02_jpeg-q50.png,0.9998,1,1,True
-fake\adm\adm_00973__v1__center_crop-80_noise-sigma_0.05_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_00973__v2__center_crop-80_resize-x0.25_color-plus20.png,0.9941,1,1,True
-fake\adm\adm_00973__v3__center_crop-80_resize-x0.5_color-minus20.png,0.9994,1,1,True
-fake\adm\adm_00977__v1__center_crop-80_resize-x0.25_color-plus20_jpeg-q90.png,0.973,1,1,True
-fake\adm\adm_00977__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_jpeg-q50.png,0.9813,1,1,True
-fake\adm\adm_00977__v3__center_crop-80_resize-x0.25_color-minus20_jpeg-q50.png,0.8318,1,1,True
-fake\adm\adm_00978__v1__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9993,1,1,True
-fake\adm\adm_00978__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9996,1,1,True
-fake\adm\adm_00978__v3__color-plus20_blur-sigma_0.5_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00979__v1__resize-x0.25_color-minus20_blur-sigma_0.5_noise-sigma_0.1.png,0.8995,1,1,True
-fake\adm\adm_00979__v2__color-plus20_noise-sigma_0.1_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_00979__v3__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,0.9998,1,1,True
-fake\adm\adm_00986__v1__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.05_jpeg-q50.png,0.8999,1,1,True
-fake\adm\adm_00986__v2__resize-x0.25_color-minus20_blur-sigma_1_noise-sigma_0.02_jpeg-q70.png,0.0192,1,0,False
-fake\adm\adm_00986__v3__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q90.png,0.9991,1,1,True
-fake\adm\adm_00995__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_2_jpeg-q50.png,0.7298,1,1,True
-fake\adm\adm_00995__v2__resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q90.png,0.9902,1,1,True
-fake\adm\adm_00995__v3__center_crop-80_blur-sigma_1_jpeg-q50.png,0.9983,1,1,True
-fake\adm\adm_00998__v1__center_crop-80_color-minus20_blur-sigma_0.5_noise-sigma_0.02.png,0.9999,1,1,True
-fake\adm\adm_00998__v2__center_crop-80_resize-x0.25_color-minus20.png,0.9999,1,1,True
-fake\adm\adm_00998__v3__center_crop-80_color-minus20_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_01007__v1__color-plus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_01007__v2__center_crop-80_resize-x0.25_blur-sigma_0.5_noise-sigma_0.1_jpeg-q30.png,0.7628,1,1,True
-fake\adm\adm_01007__v3__center_crop-80_blur-sigma_2_noise-sigma_0.1.png,1.0,1,1,True
-fake\adm\adm_01008__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9992,1,1,True
-fake\adm\adm_01008__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_01008__v3__resize-x0.5_noise-sigma_0.1_jpeg-q70.png,0.9999,1,1,True
-fake\adm\adm_01013__v1__center_crop-80_resize-x0.5_color-plus20_noise-sigma_0.05_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_01013__v2__center_crop-80_color-minus20_blur-sigma_2_noise-sigma_0.02_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_01013__v3__center_crop-80_resize-x0.5_blur-sigma_0.5.png,1.0,1,1,True
-fake\adm\adm_01018__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.02.png,0.9987,1,1,True
-fake\adm\adm_01018__v2__center_crop-80_blur-sigma_0.5_jpeg-q30.png,0.9997,1,1,True
-fake\adm\adm_01018__v3__resize-x0.25_color-minus20_blur-sigma_0.5_jpeg-q70.png,0.9998,1,1,True
-fake\adm\adm_01022__v1__center_crop-80_resize-x0.5_color-plus20_blur-sigma_0.5_noise-sigma_0.05.png,0.9983,1,1,True
-fake\adm\adm_01022__v2__center_crop-80_resize-x0.25_color-plus20_noise-sigma_0.05.png,0.8264,1,1,True
-fake\adm\adm_01022__v3__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2.png,0.5378,1,1,True
-fake\adm\adm_01025__v1__center_crop-80_resize-x0.25_color-minus20_jpeg-q90.png,0.9985,1,1,True
-fake\adm\adm_01025__v2__color-minus20_noise-sigma_0.1_jpeg-q70.png,1.0,1,1,True
-fake\adm\adm_01025__v3__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_01028__v1__resize-x0.5_blur-sigma_1_jpeg-q30.png,0.9997,1,1,True
-fake\adm\adm_01028__v2__center_crop-80_color-minus20_blur-sigma_1_noise-sigma_0.1.png,0.9998,1,1,True
-fake\adm\adm_01028__v3__resize-x0.25_color-minus20_noise-sigma_0.1_jpeg-q70.png,0.999,1,1,True
-fake\adm\adm_01034__v1__resize-x0.25_color-minus20_blur-sigma_1_jpeg-q90.png,0.9995,1,1,True
-fake\adm\adm_01034__v2__center_crop-80_color-plus20_blur-sigma_1_noise-sigma_0.05_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_01034__v3__center_crop-80_blur-sigma_1_jpeg-q30.png,0.9998,1,1,True
-fake\adm\adm_01037__v1__center_crop-80_blur-sigma_0.5_noise-sigma_0.02_jpeg-q50.png,0.9987,1,1,True
-fake\adm\adm_01037__v2__resize-x0.25_color-plus20_jpeg-q90.png,0.9998,1,1,True
-fake\adm\adm_01037__v3__resize-x0.5_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9976,1,1,True
-fake\adm\adm_01039__v1__center_crop-80_color-plus20_blur-sigma_0.5.png,0.9994,1,1,True
-fake\adm\adm_01039__v2__center_crop-80_resize-x0.5_blur-sigma_2_jpeg-q50.png,0.9275,1,1,True
-fake\adm\adm_01039__v3__center_crop-80_noise-sigma_0.05_jpeg-q70.png,0.9994,1,1,True
-fake\adm\adm_01042__v1__center_crop-80_blur-sigma_2_noise-sigma_0.02_jpeg-q90.png,0.9999,1,1,True
-fake\adm\adm_01042__v2__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.05.png,0.9992,1,1,True
-fake\adm\adm_01042__v3__center_crop-80_color-plus20_noise-sigma_0.1.png,0.9999,1,1,True
-fake\adm\adm_01056__v1__center_crop-80_resize-x0.25_color-minus20_blur-sigma_0.5.png,0.9824,1,1,True
-fake\adm\adm_01056__v2__resize-x0.5_color-minus20_jpeg-q30.png,0.9908,1,1,True
-fake\adm\adm_01056__v3__resize-x0.5_color-plus20_blur-sigma_0.5.png,0.9459,1,1,True
-fake\adm\adm_01058__v1__color-minus20_blur-sigma_0.5_noise-sigma_0.05_jpeg-q50.png,0.8862,1,1,True
-fake\adm\adm_01058__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_2_jpeg-q50.png,0.8586,1,1,True
-fake\adm\adm_01058__v3__center_crop-80_blur-sigma_1_noise-sigma_0.1.png,0.9998,1,1,True
-fake\adm\adm_01076__v1__center_crop-80_resize-x0.25_blur-sigma_1_noise-sigma_0.05.png,0.9921,1,1,True
-fake\adm\adm_01076__v2__center_crop-80_resize-x0.5_color-minus20_blur-sigma_0.5_jpeg-q30.png,0.9854,1,1,True
-fake\adm\adm_01076__v3__resize-x0.5_blur-sigma_0.5_jpeg-q30.png,0.9639,1,1,True
-fake\adm\adm_01081__v1__center_crop-80_color-minus20_blur-sigma_2_jpeg-q90.png,0.9994,1,1,True
-fake\adm\adm_01081__v2__resize-x0.5_color-minus20_blur-sigma_0.5.png,0.9516,1,1,True
-fake\adm\adm_01081__v3__resize-x0.25_color-plus20_noise-sigma_0.02.png,0.9974,1,1,True
-fake\adm\adm_01087__v1__center_crop-80_blur-sigma_0.5_jpeg-q50.png,0.9997,1,1,True
-fake\adm\adm_01087__v2__center_crop-80_resize-x0.25_noise-sigma_0.1_jpeg-q30.png,0.9485,1,1,True
-fake\adm\adm_01087__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_1_jpeg-q30.png,0.677,1,1,True
-fake\adm\adm_01093__v1__center_crop-80_color-minus20_blur-sigma_1.png,0.9998,1,1,True
-fake\adm\adm_01093__v2__center_crop-80_color-plus20_blur-sigma_2_noise-sigma_0.05_jpeg-q30.png,0.9996,1,1,True
-fake\adm\adm_01093__v3__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5.png,0.9999,1,1,True
-fake\adm\adm_01094__v1__center_crop-80_color-minus20_blur-sigma_0.5_noise-sigma_0.02_jpeg-q30.png,0.9999,1,1,True
-fake\adm\adm_01094__v2__center_crop-80_resize-x0.5_color-minus20_noise-sigma_0.05.png,0.9999,1,1,True
-fake\adm\adm_01094__v3__resize-x0.5_color-minus20_jpeg-q50.png,1.0,1,1,True
-fake\adm\adm_01100__v1__center_crop-80_resize-x0.5_color-minus20.png,0.0605,1,0,False
-fake\adm\adm_01100__v2__center_crop-80_resize-x0.25_color-plus20_blur-sigma_0.5_noise-sigma_0.1.png,0.9991,1,1,True
-fake\adm\adm_01100__v3__resize-x0.5_noise-sigma_0.02_jpeg-q70.png,0.8202,1,1,True
-fake\adm\adm_01102__v1__resize-x0.5_blur-sigma_0.5_jpeg-q30.png,0.9998,1,1,True
-fake\adm\adm_01102__v2__center_crop-80_resize-x0.5_color-plus20_blur-sigma_2_noise-sigma_0.02.png,0.9996,1,1,True
-fake\adm\adm_01102__v3__resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.02_jpeg-q90.png,0.9996,1,1,True
-fake\adm\adm_01111__v1__center_crop-80_resize-x0.5_blur-sigma_0.5_noise-sigma_0.1_jpeg-q50.png,0.9989,1,1,True
-fake\adm\adm_01111__v2__resize-x0.5_color-plus20_blur-sigma_1_noise-sigma_0.1_jpeg-q90.png,0.718,1,1,True
+REAL/0000 (10).jpg,0.0066,0,0,True
+REAL/0000 (2).jpg,0.0022,0,0,True
+REAL/0000 (3).jpg,0.0022,0,0,True
+REAL/0000 (4).jpg,0.09,0,0,True
+REAL/0000 (5).jpg,0.0056,0,0,True
+REAL/0000 (6).jpg,0.0052,0,0,True
+REAL/0000 (7).jpg,0.0001,0,0,True
+REAL/0000 (8).jpg,0.0144,0,0,True
+REAL/0000 (9).jpg,0.0027,0,0,True
+REAL/0000.jpg,0.0009,0,0,True
+REAL/0001 (10).jpg,0.004,0,0,True
+REAL/0001 (2).jpg,0.0002,0,0,True
+REAL/0001 (3).jpg,0.928,0,1,False
+REAL/0001 (4).jpg,0.0003,0,0,True
+REAL/0001 (5).jpg,0.1754,0,0,True
+REAL/0001 (6).jpg,0.0282,0,0,True
+REAL/0001 (7).jpg,0.0066,0,0,True
+REAL/0001 (8).jpg,0.0006,0,0,True
+REAL/0001 (9).jpg,0.0014,0,0,True
+REAL/0001.jpg,0.0007,0,0,True
+REAL/0002 (10).jpg,0.0032,0,0,True
+REAL/0002 (2).jpg,0.0004,0,0,True
+REAL/0002 (3).jpg,0.0005,0,0,True
+REAL/0002 (4).jpg,0.0002,0,0,True
+REAL/0002 (5).jpg,0.0045,0,0,True
+REAL/0002 (6).jpg,0.0234,0,0,True
+REAL/0002 (7).jpg,0.002,0,0,True
+REAL/0002 (8).jpg,0.001,0,0,True
+REAL/0002 (9).jpg,0.001,0,0,True
+REAL/0002.jpg,0.0005,0,0,True
+REAL/0003 (10).jpg,0.0007,0,0,True
+REAL/0003 (2).jpg,0.0022,0,0,True
+REAL/0003 (3).jpg,0.0009,0,0,True
+REAL/0003 (4).jpg,0.0003,0,0,True
+REAL/0003 (5).jpg,0.0015,0,0,True
+REAL/0003 (6).jpg,0.014,0,0,True
+REAL/0003 (7).jpg,0.0004,0,0,True
+REAL/0003 (8).jpg,0.0004,0,0,True
+REAL/0003 (9).jpg,0.0029,0,0,True
+REAL/0003.jpg,0.0005,0,0,True
+REAL/0004 (10).jpg,0.0147,0,0,True
+REAL/0004 (2).jpg,0.0191,0,0,True
+REAL/0004 (3).jpg,0.0052,0,0,True
+REAL/0004 (4).jpg,0.0275,0,0,True
+REAL/0004 (5).jpg,0.0279,0,0,True
+REAL/0004 (6).jpg,0.0003,0,0,True
+REAL/0004 (7).jpg,0.0017,0,0,True
+REAL/0004 (8).jpg,0.0087,0,0,True
+REAL/0004 (9).jpg,0.0253,0,0,True
+REAL/0004.jpg,0.4765,0,0,True
+REAL/0005 (10).jpg,0.0018,0,0,True
+REAL/0005 (2).jpg,0.0002,0,0,True
+REAL/0005 (3).jpg,0.7736,0,1,False
+REAL/0005 (4).jpg,0.9322,0,1,False
+REAL/0005 (5).jpg,0.0003,0,0,True
+REAL/0005 (6).jpg,0.0006,0,0,True
+REAL/0005 (7).jpg,0.0003,0,0,True
+REAL/0005 (8).jpg,0.0036,0,0,True
+REAL/0005 (9).jpg,0.0145,0,0,True
+REAL/0005.jpg,0.0003,0,0,True
+REAL/0006 (10).jpg,0.0004,0,0,True
+REAL/0006 (2).jpg,0.0033,0,0,True
+REAL/0006 (3).jpg,0.0004,0,0,True
+REAL/0006 (4).jpg,0.5074,0,1,False
+REAL/0006 (5).jpg,0.0146,0,0,True
+REAL/0006 (6).jpg,0.0044,0,0,True
+REAL/0006 (7).jpg,0.0007,0,0,True
+REAL/0006 (8).jpg,0.0045,0,0,True
+REAL/0006 (9).jpg,0.0095,0,0,True
+REAL/0006.jpg,0.1865,0,0,True
+REAL/0007 (10).jpg,0.0012,0,0,True
+REAL/0007 (2).jpg,0.0002,0,0,True
+REAL/0007 (3).jpg,0.0316,0,0,True
+REAL/0007 (4).jpg,0.0019,0,0,True
+REAL/0007 (5).jpg,0.0018,0,0,True
+REAL/0007 (6).jpg,0.0006,0,0,True
+REAL/0007 (7).jpg,0.0003,0,0,True
+REAL/0007 (8).jpg,0.0001,0,0,True
+REAL/0007 (9).jpg,0.1986,0,0,True
+REAL/0007.jpg,0.9694,0,1,False
+REAL/0008 (10).jpg,0.0039,0,0,True
+REAL/0008 (2).jpg,0.0002,0,0,True
+REAL/0008 (3).jpg,0.3228,0,0,True
+REAL/0008 (4).jpg,0.0011,0,0,True
+REAL/0008 (5).jpg,0.0009,0,0,True
+REAL/0008 (6).jpg,0.0006,0,0,True
+REAL/0008 (7).jpg,0.0003,0,0,True
+REAL/0008 (8).jpg,0.008,0,0,True
+REAL/0008 (9).jpg,0.2423,0,0,True
+REAL/0008.jpg,0.1375,0,0,True
+REAL/0009 (10).jpg,0.2611,0,0,True
+REAL/0009 (2).jpg,0.0002,0,0,True
+REAL/0009 (3).jpg,0.0005,0,0,True
+REAL/0009 (4).jpg,0.0019,0,0,True
+REAL/0009 (5).jpg,0.0003,0,0,True
+REAL/0009 (6).jpg,0.0026,0,0,True
+REAL/0009 (7).jpg,0.0001,0,0,True
+REAL/0009 (8).jpg,0.0606,0,0,True
+REAL/0009 (9).jpg,0.0018,0,0,True
+REAL/0009.jpg,0.0001,0,0,True
+REAL/0010 (10).jpg,0.0002,0,0,True
+REAL/0010 (2).jpg,0.0003,0,0,True
+REAL/0010 (3).jpg,0.0002,0,0,True
+REAL/0010 (4).jpg,0.0033,0,0,True
+REAL/0010 (5).jpg,0.003,0,0,True
+REAL/0010 (6).jpg,0.0001,0,0,True
+REAL/0010 (7).jpg,0.1362,0,0,True
+REAL/0010 (8).jpg,0.003,0,0,True
+REAL/0010 (9).jpg,0.001,0,0,True
+REAL/0010.jpg,0.0096,0,0,True
+REAL/0011 (10).jpg,0.0034,0,0,True
+REAL/0011 (2).jpg,0.0001,0,0,True
+REAL/0011 (3).jpg,0.002,0,0,True
+REAL/0011 (4).jpg,0.0027,0,0,True
+REAL/0011 (5).jpg,0.0039,0,0,True
+REAL/0011 (6).jpg,0.0176,0,0,True
+REAL/0011 (7).jpg,0.0007,0,0,True
+REAL/0011 (8).jpg,0.0682,0,0,True
+REAL/0011 (9).jpg,0.0102,0,0,True
+REAL/0011.jpg,0.1425,0,0,True
+REAL/0012 (10).jpg,0.0006,0,0,True
+REAL/0012 (2).jpg,0.0005,0,0,True
+REAL/0012 (3).jpg,0.0014,0,0,True
+REAL/0012 (4).jpg,0.0011,0,0,True
+REAL/0012 (5).jpg,0.0009,0,0,True
+REAL/0012 (6).jpg,0.0006,0,0,True
+REAL/0012 (7).jpg,0.0004,0,0,True
+REAL/0012 (8).jpg,0.0134,0,0,True
+REAL/0012 (9).jpg,0.0017,0,0,True
+REAL/0012.jpg,0.0539,0,0,True
+REAL/0013 (10).jpg,0.9612,0,1,False
+REAL/0013 (2).jpg,0.027,0,0,True
+REAL/0013 (3).jpg,0.0028,0,0,True
+REAL/0013 (4).jpg,0.3065,0,0,True
+REAL/0013 (5).jpg,0.05,0,0,True
+REAL/0013 (6).jpg,0.0002,0,0,True
+REAL/0013 (7).jpg,0.0003,0,0,True
+REAL/0013 (8).jpg,0.0013,0,0,True
+REAL/0013 (9).jpg,0.0008,0,0,True
+REAL/0013.jpg,0.1196,0,0,True
+REAL/0014 (10).jpg,0.0318,0,0,True
+REAL/0014 (2).jpg,0.0006,0,0,True
+REAL/0014 (3).jpg,0.0006,0,0,True
+REAL/0014 (4).jpg,0.0052,0,0,True
+REAL/0014 (5).jpg,0.0001,0,0,True
+REAL/0014 (6).jpg,0.0002,0,0,True
+REAL/0014 (7).jpg,0.0006,0,0,True
+REAL/0014 (8).jpg,0.0004,0,0,True
+REAL/0014 (9).jpg,0.0777,0,0,True
+REAL/0014.jpg,0.0005,0,0,True
+REAL/0015 (10).jpg,0.0131,0,0,True
+REAL/0015 (2).jpg,0.0004,0,0,True
+REAL/0015 (3).jpg,0.0051,0,0,True
+REAL/0015 (4).jpg,0.0005,0,0,True
+REAL/0015 (5).jpg,0.0083,0,0,True
+REAL/0015 (6).jpg,0.064,0,0,True
+REAL/0015 (7).jpg,0.0017,0,0,True
+REAL/0015 (8).jpg,0.0004,0,0,True
+REAL/0015 (9).jpg,0.0029,0,0,True
+REAL/0015.jpg,0.0311,0,0,True
+REAL/0016 (10).jpg,0.0007,0,0,True
+REAL/0016 (2).jpg,0.0001,0,0,True
+REAL/0016 (3).jpg,0.0013,0,0,True
+REAL/0016 (4).jpg,0.0003,0,0,True
+REAL/0016 (5).jpg,0.0004,0,0,True
+REAL/0016 (6).jpg,0.0001,0,0,True
+REAL/0016 (7).jpg,0.0041,0,0,True
+REAL/0016 (8).jpg,0.0054,0,0,True
+REAL/0016 (9).jpg,0.4435,0,0,True
+REAL/0016.jpg,0.0001,0,0,True
+REAL/0017 (10).jpg,0.68,0,1,False
+REAL/0017 (2).jpg,0.0532,0,0,True
+REAL/0017 (3).jpg,0.5895,0,1,False
+REAL/0017 (4).jpg,0.1116,0,0,True
+REAL/0017 (5).jpg,0.0039,0,0,True
+REAL/0017 (6).jpg,0.001,0,0,True
+REAL/0017 (7).jpg,0.0044,0,0,True
+REAL/0017 (8).jpg,0.1102,0,0,True
+REAL/0017 (9).jpg,0.0037,0,0,True
+REAL/0017.jpg,0.0005,0,0,True
+REAL/0018 (10).jpg,0.0036,0,0,True
+REAL/0018 (2).jpg,0.0002,0,0,True
+REAL/0018 (3).jpg,0.0446,0,0,True
+REAL/0018 (4).jpg,0.9452,0,1,False
+REAL/0018 (5).jpg,0.0008,0,0,True
+REAL/0018 (6).jpg,0.0005,0,0,True
+REAL/0018 (7).jpg,0.0489,0,0,True
+REAL/0018 (8).jpg,0.0017,0,0,True
+REAL/0018 (9).jpg,0.0007,0,0,True
+REAL/0018.jpg,0.0059,0,0,True
+REAL/0019 (10).jpg,0.0053,0,0,True
+REAL/0019 (2).jpg,0.0007,0,0,True
+REAL/0019 (3).jpg,0.0669,0,0,True
+REAL/0019 (4).jpg,0.0001,0,0,True
+REAL/0019 (5).jpg,0.0002,0,0,True
+REAL/0019 (6).jpg,0.0024,0,0,True
+REAL/0019 (7).jpg,0.0002,0,0,True
+REAL/0019 (8).jpg,0.0108,0,0,True
+REAL/0019 (9).jpg,0.7789,0,1,False
+REAL/0019.jpg,0.4996,0,0,True
+REAL/0020 (10).jpg,0.0004,0,0,True
+REAL/0020 (2).jpg,0.0003,0,0,True
+REAL/0020 (3).jpg,0.0073,0,0,True
+REAL/0020 (4).jpg,0.0389,0,0,True
+REAL/0020 (5).jpg,0.0012,0,0,True
+REAL/0020 (6).jpg,0.0023,0,0,True
+REAL/0020 (7).jpg,0.0001,0,0,True
+REAL/0020 (8).jpg,0.0053,0,0,True
+REAL/0020 (9).jpg,0.4572,0,0,True
+REAL/0020.jpg,0.0003,0,0,True
+REAL/0021 (10).jpg,0.0004,0,0,True
+REAL/0021 (2).jpg,0.0001,0,0,True
+REAL/0021 (3).jpg,0.001,0,0,True
+REAL/0021 (4).jpg,0.0169,0,0,True
+REAL/0021 (5).jpg,0.0002,0,0,True
+REAL/0021 (6).jpg,0.0059,0,0,True
+REAL/0021 (7).jpg,0.0004,0,0,True
+REAL/0021 (8).jpg,0.002,0,0,True
+REAL/0021 (9).jpg,0.0541,0,0,True
+REAL/0021.jpg,0.0001,0,0,True
+REAL/0022 (10).jpg,0.0315,0,0,True
+REAL/0022 (2).jpg,0.0003,0,0,True
+REAL/0022 (3).jpg,0.0011,0,0,True
+REAL/0022 (4).jpg,0.1577,0,0,True
+REAL/0022 (5).jpg,0.0004,0,0,True
+REAL/0022 (6).jpg,0.0455,0,0,True
+REAL/0022 (7).jpg,0.0008,0,0,True
+REAL/0022 (8).jpg,0.0026,0,0,True
+REAL/0022 (9).jpg,0.6811,0,1,False
+REAL/0022.jpg,0.1558,0,0,True
+REAL/0023 (10).jpg,0.0007,0,0,True
+REAL/0023 (2).jpg,0.0004,0,0,True
+REAL/0023 (3).jpg,0.1095,0,0,True
+REAL/0023 (4).jpg,0.0012,0,0,True
+REAL/0023 (5).jpg,0.0006,0,0,True
+REAL/0023 (6).jpg,0.0001,0,0,True
+REAL/0023 (7).jpg,0.0487,0,0,True
+REAL/0023 (8).jpg,0.0002,0,0,True
+REAL/0023 (9).jpg,0.0116,0,0,True
+REAL/0023.jpg,0.0016,0,0,True
+REAL/0024 (10).jpg,0.0014,0,0,True
+REAL/0024 (2).jpg,0.0008,0,0,True
+REAL/0024 (3).jpg,0.0009,0,0,True
+REAL/0024 (4).jpg,0.0004,0,0,True
+REAL/0024 (5).jpg,0.034,0,0,True
+REAL/0024 (6).jpg,0.0011,0,0,True
+REAL/0024 (7).jpg,0.0001,0,0,True
+REAL/0024 (8).jpg,0.0356,0,0,True
+REAL/0024 (9).jpg,0.0073,0,0,True
+REAL/0024.jpg,0.0003,0,0,True
+REAL/0025 (10).jpg,0.0321,0,0,True
+REAL/0025 (2).jpg,0.0003,0,0,True
+REAL/0025 (3).jpg,0.0003,0,0,True
+REAL/0025 (4).jpg,0.0166,0,0,True
+REAL/0025 (5).jpg,0.0038,0,0,True
+REAL/0025 (6).jpg,0.0001,0,0,True
+REAL/0025 (7).jpg,0.0436,0,0,True
+REAL/0025 (8).jpg,0.0002,0,0,True
+REAL/0025 (9).jpg,0.0132,0,0,True
+REAL/0025.jpg,0.0009,0,0,True
+REAL/0026 (10).jpg,0.002,0,0,True
+REAL/0026 (2).jpg,0.0001,0,0,True
+REAL/0026 (3).jpg,0.0034,0,0,True
+REAL/0026 (4).jpg,0.0073,0,0,True
+REAL/0026 (5).jpg,0.0007,0,0,True
+REAL/0026 (6).jpg,0.0457,0,0,True
+REAL/0026 (7).jpg,0.0041,0,0,True
+REAL/0026 (8).jpg,0.9727,0,1,False
+REAL/0026 (9).jpg,0.0069,0,0,True
+REAL/0026.jpg,0.4182,0,0,True
+REAL/0027 (10).jpg,0.0045,0,0,True
+REAL/0027 (2).jpg,0.0002,0,0,True
+REAL/0027 (3).jpg,0.0006,0,0,True
+REAL/0027 (4).jpg,0.0023,0,0,True
+REAL/0027 (5).jpg,0.0002,0,0,True
+REAL/0027 (6).jpg,0.0099,0,0,True
+REAL/0027 (7).jpg,0.6437,0,1,False
+REAL/0027 (8).jpg,0.0015,0,0,True
+REAL/0027 (9).jpg,0.0003,0,0,True
+REAL/0027.jpg,0.0004,0,0,True
+REAL/0028 (10).jpg,0.0005,0,0,True
+REAL/0028 (2).jpg,0.0001,0,0,True
+REAL/0028 (3).jpg,0.0049,0,0,True
+REAL/0028 (4).jpg,0.0513,0,0,True
+REAL/0028 (5).jpg,0.0006,0,0,True
+REAL/0028 (6).jpg,0.0005,0,0,True
+REAL/0028 (7).jpg,0.0002,0,0,True
+REAL/0028 (8).jpg,0.0003,0,0,True
+REAL/0028 (9).jpg,0.1422,0,0,True
+REAL/0028.jpg,0.0456,0,0,True
+REAL/0029 (10).jpg,0.0408,0,0,True
+REAL/0029 (2).jpg,0.0002,0,0,True
+REAL/0029 (3).jpg,0.0039,0,0,True
+REAL/0029 (4).jpg,0.0033,0,0,True
+REAL/0029 (5).jpg,0.0052,0,0,True
+REAL/0029 (6).jpg,0.007,0,0,True
+REAL/0029 (7).jpg,0.0007,0,0,True
+REAL/0029 (8).jpg,0.0006,0,0,True
+REAL/0029 (9).jpg,0.2515,0,0,True
+REAL/0029.jpg,0.0003,0,0,True
+REAL/0030 (10).jpg,0.079,0,0,True
+REAL/0030 (2).jpg,0.0008,0,0,True
+REAL/0030 (3).jpg,0.0029,0,0,True
+REAL/0030 (4).jpg,0.0619,0,0,True
+REAL/0030 (5).jpg,0.0078,0,0,True
+REAL/0030 (6).jpg,0.0004,0,0,True
+REAL/0030 (7).jpg,0.0002,0,0,True
+REAL/0030 (8).jpg,0.0007,0,0,True
+REAL/0030 (9).jpg,0.0001,0,0,True
+REAL/0030.jpg,0.0026,0,0,True
+REAL/0031 (10).jpg,0.468,0,0,True
+REAL/0031 (2).jpg,0.0001,0,0,True
+REAL/0031 (3).jpg,0.0328,0,0,True
+REAL/0031 (4).jpg,0.0392,0,0,True
+REAL/0031 (5).jpg,0.001,0,0,True
+REAL/0031 (6).jpg,0.4091,0,0,True
+REAL/0031 (7).jpg,0.0003,0,0,True
+REAL/0031 (8).jpg,0.0042,0,0,True
+REAL/0031 (9).jpg,0.0003,0,0,True
+REAL/0031.jpg,0.0315,0,0,True
+REAL/0032 (10).jpg,0.6319,0,1,False
+REAL/0032 (2).jpg,0.0006,0,0,True
+REAL/0032 (3).jpg,0.018,0,0,True
+REAL/0032 (4).jpg,0.0013,0,0,True
+REAL/0032 (5).jpg,0.0004,0,0,True
+REAL/0032 (6).jpg,0.0002,0,0,True
+REAL/0032 (7).jpg,0.0012,0,0,True
+REAL/0032 (8).jpg,0.0006,0,0,True
+REAL/0032 (9).jpg,0.0666,0,0,True
+REAL/0032.jpg,0.0095,0,0,True
+REAL/0033 (10).jpg,0.0022,0,0,True
+REAL/0033 (2).jpg,0.0131,0,0,True
+REAL/0033 (3).jpg,0.0006,0,0,True
+REAL/0033 (4).jpg,0.0058,0,0,True
+REAL/0033 (5).jpg,0.0005,0,0,True
+REAL/0033 (6).jpg,0.2283,0,0,True
+REAL/0033 (7).jpg,0.0003,0,0,True
+REAL/0033 (8).jpg,0.0038,0,0,True
+REAL/0033 (9).jpg,0.0008,0,0,True
+REAL/0033.jpg,0.01,0,0,True
+REAL/0034 (10).jpg,0.0003,0,0,True
+REAL/0034 (2).jpg,0.0055,0,0,True
+REAL/0034 (3).jpg,0.0018,0,0,True
+REAL/0034 (4).jpg,0.004,0,0,True
+REAL/0034 (5).jpg,0.0141,0,0,True
+REAL/0034 (6).jpg,0.0005,0,0,True
+REAL/0034 (7).jpg,0.0035,0,0,True
+REAL/0034 (8).jpg,0.0051,0,0,True
+REAL/0034 (9).jpg,0.0246,0,0,True
+REAL/0034.jpg,0.0099,0,0,True
+REAL/0035 (10).jpg,0.0002,0,0,True
+REAL/0035 (2).jpg,0.0002,0,0,True
+REAL/0035 (3).jpg,0.0044,0,0,True
+REAL/0035 (4).jpg,0.001,0,0,True
+REAL/0035 (5).jpg,0.004,0,0,True
+REAL/0035 (6).jpg,0.0005,0,0,True
+REAL/0035 (7).jpg,0.0003,0,0,True
+REAL/0035 (8).jpg,0.0006,0,0,True
+REAL/0035 (9).jpg,0.6101,0,1,False
+REAL/0035.jpg,0.0012,0,0,True
+REAL/0036 (10).jpg,0.0008,0,0,True
+REAL/0036 (2).jpg,0.0008,0,0,True
+REAL/0036 (3).jpg,0.0233,0,0,True
+REAL/0036 (4).jpg,0.005,0,0,True
+REAL/0036 (5).jpg,0.0234,0,0,True
+REAL/0036 (6).jpg,0.0009,0,0,True
+REAL/0036 (7).jpg,0.0003,0,0,True
+REAL/0036 (8).jpg,0.0001,0,0,True
+REAL/0036 (9).jpg,0.8587,0,1,False
+REAL/0036.jpg,0.0031,0,0,True
+REAL/0037 (10).jpg,0.0763,0,0,True
+REAL/0037 (2).jpg,0.0001,0,0,True
+REAL/0037 (3).jpg,0.0039,0,0,True
+REAL/0037 (4).jpg,0.0003,0,0,True
+REAL/0037 (5).jpg,0.0002,0,0,True
+REAL/0037 (6).jpg,0.0002,0,0,True
+REAL/0037 (7).jpg,0.3232,0,0,True
+REAL/0037 (8).jpg,0.0008,0,0,True
+REAL/0037 (9).jpg,0.0002,0,0,True
+REAL/0037.jpg,0.0002,0,0,True
+REAL/0038 (10).jpg,0.0051,0,0,True
+REAL/0038 (2).jpg,0.0015,0,0,True
+REAL/0038 (3).jpg,0.0007,0,0,True
+REAL/0038 (4).jpg,0.2477,0,0,True
+REAL/0038 (5).jpg,0.0003,0,0,True
+REAL/0038 (6).jpg,0.0136,0,0,True
+REAL/0038 (7).jpg,0.0003,0,0,True
+REAL/0038 (8).jpg,0.0066,0,0,True
+REAL/0038 (9).jpg,0.0341,0,0,True
+REAL/0038.jpg,0.0044,0,0,True
+REAL/0039 (10).jpg,0.9417,0,1,False
+REAL/0039 (2).jpg,0.0019,0,0,True
+REAL/0039 (3).jpg,0.1188,0,0,True
+REAL/0039 (4).jpg,0.0018,0,0,True
+REAL/0039 (5).jpg,0.3605,0,0,True
+REAL/0039 (6).jpg,0.0004,0,0,True
+REAL/0039 (7).jpg,0.0001,0,0,True
+REAL/0039 (8).jpg,0.0005,0,0,True
+REAL/0039 (9).jpg,0.5215,0,1,False
+REAL/0039.jpg,0.0032,0,0,True
+REAL/0040 (10).jpg,0.0102,0,0,True
+REAL/0040 (2).jpg,0.0003,0,0,True
+REAL/0040 (3).jpg,0.0004,0,0,True
+REAL/0040 (4).jpg,0.0017,0,0,True
+REAL/0040 (5).jpg,0.0013,0,0,True
+REAL/0040 (6).jpg,0.0105,0,0,True
+REAL/0040 (7).jpg,0.0002,0,0,True
+REAL/0040 (8).jpg,0.0018,0,0,True
+REAL/0040 (9).jpg,0.1356,0,0,True
+REAL/0040.jpg,0.003,0,0,True
+REAL/0041 (10).jpg,0.004,0,0,True
+REAL/0041 (2).jpg,0.0004,0,0,True
+REAL/0041 (3).jpg,0.0007,0,0,True
+REAL/0041 (4).jpg,0.0074,0,0,True
+REAL/0041 (5).jpg,0.0003,0,0,True
+REAL/0041 (6).jpg,0.0073,0,0,True
+REAL/0041 (7).jpg,0.0009,0,0,True
+REAL/0041 (8).jpg,0.0031,0,0,True
+REAL/0041 (9).jpg,0.0008,0,0,True
+REAL/0041.jpg,0.0002,0,0,True
+REAL/0042 (10).jpg,0.0002,0,0,True
+REAL/0042 (2).jpg,0.0004,0,0,True
+REAL/0042 (3).jpg,0.0342,0,0,True
+REAL/0042 (4).jpg,0.0611,0,0,True
+REAL/0042 (5).jpg,0.0003,0,0,True
+REAL/0042 (6).jpg,0.0005,0,0,True
+REAL/0042 (7).jpg,0.0002,0,0,True
+REAL/0042 (8).jpg,0.1469,0,0,True
+REAL/0042 (9).jpg,0.001,0,0,True
+REAL/0042.jpg,0.0012,0,0,True
+REAL/0043 (10).jpg,0.0271,0,0,True
+REAL/0043 (2).jpg,0.0008,0,0,True
+REAL/0043 (3).jpg,0.0732,0,0,True
+REAL/0043 (4).jpg,0.009,0,0,True
+REAL/0043 (5).jpg,0.0005,0,0,True
+REAL/0043 (6).jpg,0.0004,0,0,True
+REAL/0043 (7).jpg,0.0003,0,0,True
+REAL/0043 (8).jpg,0.0006,0,0,True
+REAL/0043 (9).jpg,0.0001,0,0,True
+REAL/0043.jpg,0.0009,0,0,True
+REAL/0044 (10).jpg,0.0009,0,0,True
+REAL/0044 (2).jpg,0.0003,0,0,True
+REAL/0044 (3).jpg,0.0011,0,0,True
+REAL/0044 (4).jpg,0.002,0,0,True
+REAL/0044 (5).jpg,0.0003,0,0,True
+REAL/0044 (6).jpg,0.0017,0,0,True
+REAL/0044 (7).jpg,0.001,0,0,True
+REAL/0044 (8).jpg,0.0169,0,0,True
+REAL/0044 (9).jpg,0.0012,0,0,True
+REAL/0044.jpg,0.584,0,1,False
+REAL/0045 (10).jpg,0.0003,0,0,True
+REAL/0045 (2).jpg,0.0001,0,0,True
+REAL/0045 (3).jpg,0.0007,0,0,True
+REAL/0045 (4).jpg,0.0006,0,0,True
+REAL/0045 (5).jpg,0.0007,0,0,True
+REAL/0045 (6).jpg,0.0031,0,0,True
+REAL/0045 (7).jpg,0.0008,0,0,True
+REAL/0045 (8).jpg,0.001,0,0,True
+REAL/0045 (9).jpg,0.1322,0,0,True
+REAL/0045.jpg,0.4409,0,0,True
+REAL/0046 (10).jpg,0.1553,0,0,True
+REAL/0046 (2).jpg,0.0008,0,0,True
+REAL/0046 (3).jpg,0.0005,0,0,True
+REAL/0046 (4).jpg,0.0007,0,0,True
+REAL/0046 (5).jpg,0.2686,0,0,True
+REAL/0046 (6).jpg,0.003,0,0,True
+REAL/0046 (7).jpg,0.0178,0,0,True
+REAL/0046 (8).jpg,0.0007,0,0,True
+REAL/0046 (9).jpg,0.0009,0,0,True
+REAL/0046.jpg,0.0001,0,0,True
+REAL/0047 (10).jpg,0.0005,0,0,True
+REAL/0047 (2).jpg,0.0001,0,0,True
+REAL/0047 (3).jpg,0.1933,0,0,True
+REAL/0047 (4).jpg,0.0004,0,0,True
+REAL/0047 (5).jpg,0.4291,0,0,True
+REAL/0047 (6).jpg,0.0093,0,0,True
+REAL/0047 (7).jpg,0.0001,0,0,True
+REAL/0047 (8).jpg,0.0019,0,0,True
+REAL/0047 (9).jpg,0.03,0,0,True
+REAL/0047.jpg,0.3826,0,0,True
+REAL/0048 (10).jpg,0.0037,0,0,True
+REAL/0048 (2).jpg,0.0001,0,0,True
+REAL/0048 (3).jpg,0.0004,0,0,True
+REAL/0048 (4).jpg,0.0006,0,0,True
+REAL/0048 (5).jpg,0.0011,0,0,True
+REAL/0048 (6).jpg,0.0011,0,0,True
+REAL/0048 (7).jpg,0.0411,0,0,True
+REAL/0048 (8).jpg,0.063,0,0,True
+REAL/0048 (9).jpg,0.0049,0,0,True
+REAL/0048.jpg,0.0006,0,0,True
+REAL/0049 (10).jpg,0.0012,0,0,True
+REAL/0049 (2).jpg,0.8098,0,1,False
+REAL/0049 (3).jpg,0.0041,0,0,True
+REAL/0049 (4).jpg,0.0003,0,0,True
+REAL/0049 (5).jpg,0.0089,0,0,True
+REAL/0049 (6).jpg,0.0002,0,0,True
+REAL/0049 (7).jpg,0.0001,0,0,True
+REAL/0049 (8).jpg,0.0023,0,0,True
+REAL/0049 (9).jpg,0.0028,0,0,True
+REAL/0049.jpg,0.0015,0,0,True
+FAKE/0 (10).jpg,0.9993,1,1,True
+FAKE/0 (2).jpg,0.9989,1,1,True
+FAKE/0 (3).jpg,0.9996,1,1,True
+FAKE/0 (4).jpg,0.9999,1,1,True
+FAKE/0 (5).jpg,0.9999,1,1,True
+FAKE/0 (6).jpg,0.9999,1,1,True
+FAKE/0 (7).jpg,0.9999,1,1,True
+FAKE/0 (8).jpg,0.9999,1,1,True
+FAKE/0 (9).jpg,0.9997,1,1,True
+FAKE/0.jpg,0.9992,1,1,True
+FAKE/1 (10).jpg,0.9967,1,1,True
+FAKE/1 (2).jpg,0.9999,1,1,True
+FAKE/1 (3).jpg,0.906,1,1,True
+FAKE/1 (4).jpg,0.9999,1,1,True
+FAKE/1 (5).jpg,0.9998,1,1,True
+FAKE/1 (6).jpg,0.9999,1,1,True
+FAKE/1 (7).jpg,0.9999,1,1,True
+FAKE/1 (8).jpg,0.9984,1,1,True
+FAKE/1 (9).jpg,0.9987,1,1,True
+FAKE/1.jpg,0.9987,1,1,True
+FAKE/10 (10).jpg,0.9998,1,1,True
+FAKE/10 (2).jpg,0.9998,1,1,True
+FAKE/10 (3).jpg,0.9999,1,1,True
+FAKE/10 (4).jpg,0.9998,1,1,True
+FAKE/10 (5).jpg,0.9998,1,1,True
+FAKE/10 (6).jpg,0.9993,1,1,True
+FAKE/10 (7).jpg,0.9999,1,1,True
+FAKE/10 (8).jpg,0.9994,1,1,True
+FAKE/10 (9).jpg,0.9989,1,1,True
+FAKE/10.jpg,0.9788,1,1,True
+FAKE/100 (10).jpg,0.9737,1,1,True
+FAKE/100 (2).jpg,0.9997,1,1,True
+FAKE/100 (3).jpg,0.9958,1,1,True
+FAKE/100 (4).jpg,0.9999,1,1,True
+FAKE/100 (5).jpg,0.9948,1,1,True
+FAKE/100 (6).jpg,0.9999,1,1,True
+FAKE/100 (7).jpg,0.9999,1,1,True
+FAKE/100 (8).jpg,0.9998,1,1,True
+FAKE/100 (9).jpg,0.9991,1,1,True
+FAKE/100.jpg,0.999,1,1,True
+FAKE/101 (10).jpg,0.9992,1,1,True
+FAKE/101 (2).jpg,0.9985,1,1,True
+FAKE/101 (3).jpg,0.9992,1,1,True
+FAKE/101 (4).jpg,0.9999,1,1,True
+FAKE/101 (5).jpg,0.9999,1,1,True
+FAKE/101 (6).jpg,0.9998,1,1,True
+FAKE/101 (7).jpg,1.0,1,1,True
+FAKE/101 (8).jpg,0.9996,1,1,True
+FAKE/101 (9).jpg,0.9839,1,1,True
+FAKE/101.jpg,0.9971,1,1,True
+FAKE/102 (10).jpg,0.9517,1,1,True
+FAKE/102 (2).jpg,0.8041,1,1,True
+FAKE/102 (3).jpg,0.9985,1,1,True
+FAKE/102 (4).jpg,0.9998,1,1,True
+FAKE/102 (5).jpg,0.9998,1,1,True
+FAKE/102 (6).jpg,0.9996,1,1,True
+FAKE/102 (7).jpg,0.9997,1,1,True
+FAKE/102 (8).jpg,0.6047,1,1,True
+FAKE/102 (9).jpg,0.0331,1,0,False
+FAKE/102.jpg,0.9996,1,1,True
+FAKE/103 (10).jpg,0.9974,1,1,True
+FAKE/103 (2).jpg,0.998,1,1,True
+FAKE/103 (3).jpg,0.9995,1,1,True
+FAKE/103 (4).jpg,0.9999,1,1,True
+FAKE/103 (5).jpg,0.9998,1,1,True
+FAKE/103 (6).jpg,0.9999,1,1,True
+FAKE/103 (7).jpg,1.0,1,1,True
+FAKE/103 (8).jpg,0.9992,1,1,True
+FAKE/103 (9).jpg,0.9989,1,1,True
+FAKE/103.jpg,0.9954,1,1,True
+FAKE/104 (10).jpg,0.9998,1,1,True
+FAKE/104 (2).jpg,0.9998,1,1,True
+FAKE/104 (3).jpg,0.8942,1,1,True
+FAKE/104 (4).jpg,0.9988,1,1,True
+FAKE/104 (5).jpg,0.9999,1,1,True
+FAKE/104 (6).jpg,0.9996,1,1,True
+FAKE/104 (7).jpg,1.0,1,1,True
+FAKE/104 (8).jpg,0.9999,1,1,True
+FAKE/104 (9).jpg,0.9997,1,1,True
+FAKE/104.jpg,0.9418,1,1,True
+FAKE/105 (10).jpg,0.8319,1,1,True
+FAKE/105 (2).jpg,0.9993,1,1,True
+FAKE/105 (3).jpg,0.9966,1,1,True
+FAKE/105 (4).jpg,0.9999,1,1,True
+FAKE/105 (5).jpg,0.9999,1,1,True
+FAKE/105 (6).jpg,0.917,1,1,True
+FAKE/105 (7).jpg,0.9999,1,1,True
+FAKE/105 (8).jpg,0.9999,1,1,True
+FAKE/105 (9).jpg,0.998,1,1,True
+FAKE/105.jpg,0.9968,1,1,True
+FAKE/106 (10).jpg,0.9974,1,1,True
+FAKE/106 (2).jpg,0.9996,1,1,True
+FAKE/106 (3).jpg,0.0772,1,0,False
+FAKE/106 (4).jpg,0.9989,1,1,True
+FAKE/106 (5).jpg,0.9999,1,1,True
+FAKE/106 (6).jpg,0.9996,1,1,True
+FAKE/106 (7).jpg,1.0,1,1,True
+FAKE/106 (8).jpg,0.9999,1,1,True
+FAKE/106 (9).jpg,0.9998,1,1,True
+FAKE/106.jpg,0.9989,1,1,True
+FAKE/107 (10).jpg,0.9838,1,1,True
+FAKE/107 (2).jpg,0.9999,1,1,True
+FAKE/107 (3).jpg,0.9992,1,1,True
+FAKE/107 (4).jpg,0.9999,1,1,True
+FAKE/107 (5).jpg,0.9983,1,1,True
+FAKE/107 (6).jpg,0.9997,1,1,True
+FAKE/107 (7).jpg,0.9999,1,1,True
+FAKE/107 (8).jpg,0.9698,1,1,True
+FAKE/107 (9).jpg,0.9909,1,1,True
+FAKE/107.jpg,0.999,1,1,True
+FAKE/108 (10).jpg,0.9998,1,1,True
+FAKE/108 (2).jpg,0.9997,1,1,True
+FAKE/108 (3).jpg,0.9998,1,1,True
+FAKE/108 (4).jpg,0.9999,1,1,True
+FAKE/108 (5).jpg,0.9999,1,1,True
+FAKE/108 (6).jpg,0.9999,1,1,True
+FAKE/108 (7).jpg,0.9998,1,1,True
+FAKE/108 (8).jpg,0.9984,1,1,True
+FAKE/108 (9).jpg,0.9934,1,1,True
+FAKE/108.jpg,0.9992,1,1,True
+FAKE/109 (10).jpg,0.957,1,1,True
+FAKE/109 (2).jpg,0.9999,1,1,True
+FAKE/109 (3).jpg,0.9964,1,1,True
+FAKE/109 (4).jpg,0.9598,1,1,True
+FAKE/109 (5).jpg,0.9998,1,1,True
+FAKE/109 (6).jpg,0.9996,1,1,True
+FAKE/109 (7).jpg,0.9999,1,1,True
+FAKE/109 (8).jpg,0.9868,1,1,True
+FAKE/109 (9).jpg,0.8996,1,1,True
+FAKE/109.jpg,0.9967,1,1,True
+FAKE/11 (10).jpg,0.9948,1,1,True
+FAKE/11 (2).jpg,0.9998,1,1,True
+FAKE/11 (3).jpg,0.9997,1,1,True
+FAKE/11 (4).jpg,0.9957,1,1,True
+FAKE/11 (5).jpg,0.9996,1,1,True
+FAKE/11 (6).jpg,0.9999,1,1,True
+FAKE/11 (7).jpg,0.9971,1,1,True
+FAKE/11 (8).jpg,0.9996,1,1,True
+FAKE/11 (9).jpg,0.9828,1,1,True
+FAKE/11.jpg,0.9993,1,1,True
+FAKE/110 (10).jpg,0.9964,1,1,True
+FAKE/110 (2).jpg,0.9973,1,1,True
+FAKE/110 (3).jpg,0.9994,1,1,True
+FAKE/110 (4).jpg,0.9999,1,1,True
+FAKE/110 (5).jpg,0.9999,1,1,True
+FAKE/110 (6).jpg,0.9999,1,1,True
+FAKE/110 (7).jpg,0.9999,1,1,True
+FAKE/110 (8).jpg,0.9436,1,1,True
+FAKE/110 (9).jpg,0.9904,1,1,True
+FAKE/110.jpg,0.7487,1,1,True
+FAKE/111 (10).jpg,0.9994,1,1,True
+FAKE/111 (2).jpg,0.9923,1,1,True
+FAKE/111 (3).jpg,0.9997,1,1,True
+FAKE/111 (4).jpg,0.9998,1,1,True
+FAKE/111 (5).jpg,0.9997,1,1,True
+FAKE/111 (6).jpg,0.9996,1,1,True
+FAKE/111 (7).jpg,1.0,1,1,True
+FAKE/111 (8).jpg,0.9998,1,1,True
+FAKE/111 (9).jpg,0.9986,1,1,True
+FAKE/111.jpg,0.9426,1,1,True
+FAKE/112 (10).jpg,0.9989,1,1,True
+FAKE/112 (2).jpg,0.9923,1,1,True
+FAKE/112 (3).jpg,0.9325,1,1,True
+FAKE/112 (4).jpg,0.9998,1,1,True
+FAKE/112 (5).jpg,0.9999,1,1,True
+FAKE/112 (6).jpg,0.9942,1,1,True
+FAKE/112 (7).jpg,0.9999,1,1,True
+FAKE/112 (8).jpg,0.9998,1,1,True
+FAKE/112 (9).jpg,0.9988,1,1,True
+FAKE/112.jpg,0.9997,1,1,True
+FAKE/113 (10).jpg,0.9804,1,1,True
+FAKE/113 (2).jpg,0.9996,1,1,True
+FAKE/113 (3).jpg,0.9378,1,1,True
+FAKE/113 (4).jpg,0.9997,1,1,True
+FAKE/113 (5).jpg,0.9999,1,1,True
+FAKE/113 (6).jpg,0.9998,1,1,True
+FAKE/113 (7).jpg,0.9999,1,1,True
+FAKE/113 (8).jpg,0.9996,1,1,True
+FAKE/113 (9).jpg,0.9988,1,1,True
+FAKE/113.jpg,0.9995,1,1,True
+FAKE/114 (10).jpg,0.9998,1,1,True
+FAKE/114 (2).jpg,0.9347,1,1,True
+FAKE/114 (3).jpg,0.9976,1,1,True
+FAKE/114 (4).jpg,0.9999,1,1,True
+FAKE/114 (5).jpg,0.9999,1,1,True
+FAKE/114 (6).jpg,0.9999,1,1,True
+FAKE/114 (7).jpg,0.8511,1,1,True
+FAKE/114 (8).jpg,0.999,1,1,True
+FAKE/114 (9).jpg,0.9998,1,1,True
+FAKE/114.jpg,0.9874,1,1,True
+FAKE/115 (10).jpg,0.9984,1,1,True
+FAKE/115 (2).jpg,0.9998,1,1,True
+FAKE/115 (3).jpg,0.9505,1,1,True
+FAKE/115 (4).jpg,0.8237,1,1,True
+FAKE/115 (5).jpg,0.9995,1,1,True
+FAKE/115 (6).jpg,0.9997,1,1,True
+FAKE/115 (7).jpg,0.9999,1,1,True
+FAKE/115 (8).jpg,0.9989,1,1,True
+FAKE/115 (9).jpg,0.9909,1,1,True
+FAKE/115.jpg,0.9954,1,1,True
+FAKE/116 (10).jpg,0.9993,1,1,True
+FAKE/116 (2).jpg,0.998,1,1,True
+FAKE/116 (3).jpg,0.9997,1,1,True
+FAKE/116 (4).jpg,0.9999,1,1,True
+FAKE/116 (5).jpg,0.9998,1,1,True
+FAKE/116 (6).jpg,0.9999,1,1,True
+FAKE/116 (7).jpg,0.9999,1,1,True
+FAKE/116 (8).jpg,0.9994,1,1,True
+FAKE/116 (9).jpg,0.9996,1,1,True
+FAKE/116.jpg,0.999,1,1,True
+FAKE/117 (10).jpg,0.9997,1,1,True
+FAKE/117 (2).jpg,0.9998,1,1,True
+FAKE/117 (3).jpg,0.1544,1,0,False
+FAKE/117 (4).jpg,0.9999,1,1,True
+FAKE/117 (5).jpg,0.9999,1,1,True
+FAKE/117 (6).jpg,0.9994,1,1,True
+FAKE/117 (7).jpg,0.9997,1,1,True
+FAKE/117 (8).jpg,0.9997,1,1,True
+FAKE/117 (9).jpg,0.984,1,1,True
+FAKE/117.jpg,0.999,1,1,True
+FAKE/118 (10).jpg,0.9982,1,1,True
+FAKE/118 (2).jpg,0.9999,1,1,True
+FAKE/118 (3).jpg,0.9956,1,1,True
+FAKE/118 (4).jpg,0.999,1,1,True
+FAKE/118 (5).jpg,0.9998,1,1,True
+FAKE/118 (6).jpg,0.9999,1,1,True
+FAKE/118 (7).jpg,0.9999,1,1,True
+FAKE/118 (8).jpg,0.969,1,1,True
+FAKE/118 (9).jpg,0.9997,1,1,True
+FAKE/118.jpg,0.948,1,1,True
+FAKE/119 (10).jpg,0.9985,1,1,True
+FAKE/119 (2).jpg,0.9997,1,1,True
+FAKE/119 (3).jpg,0.9658,1,1,True
+FAKE/119 (4).jpg,0.9996,1,1,True
+FAKE/119 (5).jpg,0.9999,1,1,True
+FAKE/119 (6).jpg,0.9988,1,1,True
+FAKE/119 (7).jpg,0.9997,1,1,True
+FAKE/119 (8).jpg,0.9631,1,1,True
+FAKE/119 (9).jpg,0.9974,1,1,True
+FAKE/119.jpg,0.9978,1,1,True
+FAKE/12 (10).jpg,0.9707,1,1,True
+FAKE/12 (2).jpg,0.9998,1,1,True
+FAKE/12 (3).jpg,0.961,1,1,True
+FAKE/12 (4).jpg,0.9999,1,1,True
+FAKE/12 (5).jpg,0.9999,1,1,True
+FAKE/12 (6).jpg,0.9993,1,1,True
+FAKE/12 (7).jpg,0.9999,1,1,True
+FAKE/12 (8).jpg,0.9962,1,1,True
+FAKE/12 (9).jpg,0.9765,1,1,True
+FAKE/12.jpg,0.9722,1,1,True
+FAKE/120 (10).jpg,0.9998,1,1,True
+FAKE/120 (2).jpg,0.998,1,1,True
+FAKE/120 (3).jpg,0.9937,1,1,True
+FAKE/120 (4).jpg,0.9999,1,1,True
+FAKE/120 (5).jpg,0.9998,1,1,True
+FAKE/120 (6).jpg,0.9821,1,1,True
+FAKE/120 (7).jpg,0.9999,1,1,True
+FAKE/120 (8).jpg,0.9835,1,1,True
+FAKE/120 (9).jpg,0.9996,1,1,True
+FAKE/120.jpg,0.9878,1,1,True
+FAKE/121 (10).jpg,0.9721,1,1,True
+FAKE/121 (2).jpg,0.9998,1,1,True
+FAKE/121 (3).jpg,0.9993,1,1,True
+FAKE/121 (4).jpg,0.9998,1,1,True
+FAKE/121 (5).jpg,0.9999,1,1,True
+FAKE/121 (6).jpg,0.9994,1,1,True
+FAKE/121 (7).jpg,0.9999,1,1,True
+FAKE/121 (8).jpg,0.9998,1,1,True
+FAKE/121 (9).jpg,0.9998,1,1,True
+FAKE/121.jpg,0.9997,1,1,True
+FAKE/122 (10).jpg,0.9963,1,1,True
+FAKE/122 (2).jpg,0.9999,1,1,True
+FAKE/122 (3).jpg,0.9981,1,1,True
+FAKE/122 (4).jpg,0.9999,1,1,True
+FAKE/122 (5).jpg,0.9999,1,1,True
+FAKE/122 (6).jpg,0.9999,1,1,True
+FAKE/122 (7).jpg,1.0,1,1,True
+FAKE/122 (8).jpg,0.9998,1,1,True
+FAKE/122 (9).jpg,0.9038,1,1,True
+FAKE/122.jpg,0.9992,1,1,True
+FAKE/123 (10).jpg,0.9988,1,1,True
+FAKE/123 (2).jpg,0.9998,1,1,True
+FAKE/123 (3).jpg,0.9964,1,1,True
+FAKE/123 (4).jpg,0.9978,1,1,True
+FAKE/123 (5).jpg,0.9999,1,1,True
+FAKE/123 (6).jpg,0.9997,1,1,True
+FAKE/123 (7).jpg,0.9999,1,1,True
+FAKE/123 (8).jpg,0.9996,1,1,True
+FAKE/123 (9).jpg,0.9998,1,1,True
+FAKE/123.jpg,0.9997,1,1,True
+FAKE/124 (10).jpg,0.9235,1,1,True
+FAKE/124 (2).jpg,0.9998,1,1,True
+FAKE/124 (3).jpg,0.976,1,1,True
+FAKE/124 (4).jpg,0.9995,1,1,True
+FAKE/124 (5).jpg,0.9999,1,1,True
+FAKE/124 (6).jpg,0.9998,1,1,True
+FAKE/124 (7).jpg,0.9999,1,1,True
+FAKE/124 (8).jpg,0.9997,1,1,True
+FAKE/124 (9).jpg,0.7341,1,1,True
+FAKE/124.jpg,0.9998,1,1,True
+FAKE/125 (10).jpg,0.9984,1,1,True
+FAKE/125 (2).jpg,0.9998,1,1,True
+FAKE/125 (3).jpg,0.9969,1,1,True
+FAKE/125 (4).jpg,0.9999,1,1,True
+FAKE/125 (5).jpg,0.9999,1,1,True
+FAKE/125 (6).jpg,0.9999,1,1,True
+FAKE/125 (7).jpg,0.9999,1,1,True
+FAKE/125 (8).jpg,0.3473,1,0,False
+FAKE/125 (9).jpg,0.9972,1,1,True
+FAKE/125.jpg,0.9946,1,1,True
+FAKE/126 (10).jpg,0.9995,1,1,True
+FAKE/126 (2).jpg,0.9564,1,1,True
+FAKE/126 (3).jpg,0.9998,1,1,True
+FAKE/126 (4).jpg,0.9995,1,1,True
+FAKE/126 (5).jpg,0.9999,1,1,True
+FAKE/126 (6).jpg,0.9985,1,1,True
+FAKE/126 (7).jpg,1.0,1,1,True
+FAKE/126 (8).jpg,0.9998,1,1,True
+FAKE/126 (9).jpg,0.9986,1,1,True
+FAKE/126.jpg,0.9791,1,1,True
+FAKE/127 (10).jpg,0.9992,1,1,True
+FAKE/127 (2).jpg,0.9999,1,1,True
+FAKE/127 (3).jpg,0.9724,1,1,True
+FAKE/127 (4).jpg,0.998,1,1,True
+FAKE/127 (5).jpg,0.9999,1,1,True
+FAKE/127 (6).jpg,0.9998,1,1,True
+FAKE/127 (7).jpg,0.9999,1,1,True
+FAKE/127 (8).jpg,0.9994,1,1,True
+FAKE/127 (9).jpg,0.974,1,1,True
+FAKE/127.jpg,0.9974,1,1,True
+FAKE/128 (10).jpg,0.9962,1,1,True
+FAKE/128 (2).jpg,0.9999,1,1,True
+FAKE/128 (3).jpg,0.9853,1,1,True
+FAKE/128 (4).jpg,0.9999,1,1,True
+FAKE/128 (5).jpg,0.9999,1,1,True
+FAKE/128 (6).jpg,0.9877,1,1,True
+FAKE/128 (7).jpg,0.9999,1,1,True
+FAKE/128 (8).jpg,0.9996,1,1,True
+FAKE/128 (9).jpg,0.9987,1,1,True
+FAKE/128.jpg,0.9997,1,1,True
+FAKE/129 (10).jpg,0.9871,1,1,True
+FAKE/129 (2).jpg,0.9999,1,1,True
+FAKE/129 (3).jpg,0.9997,1,1,True
+FAKE/129 (4).jpg,0.9999,1,1,True
+FAKE/129 (5).jpg,0.9999,1,1,True
+FAKE/129 (6).jpg,0.9998,1,1,True
+FAKE/129 (7).jpg,0.9999,1,1,True
+FAKE/129 (8).jpg,0.9997,1,1,True
+FAKE/129 (9).jpg,0.9993,1,1,True
+FAKE/129.jpg,0.9831,1,1,True
+FAKE/13 (10).jpg,0.9988,1,1,True
+FAKE/13 (2).jpg,0.9998,1,1,True
+FAKE/13 (3).jpg,0.9987,1,1,True
+FAKE/13 (4).jpg,0.9999,1,1,True
+FAKE/13 (5).jpg,0.9999,1,1,True
+FAKE/13 (6).jpg,0.9999,1,1,True
+FAKE/13 (7).jpg,0.9999,1,1,True
+FAKE/13 (8).jpg,0.9998,1,1,True
+FAKE/13 (9).jpg,0.9398,1,1,True
+FAKE/13.jpg,0.9822,1,1,True
+FAKE/130 (10).jpg,0.9994,1,1,True
+FAKE/130 (2).jpg,0.9999,1,1,True
+FAKE/130 (3).jpg,0.9936,1,1,True
+FAKE/130 (4).jpg,0.9994,1,1,True
+FAKE/130 (5).jpg,0.9991,1,1,True
+FAKE/130 (6).jpg,0.9999,1,1,True
+FAKE/130 (7).jpg,1.0,1,1,True
+FAKE/130 (8).jpg,0.9998,1,1,True
+FAKE/130 (9).jpg,0.8532,1,1,True
+FAKE/130.jpg,0.9935,1,1,True
+FAKE/131 (10).jpg,0.998,1,1,True
+FAKE/131 (2).jpg,0.9999,1,1,True
+FAKE/131 (3).jpg,0.9989,1,1,True
+FAKE/131 (4).jpg,0.9922,1,1,True
+FAKE/131 (5).jpg,0.9999,1,1,True
+FAKE/131 (6).jpg,0.9997,1,1,True
+FAKE/131 (7).jpg,0.9999,1,1,True
+FAKE/131 (8).jpg,0.9583,1,1,True
+FAKE/131 (9).jpg,0.9872,1,1,True
+FAKE/131.jpg,0.9992,1,1,True
+FAKE/132 (10).jpg,0.9995,1,1,True
+FAKE/132 (2).jpg,0.9328,1,1,True
+FAKE/132 (3).jpg,0.9987,1,1,True
+FAKE/132 (4).jpg,0.9994,1,1,True
+FAKE/132 (5).jpg,0.9999,1,1,True
+FAKE/132 (6).jpg,0.9998,1,1,True
+FAKE/132 (7).jpg,0.9999,1,1,True
+FAKE/132 (8).jpg,0.7815,1,1,True
+FAKE/132 (9).jpg,0.9992,1,1,True
+FAKE/132.jpg,0.8688,1,1,True
+FAKE/133 (10).jpg,0.9956,1,1,True
+FAKE/133 (2).jpg,0.9998,1,1,True
+FAKE/133 (3).jpg,0.9589,1,1,True
+FAKE/133 (4).jpg,0.9998,1,1,True
+FAKE/133 (5).jpg,0.9996,1,1,True
+FAKE/133 (6).jpg,0.9999,1,1,True
+FAKE/133 (7).jpg,0.9995,1,1,True
+FAKE/133 (8).jpg,0.9995,1,1,True
+FAKE/133 (9).jpg,0.9964,1,1,True
+FAKE/133.jpg,0.9882,1,1,True
+FAKE/134 (10).jpg,0.8329,1,1,True
+FAKE/134 (2).jpg,0.9998,1,1,True
+FAKE/134 (3).jpg,0.9999,1,1,True
+FAKE/134 (4).jpg,0.9999,1,1,True
+FAKE/134 (5).jpg,0.9997,1,1,True
+FAKE/134 (6).jpg,0.9929,1,1,True
+FAKE/134 (7).jpg,0.9999,1,1,True
+FAKE/134 (8).jpg,0.7323,1,1,True
+FAKE/134 (9).jpg,0.9993,1,1,True
+FAKE/134.jpg,0.978,1,1,True
+FAKE/135 (10).jpg,0.9992,1,1,True
+FAKE/135 (2).jpg,0.9998,1,1,True
+FAKE/135 (3).jpg,0.9998,1,1,True
+FAKE/135 (4).jpg,0.9997,1,1,True
+FAKE/135 (5).jpg,0.9999,1,1,True
+FAKE/135 (6).jpg,0.9997,1,1,True
+FAKE/135 (7).jpg,0.9999,1,1,True
+FAKE/135 (8).jpg,0.9985,1,1,True
+FAKE/135 (9).jpg,0.9719,1,1,True
+FAKE/135.jpg,0.98,1,1,True
+FAKE/136 (10).jpg,0.9998,1,1,True
+FAKE/136 (2).jpg,0.9999,1,1,True
+FAKE/136 (3).jpg,0.9997,1,1,True
+FAKE/136 (4).jpg,0.9976,1,1,True
+FAKE/136 (5).jpg,0.9919,1,1,True
+FAKE/136 (6).jpg,0.9998,1,1,True
+FAKE/136 (7).jpg,0.9999,1,1,True
+FAKE/136 (8).jpg,0.9976,1,1,True
+FAKE/136 (9).jpg,0.9934,1,1,True
+FAKE/136.jpg,0.999,1,1,True
+FAKE/137 (10).jpg,0.9958,1,1,True
+FAKE/137 (2).jpg,0.9985,1,1,True
+FAKE/137 (3).jpg,0.9998,1,1,True
+FAKE/137 (4).jpg,0.9999,1,1,True
+FAKE/137 (5).jpg,0.9998,1,1,True
+FAKE/137 (6).jpg,0.9823,1,1,True
+FAKE/137 (7).jpg,0.9999,1,1,True
+FAKE/137 (8).jpg,0.9998,1,1,True
+FAKE/137 (9).jpg,0.9929,1,1,True
+FAKE/137.jpg,0.0027,1,0,False
+FAKE/138 (10).jpg,0.9998,1,1,True
+FAKE/138 (2).jpg,0.9994,1,1,True
+FAKE/138 (3).jpg,0.7994,1,1,True
+FAKE/138 (4).jpg,0.9999,1,1,True
+FAKE/138 (5).jpg,0.9999,1,1,True
+FAKE/138 (6).jpg,0.9999,1,1,True
+FAKE/138 (7).jpg,1.0,1,1,True
+FAKE/138 (8).jpg,0.9993,1,1,True
+FAKE/138 (9).jpg,0.7936,1,1,True
+FAKE/138.jpg,0.9991,1,1,True
+FAKE/139 (10).jpg,0.9961,1,1,True
+FAKE/139 (2).jpg,0.9998,1,1,True
+FAKE/139 (3).jpg,0.7768,1,1,True
+FAKE/139 (4).jpg,0.9999,1,1,True
+FAKE/139 (5).jpg,0.9999,1,1,True
+FAKE/139 (6).jpg,0.9993,1,1,True
+FAKE/139 (7).jpg,0.9999,1,1,True
+FAKE/139 (8).jpg,0.9626,1,1,True
+FAKE/139 (9).jpg,0.9621,1,1,True
+FAKE/139.jpg,0.8069,1,1,True
+FAKE/14 (10).jpg,0.9955,1,1,True
+FAKE/14 (2).jpg,0.9999,1,1,True
+FAKE/14 (3).jpg,0.9998,1,1,True
+FAKE/14 (4).jpg,0.9992,1,1,True
+FAKE/14 (5).jpg,0.847,1,1,True
+FAKE/14 (6).jpg,0.9997,1,1,True
+FAKE/14 (7).jpg,0.9999,1,1,True
+FAKE/14 (8).jpg,0.9998,1,1,True
+FAKE/14 (9).jpg,0.9992,1,1,True
+FAKE/14.jpg,0.9991,1,1,True
+FAKE/140 (10).jpg,0.9996,1,1,True
+FAKE/140 (2).jpg,0.9999,1,1,True
+FAKE/140 (3).jpg,0.9988,1,1,True
+FAKE/140 (4).jpg,0.9999,1,1,True
+FAKE/140 (5).jpg,0.9999,1,1,True
+FAKE/140 (6).jpg,0.9997,1,1,True
+FAKE/140 (7).jpg,1.0,1,1,True
+FAKE/140 (8).jpg,0.9999,1,1,True
+FAKE/140 (9).jpg,0.9973,1,1,True
+FAKE/140.jpg,0.9996,1,1,True
+FAKE/141 (10).jpg,0.9155,1,1,True
+FAKE/141 (2).jpg,0.9997,1,1,True
+FAKE/141 (3).jpg,0.9928,1,1,True
+FAKE/141 (4).jpg,0.9999,1,1,True
+FAKE/141 (5).jpg,0.9998,1,1,True
+FAKE/141 (6).jpg,0.9967,1,1,True
+FAKE/141 (7).jpg,1.0,1,1,True
+FAKE/141 (8).jpg,0.9998,1,1,True
+FAKE/141 (9).jpg,0.9991,1,1,True
+FAKE/141.jpg,0.996,1,1,True
+FAKE/142 (10).jpg,0.9933,1,1,True
+FAKE/142 (2).jpg,0.9995,1,1,True
+FAKE/142 (3).jpg,0.9903,1,1,True
+FAKE/142 (4).jpg,0.9999,1,1,True
+FAKE/142 (5).jpg,0.9998,1,1,True
+FAKE/142 (6).jpg,0.9998,1,1,True
+FAKE/142 (7).jpg,0.9999,1,1,True
+FAKE/142 (8).jpg,0.9998,1,1,True
+FAKE/142 (9).jpg,0.9994,1,1,True
+FAKE/142.jpg,0.9996,1,1,True
