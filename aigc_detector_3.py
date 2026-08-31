@@ -164,7 +164,13 @@ if USE_AIGC_DETECTION_TRANSFORMED and not USE_AIGC_DETECTION:
     )
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-CACHE_DIR = PROJECT_ROOT / ".cache"
+# CACHE_DIR defaults to inside the project folder, but is overridable via
+# env var — on Windows, a long project path (e.g. deeply nested inside
+# OneDrive) combined with kagglehub's own deeply-nested extracted archive
+# paths can exceed the 260-character MAX_PATH limit and crash mid-extract.
+# Point CACHE_DIR at something short (e.g. C:\aigc_cache) if that happens,
+# rather than relying on enabling Windows long-path support + a reboot.
+CACHE_DIR = Path(os.environ.get("AIGC_CACHE_DIR", str(PROJECT_ROOT / ".cache")))
 KAGGLE_CACHE_DIR = CACHE_DIR / "kagglehub"
 HF_CACHE_DIR = CACHE_DIR / "huggingface"
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
