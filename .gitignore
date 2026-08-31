@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .cache/
 smoke_test_images/
+.env
+inference_images/

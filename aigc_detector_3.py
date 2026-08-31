@@ -141,6 +141,9 @@ LR = 1e-4
 # ── Evaluation (Section 7) ────────────────────────────────────────────────
 EVAL_CAP = 2000  # total images in the robustness/error-analysis eval pool
 
+# ── Reproducibility ───────────────────────────────────────────────────────
+SEED = int(os.getenv("AIGC_SEED", "42"))  # seeds random/np.random/torch below
+
 if not USE_CIFAKE and not USE_SID_SET and not USE_AIGC_DETECTION:
     raise RuntimeError("At least one of USE_CIFAKE, USE_SID_SET, or USE_AIGC_DETECTION must be True.")
 
@@ -299,6 +302,11 @@ from PIL import ImageEnhance, ImageFilter
 
 import timm
 from sklearn.metrics import roc_auc_score
+
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+torch.cuda.manual_seed_all(SEED)
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -1265,7 +1273,7 @@ def summarize_inference_results(results: list, top_n: int = 5,
 
     preds = [r["pred"] for r in results]
     n = len(preds)
-    n_fake = sum(1 for p in preds if p > 0.5)
+    n_fake = sum(1 for p in preds if p > DECISION_THRESHOLD)
     n_real = n - n_fake
     mean_pred = sum(preds) / n
     sorted_preds = sorted(preds)
@@ -1670,10 +1678,10 @@ def error_analysis_pil(model, samples_raw, transform_name='clean', top_k=10,
     records = list(zip(identifiers, preds, labels))
 
     false_positives = sorted(
-        [r for r in records if r[2] == 0 and r[1] > 0.5], key=lambda r: -r[1]
+        [r for r in records if r[2] == 0 and r[1] > DECISION_THRESHOLD], key=lambda r: -r[1]
     )[:top_k]
     false_negatives = sorted(
-        [r for r in records if r[2] == 1 and r[1] < 0.5], key=lambda r: r[1]
+        [r for r in records if r[2] == 1 and r[1] < DECISION_THRESHOLD], key=lambda r: r[1]
     )[:top_k]
 
     print(f'Top {top_k} false positives (real flagged as fake):')

@@ -170,8 +170,14 @@ On the held-out evaluation set (clean transform, 1000-image eval pool):
 ## Team Member Contributions
 
 _Fill in before submission — list each team member and their primary contribution area (e.g. model architecture, data pipeline, robustness evaluation, README/demo video)._
-Chloe Cheo
-- 
+Cheo Chloe
+- Wrote the Devpost written submission end-to-end — problem statement, solution overview, technical approach, and impact narrative
+- Produced the YouTube demo video: recorded the voiceover narration and edited the final video deliverable
+- Fixed a decision-threshold inconsistency where inference summary counts and error analysis used a hardcoded 0.5 cutoff instead of the calibrated `DECISION_THRESHOLD`, causing reported numbers to silently disagree with the robustness eval
+- Added reproducibility seeding (`random`, `np.random`, `torch`) via a configurable `AIGC_SEED` env var, previously unset anywhere in the pipeline
+- Added `tests/test_data_pipeline.py` covering `assign_split`/`_stable_hash_fraction`, the train/val split mechanism that fixes prior data-leakage issues, which previously had no test coverage
+- Untracked `inference_images/` (~4,954 files, ~985MB) from git and added it to `.gitignore` to stop repo bloat, and added `.env` to `.gitignore` to prevent accidental credential commits
+
 Darren Mah
 - 
 Darryl Lee
