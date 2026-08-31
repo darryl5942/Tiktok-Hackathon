@@ -182,6 +182,13 @@ Darryl Lee
 - Drafted the Devpost written description
 - Split `aigc_detector_3.py` into `config.py`, `image_transforms.py`, `model.py`, and `data_pipeline.py` for better code structure
 - Fixed a bug where `techjam_cli.py infer --input-dir` was silently ignored (the script never read the `INFERENCE_INPUT_DIR` env var it set)
+- Fixed a cross-platform bug in `portable_identifier()` that returned Windows backslash paths instead of portable forward-slash paths, caught by the existing test suite
+- Made the dataset cache directory configurable via `AIGC_CACHE_DIR` to work around a Windows long-path crash during dataset extraction
+- Verified the full pipeline end-to-end on GPU across two machines, and refreshed the README's robustness table and error analysis with real numbers from that run (replacing stale/inconsistent figures)
+- Rotated leaked Kaggle/Hugging Face credentials found during setup and added `.cache/` to `.gitignore` to prevent future leaks
+- Rewrote the Devpost description, correcting factual errors (backbone names, an unimplemented explainability claim) while strengthening the impact/motivation narrative
+- Added and verified the public demo video link in the README and Devpost description
+- Documented a specific limitation: training stacks 1-3 transforms per image, but the robustness evaluation only tests one transform at a time
 Zacchaeus Tan
 - Added `techjam_utils.py`, a shared helper module for env-flag parsing, portable path identifiers, labeled-CSV validation, benchmark-row conversion, and decision-threshold search
 - Added `techjam_cli.py`, a CLI wrapper with explicit `train`/`infer`/`eval` modes
