@@ -169,8 +169,7 @@ On the held-out evaluation set (clean transform, 1000-image eval pool):
 
 ## Team Member Contributions
 
-_Fill in before submission — list each team member and their primary contribution area (e.g. model architecture, data pipeline, robustness evaluation, README/demo video)._
-Cheo Chloe
+Chloe Cheo
 - Wrote the Devpost written submission end-to-end — problem statement, solution overview, technical approach, and impact narrative
 - Produced the YouTube demo video: recorded the voiceover narration and edited the final video deliverable
 - Fixed a decision-threshold inconsistency where inference summary counts and error analysis used a hardcoded 0.5 cutoff instead of the calibrated `DECISION_THRESHOLD`, causing reported numbers to silently disagree with the robustness eval
@@ -184,7 +183,7 @@ Darren Mah
 - Implemented a resumable training system that preserves exact training state across interruptions, and automatically detects and safely handles mid-project changes to data sources or configuration — recalibrating when safe, blocking with a clear warning when a change risks data leakage.
 - Added automatic detection-summary statistics and visualizations (real vs. AI-generated counts, confidence distributions) for any inference batch.
 - Trained the project's model
-- 
+
 Darryl Lee
 - Drafted the initial version of the AI detection pipeline
 - Set up Hugging Face Hub hosting and uploaded the trained checkpoint (`best_model.pt`) so the model is reproducible without bloating git
@@ -197,7 +196,7 @@ Darryl Lee
 - Made the dataset cache directory configurable via `AIGC_CACHE_DIR` to work around a Windows long-path crash during dataset extraction
 - Verified the full pipeline end-to-end on GPU across two machines, and refreshed the README's robustness table and error analysis with real numbers from that run (replacing stale/inconsistent figures)
 - Rotated leaked Kaggle/Hugging Face credentials found during setup and added `.cache/` to `.gitignore` to prevent future leaks
-- 
+
 Zacchaeus Tan
 - Added `techjam_utils.py`, a shared helper module for env-flag parsing, portable path identifiers, labeled-CSV validation, benchmark-row conversion, and decision-threshold search
 - Added `techjam_cli.py`, a CLI wrapper with explicit `train`/`infer`/`eval` modes
