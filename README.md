@@ -21,6 +21,15 @@ Robust image-level AIGC detector for the TikTok TechJam problem statement: class
 
 ## Setup
 
+> **Before you start — two things that will otherwise surprise you:**
+> 1. **A free Kaggle account + API key is required, even just to run inference.** The script checks for `KAGGLE_USERNAME`/`KAGGLE_KEY` unconditionally on startup (used to download the training datasets its bundled robustness-evaluation pipeline reads from), and will refuse to run without them. Get a free key at [kaggle.com/settings](https://www.kaggle.com/settings) → API → Create New Token.
+> 2. **The first run downloads ~12GB of Kaggle datasets** (CIFAKE + the AIGC detection dataset) before producing any output — this is a one-time cost (cached afterward), but budget several minutes for it depending on your connection, even if all you want is inference predictions on your own images.
+>
+> On Windows, if you hit a crash mid-download like `FileNotFoundError` during `_extract_archive` (path too long), your project folder's path is too deeply nested (common with OneDrive-synced folders). Set `AIGC_CACHE_DIR` to a short path before running, e.g.:
+> ```powershell
+> $env:AIGC_CACHE_DIR = "C:\aigc_cache"
+> ```
+
 1. Create and activate a Python 3.12 environment.
 2. Install dependencies:
 
@@ -176,7 +185,7 @@ Zacchaeus Tan
 ## Limitations
 
 - The project is still a hackathon-scale prototype, not a production moderation system.
-- The main script is intentionally single-file for speed of iteration, so it is less modular than a production repo.
+- Pure inference is currently coupled to the training-dataset download/credential check — running `techjam_cli.py infer` still requires Kaggle credentials and a ~12GB one-time dataset download, even though the required inference deliverable itself doesn't need that data. Given more time, inference-only mode would skip this entirely.
 - External OOD evaluation depends on a local labeled CSV and is optional.
 - The model is robust, but resize and blur remain the biggest weak spots.
 
