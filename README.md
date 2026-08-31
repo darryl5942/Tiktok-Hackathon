@@ -13,11 +13,17 @@ Robust image-level AIGC detector for the TikTok TechJam problem statement: class
 
 ## Repository Layout
 
-- `aigc_detector_3.py` - end-to-end training, inference, and evaluation script
+- `aigc_detector_3.py` - orchestration: env/credential setup, dataset loading, training loop, inference, and evaluation
+- `config.py` - shared model architecture and augmentation constants
+- `image_transforms.py` - the robustness transform pool (JPEG/blur/resize/noise/color/crop) and augmentation logic
+- `model.py` - the two-branch (CLIP + ConvNeXt frequency) detector architecture
+- `data_pipeline.py` - dataset wrappers (Kaggle/HuggingFace streaming) and train/val split bookkeeping
+- `techjam_cli.py` / `techjam_utils.py` - CLI entrypoint wrapper and small dependency-free shared helpers
 - `requirements.txt` - Python dependencies
-- `checkpoints/` - saved model checkpoints
+- `checkpoints/` - saved model checkpoints (gitignored — see Setup step 4 to download)
 - `outputs/` - inference, robustness, and error-analysis artifacts
 - `split_manifest.json` - persistent train/validation split assignments
+- `tests/` - unit tests for `techjam_utils.py`
 
 ## Setup
 
@@ -129,13 +135,9 @@ AIGC_SKIP_TRAINING=1 python techjam_cli.py infer --input-dir inference_images
 
 ## Current Observations
 
-The current held-out robustness summary shows:
+See the Robustness Evaluation Summary table below for the current held-out accuracy/AUC numbers by transform family (sourced directly from `outputs/robustness_summary_compact.csv`).
 
-- clean accuracy around 0.9485
-- JPEG compression is only slightly worse than clean
-- blur and resize are the weakest transform families, which matches the problem statement’s emphasis on post-processing robustness
-
-The detector now also calibrates its decision threshold from the validation set and saves it to `outputs/decision_threshold.json`, which makes the final classification rule less arbitrary than a fixed 0.5 cutoff.
+The detector calibrates its decision threshold from the validation set and saves it to `outputs/decision_threshold.json`, which makes the final classification rule less arbitrary than a fixed 0.5 cutoff.
 
 The error analysis shows the model tends to struggle on heavily processed real images and some heavily degraded fake images, which is the main trade-off to address next.
 
