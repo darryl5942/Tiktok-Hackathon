@@ -143,26 +143,26 @@ The error analysis shows the model tends to struggle on heavily processed real i
 
 ## Robustness Evaluation Summary
 
-Held-out validation accuracy/AUC by transform family, compared to clean images (source: `outputs/robustness_summary_compact.csv`):
+Held-out validation accuracy/AUC by transform family, compared to clean images (source: `outputs/robustness_summary_compact.csv`, from a full end-to-end run of the current `best_model.pt` checkpoint):
 
 | Transform | Accuracy | AUC | Accuracy drop vs. clean |
 |---|---|---|---|
-| Clean (no transform) | 0.959 | 0.9929 | — |
-| Color jitter | 0.9605 | 0.9925 | -0.0015 (slightly better) |
-| JPEG compression | 0.9549 | 0.9910 | 0.0041 |
-| Noise | 0.9543 | 0.9905 | 0.0047 |
-| Center crop | 0.9340 | 0.9854 | 0.0250 |
-| Blur | 0.9162 | 0.9660 | 0.0428 |
-| Resize | 0.8667 | 0.9325 | 0.0923 |
+| Clean (no transform) | 0.9750 | 0.9970 | — |
+| Color jitter | 0.9720 | 0.9967 | 0.0030 |
+| JPEG compression | 0.9630 | 0.9943 | 0.0120 |
+| Noise | 0.9530 | 0.9912 | 0.0220 |
+| Center crop | 0.9550 | 0.9924 | 0.0200 |
+| Blur | 0.9477 | 0.9891 | 0.0273 |
+| Resize | 0.9235 | 0.9779 | 0.0515 |
 
-Resize and blur are the weakest transforms — both destroy the high-frequency artifacts the frequency branch relies on, so accuracy degrades the most under heavy downsampling or blurring. See `outputs/robustness_chart.png` for the visual summary.
+Resize and blur are still the weakest transforms — both destroy the high-frequency artifacts the frequency branch relies on, so accuracy degrades the most under heavy downsampling or blurring — but the degradation is modest (worst case 0.9235 accuracy, still well above chance). See `outputs/robustness_chart.png` for the visual summary.
 
 ## Error Analysis Note
 
-On the held-out evaluation set (20 misclassified examples: 10 false positives, 10 false negatives out of the full validation set):
+On the held-out evaluation set (clean transform, 1000-image eval pool):
 
-- **False positives** (real images predicted as fake, confidence >0.99): almost all are real images that were heavily compressed and downsampled together (e.g. `center_crop-80_resize-x0.25_..._jpeg-q30`). Aggressive resize + low-quality JPEG recompression introduces compression artifacts that resemble the frequency-domain signatures the model associates with generated images.
-- **False negatives** (fake images predicted as real, confidence <0.01): concentrated in heavily blurred and downsampled fake images (e.g. `resize-x0.25_..._blur-sigma_2`), plus a handful of clean fake images from unseen generator families (e.g. `FAKE\137.jpg`). Downsampling and blur wash out the generator-specific frequency artifacts the model relies on, causing it to default toward "real."
+- **False positives** (real images predicted as fake, confidence 0.78–0.97): e.g. `REAL/0026 (8).jpg` (0.973), `REAL/0007.jpg` (0.969), `REAL/0013 (10).jpg` (0.961) — these are real images the model is confidently, incorrectly calling AI-generated.
+- **False negatives** (fake images predicted as real, confidence 0.003–0.35): e.g. `FAKE/137.jpg` (0.003), `FAKE/102 (9).jpg` (0.033), `FAKE/106 (3).jpg` (0.077) — fakes the model is confidently, incorrectly calling real. Full lists are in `outputs/error_analysis.csv`.
 - **Trade-off**: the frequency branch is central to clean-image accuracy but is also the main failure point under transforms that suppress high-frequency content (blur, aggressive resize). A production system would need either a transform-invariant frequency representation or an ensemble with a spatial-artifact detector to close this gap.
 
 ## Team Member Contributions
