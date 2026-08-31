@@ -183,7 +183,12 @@ Darryl Lee
 - Split `aigc_detector_3.py` into `config.py`, `image_transforms.py`, `model.py`, and `data_pipeline.py` for better code structure
 - Fixed a bug where `techjam_cli.py infer --input-dir` was silently ignored (the script never read the `INFERENCE_INPUT_DIR` env var it set)
 Zacchaeus Tan
-- 
+- Added `techjam_utils.py`, a shared helper module for env-flag parsing, portable path identifiers, labeled-CSV validation, benchmark-row conversion, and decision-threshold search
+- Added `techjam_cli.py`, a CLI wrapper with explicit `train`/`infer`/`eval` modes
+- Updated `aigc_detector_3.py` to calibrate and save a decision threshold after training and use it in evaluation/reporting, bias training augmentation more toward weak spots (blur, resize), normalize eval identifiers for machine-independent output, and validate the external benchmark CSV path
+- Wrote the initial README covering setup, CLI usage, the external benchmark workflow, and limitations
+- Added unit tests (`tests/test_techjam_utils.py`) for portable identifiers, threshold search, and CSV validation
+- Verified the refactor via syntax compilation and the new unit tests
 
 
 ## Limitations
