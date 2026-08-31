@@ -182,6 +182,7 @@ Darren Mah
 - Implemented a dual-branch AI-generated image detector combining a frozen CLIP ViT-H/14 backbone (general visual understanding, ~632M params) with a trainable ConvNeXt-Base frequency-domain branch (~88M params), fused via cross-modal attention — ~721M parameters total
 - Implemented a persistent, hash-based train/validation split that stays leak-proof even if configuration changes later, with official test sets reserved exclusively for final one-time evaluation
 - Implemented a resumable training system that preserves exact training state across interruptions, and automatically detects and safely handles mid-project changes to data sources or configuration — recalibrating when safe, blocking with a clear warning when a change risks data leakage.
+- Added automatic detection-summary statistics and visualizations (real vs. AI-generated counts, confidence distributions) for any inference batch.
 - Trained the project's model
 - 
 Darryl Lee
