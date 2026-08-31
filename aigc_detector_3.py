@@ -123,18 +123,10 @@ AIGC_DETECTION_TEST_SUBDIR = "test"
 # ── Data volume ──────────────────────────────────────────────────────────
 MAX_SAMPLES_PER_SOURCE = None  # e.g. 20_000 to cap; None = use all
 
-# ── Model architecture (Section 4) ───────────────────────────────────────
-IMG_SIZE = 224
-RGB_BACKBONE_NAME = "vit_huge_patch14_clip_224.laion2b"  # frozen — ~632M params
-FREQ_BACKBONE_NAME = "convnext_base"                     # trainable — ~88M params
-FUSION_DIM = 512
-
-# ── Training augmentation (Section 2b) ───────────────────────────────────
-# Fraction of training samples left completely untouched. The remainder get
-# 1 or more DISTINCT transforms stacked in sequence (e.g. blur THEN JPEG
-# compression) rather than exactly one.
-P_CLEAN = 1 / 15  # roughly matches the old "1-of-15-keys is clean" odds
-MAX_STACKED_TRANSFORMS = 3
+# ── Model architecture (Section 4) + Training augmentation (Section 2b) ──
+# Moved to config.py so image_transforms.py and model.py can import them
+# without a circular import back into this script.
+from config import IMG_SIZE, RGB_BACKBONE_NAME, FREQ_BACKBONE_NAME, FUSION_DIM, P_CLEAN, MAX_STACKED_TRANSFORMS
 
 # ── Training loop (Section 5) ────────────────────────────────────────────
 BATCH_SIZE = 64
@@ -177,7 +169,7 @@ KAGGLE_CACHE_DIR = CACHE_DIR / "kagglehub"
 HF_CACHE_DIR = CACHE_DIR / "huggingface"
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
-INFERENCE_INPUT_DIR = PROJECT_ROOT / "inference_images"
+INFERENCE_INPUT_DIR = Path(os.environ.get("INFERENCE_INPUT_DIR", str(PROJECT_ROOT / "inference_images")))
 
 for _d in (KAGGLE_CACHE_DIR, HF_CACHE_DIR, CHECKPOINT_DIR, OUTPUT_DIR, INFERENCE_INPUT_DIR):
     _d.mkdir(parents=True, exist_ok=True)
@@ -271,326 +263,17 @@ else:
     print("USE_SID_SET is False — skipping SID_Set setup.")
 
 # ── Dataset wrappers: one for HuggingFace streams, one for Kaggle dirs ───────
+# Moved to data_pipeline.py (deliberately not named datasets.py — that would
+# shadow the HuggingFace `datasets` package used below for SID_Set).
 
 import torch
-from torch.utils.data import IterableDataset
 import random
 from PIL import Image
 
-IMG_EXTS = {'.jpg', '.jpeg', '.png', '.bmp', '.webp'}
-
-
-import hashlib
-
-SPLIT_MANIFEST_PATH = PROJECT_ROOT / "split_manifest.json"
-# Deliberately NOT inside CHECKPOINT_DIR: that folder is gitignored, but this
-# file defines which exact images are train vs validation — it needs to ship
-# with the repo so anyone reproducing training gets the same split, not a
-# fresh random one.
-
-
-def load_split_manifest() -> dict:
-    """Loads the persisted train/val file assignments, or {} if none exist yet."""
-    if SPLIT_MANIFEST_PATH.exists():
-        with open(SPLIT_MANIFEST_PATH) as f:
-            return json.load(f)
-    return {}
-
-
-def save_split_manifest(manifest: dict) -> None:
-    with open(SPLIT_MANIFEST_PATH, 'w') as f:
-        json.dump(manifest, f, indent=2)
-
-
-def _stable_hash_fraction(key: str) -> float:
-    """
-    Deterministic hash of a string mapped to [0, 1), stable across process
-    restarts — unlike Python's builtin hash(), which is randomized per
-    process for security and would silently reassign every file on every
-    run if used here.
-    """
-    digest = hashlib.md5(key.encode('utf-8')).hexdigest()[:8]
-    return int(digest, 16) / 0x100000000
-
-
-def assign_split(paths: list, manifest_bucket: dict, val_ratio: float) -> tuple:
-    """
-    Assigns each path to 'train' or 'val', persistently: a path already
-    present in manifest_bucket keeps its existing assignment FOREVER,
-    regardless of what val_ratio is passed on this or any future call —
-    only a path seen for the first time gets a fresh hash-based assignment.
-    manifest_bucket is mutated in place with any new assignments.
-
-    This is what makes changing VAL_SPLIT_RATIO safe for local file-based
-    sources: it can only affect files not yet assigned, never retroactively
-    move an already-trained-on file into the validation set (or vice versa).
-    Returns (train_paths, val_paths, count_newly_assigned).
-    """
-    train_paths, val_paths = [], []
-    newly_assigned = 0
-    for p in paths:
-        key = p.name
-        assignment = manifest_bucket.get(key)
-        if assignment is None:
-            assignment = 'val' if _stable_hash_fraction(key) < val_ratio else 'train'
-            manifest_bucket[key] = assignment
-            newly_assigned += 1
-        (val_paths if assignment == 'val' else train_paths).append(p)
-    return train_paths, val_paths, newly_assigned
-
-
-_PRINTED_SUBFOLDER_BREAKDOWN = set()  # avoids printing the same directory's
-                                       # breakdown twice (train-role and val-
-                                       # role instances both scan it once each)
-
-
-def _scan_images_excluding_test(root_dir: Path) -> list:
-    """
-    Recursively finds image files under root_dir — INCLUDING any nested
-    subfolders (e.g. a generator-origin breakdown like fake/adm/, fake/sd15/,
-    fake/midjourney/), since rglob is recursive by design.
-
-    EXCLUDES any file sitting inside a subfolder literally named "test"
-    (case-insensitive), at any depth — a defensive guard in case a dataset
-    nests a held-out test split inside its real/fake folders (e.g.
-    fake/test/) rather than as a separate sibling directory. Without this,
-    such a split would be silently swept into training with no warning,
-    since a plain recursive glob doesn't distinguish "generator subfolder"
-    from "held-out test subfolder."
-
-    Prints a one-time per-subfolder image count breakdown for each unique
-    root_dir, so what's actually being loaded is visible rather than assumed.
-    """
-    root_dir = Path(root_dir)
-    included = []
-    excluded_count = 0
-    per_subfolder = {}
-
-    for p in root_dir.rglob('*'):
-        if p.suffix.lower() not in IMG_EXTS:
-            continue
-        rel_parts = p.relative_to(root_dir).parts[:-1]  # directory components only
-        if any(part.lower() == 'test' for part in rel_parts):
-            excluded_count += 1
-            continue
-        included.append(p)
-        subfolder = rel_parts[0] if rel_parts else '(directly in ' + root_dir.name + ')'
-        per_subfolder[subfolder] = per_subfolder.get(subfolder, 0) + 1
-
-    if str(root_dir) not in _PRINTED_SUBFOLDER_BREAKDOWN:
-        _PRINTED_SUBFOLDER_BREAKDOWN.add(str(root_dir))
-        print(f"[{root_dir}] image breakdown by subfolder:")
-        for subfolder, count in sorted(per_subfolder.items()):
-            print(f"    {subfolder}: {count:,} images")
-        if excluded_count:
-            print(f"    (excluded {excluded_count:,} image(s) found inside a subfolder "
-                  f"named 'test' — not used in training)")
-
-    return sorted(included)
-
-
-class KaggleDirStreamDataset(IterableDataset):
-    """
-    Streams images lazily from a directory pair (real_dir / fake_dir).
-    Images are opened one at a time — no bulk loading into RAM.
-    Compatible with CIFAKE's layout: train/REAL, train/FAKE, test/REAL, test/FAKE.
-    Also handles sources with generator-origin subfolders nested under
-    real_dir/fake_dir (e.g. fake/adm/, fake/sd15/, fake/midjourney/) —
-    scanned recursively, with any nested "test"-named subfolder excluded.
-
-    NOTE: this does NOT shard samples across DataLoader workers. If you ever
-    raise NUM_WORKERS above 0, every worker will iterate the FULL sample list
-    independently, silently duplicating every sample once per worker. Add
-    torch.utils.data.get_worker_info()-based sharding before doing that.
-    """
-    def __init__(self, real_dir, fake_dir, train=True, aug_in_loop=True, max_samples=None,
-                 manifest: dict = None, source_key: str = "default", role: str = "train",
-                 val_ratio: float = 0.15):
-        self.real_paths = _scan_images_excluding_test(real_dir)
-        self.fake_paths = _scan_images_excluding_test(fake_dir)
-
-        if manifest is not None:
-            # Separate buckets per class, so a real image and a fake image
-            # that happen to share a filename can never collide in the
-            # manifest lookup.
-            bucket = manifest.setdefault(source_key, {})
-            real_bucket = bucket.setdefault('real', {})
-            fake_bucket = bucket.setdefault('fake', {})
-
-            real_train, real_val, n_new_r = assign_split(self.real_paths, real_bucket, val_ratio)
-            fake_train, fake_val, n_new_f = assign_split(self.fake_paths, fake_bucket, val_ratio)
-            newly_assigned = n_new_r + n_new_f
-            if newly_assigned:
-                print(f"[{source_key}] assigned {newly_assigned} file(s) to train/val for "
-                      f"the first time (any existing assignments were left unchanged).")
-
-            real_split = real_train if role == 'train' else real_val
-            fake_split = fake_train if role == 'train' else fake_val
-        else:
-            # Fallback if no manifest is wired up: use everything, unsplit.
-            # Only relevant if this class is ever constructed directly
-            # without going through Section 3's manifest-based setup.
-            real_split, fake_split = self.real_paths, self.fake_paths
-
-        if max_samples:
-            # Split the cap evenly across classes BEFORE truncating. Doing
-            # this after concatenating real+fake into one list and slicing
-            # the front off is a real bug: CIFAKE's train split lists all
-            # 50,000 real paths before any of the 50,000 fake ones, so any
-            # max_samples <= 50,000 silently produced a ZERO-fake, real-only
-            # subset — same for a cap sitting exactly at 50,000.
-            per_class_cap = max_samples // 2
-            real_subset = real_split[:per_class_cap]
-            fake_subset = fake_split[:per_class_cap]
-        else:
-            real_subset = real_split
-            fake_subset = fake_split
-
-        self.samples = [(p, 0) for p in real_subset] + [(p, 1) for p in fake_subset]
-        self.train = train
-        self.aug_in_loop = aug_in_loop
-
-    def __len__(self):
-        return len(self.samples)
-
-    def __iter__(self):
-        paths = self.samples.copy()
-        if self.train:
-            random.shuffle(paths)
-        for path, label in paths:
-            try:
-                img = Image.open(path).convert('RGB')
-            except Exception as e:
-                print(f'[warn] skipping {path}: {e}')
-                continue
-            if self.train and self.aug_in_loop:
-                img = apply_random_transform_stack(img)
-            rgb = _normalize(img)
-            freq = to_freq_tensor(img)
-            yield {
-                'rgb': rgb,
-                'freq': freq,
-                'label': torch.tensor(label, dtype=torch.float32),
-                'path': str(path),
-            }
-
-
-class HFStreamDataset(IterableDataset):
-    """
-    Wraps a HuggingFace streaming dataset.
-    Each item must have 'image' (PIL Image) and 'label' (int: 0=real, 1=fake).
-
-    Same worker-sharding caveat as KaggleDirStreamDataset above applies here.
-    """
-    def __init__(self, hf_dataset, train=True, aug_in_loop=True, max_samples=None, skip_first: int = 0):
-        self.hf_dataset = hf_dataset
-        self.train = train
-        self.aug_in_loop = aug_in_loop
-        self.max_samples = max_samples
-        self.skip_first = skip_first  # discard this many items before yielding —
-                                       # used to carve a disjoint early-stopping
-                                       # validation slice out of the same stream
-                                       # a separate instance uses for training
-
-    def __len__(self):
-        if self.max_samples is None:
-            # An uncapped streaming HF dataset has no reliable length —
-            # deliberately NOT implementing a fallback here, so ChainDataset
-            # (and tqdm) correctly fall back to counter-only display in the
-            # uncapped case, same as before this change.
-            raise TypeError(
-                "length is unknown for an uncapped HFStreamDataset — set max_samples to enable it."
-            )
-        return self.max_samples
-
-    def __iter__(self):
-        count = 0
-        skipped = 0
-        consecutive_errors = 0
-        max_consecutive_errors = 20  # tolerate transient network blips, but don't retry forever
-        iterator = iter(self.hf_dataset)
-
-        while True:
-            if self.max_samples and count >= self.max_samples:
-                break
-
-            try:
-                item = next(iterator)
-                consecutive_errors = 0
-            except StopIteration:
-                break
-            except Exception as e:
-                # Network hiccups, timeouts, or a momentarily unavailable shard
-                # land here. Unlike a bad local file, we can't just "skip and
-                # move on" as cleanly — next(iterator) may or may not recover
-                # on its own. Skip a bounded number of consecutive failures,
-                # but stop for real if it looks like the stream is actually
-                # broken rather than just having a bad moment.
-                consecutive_errors += 1
-                print(f'[warn] SID_Set stream error ({consecutive_errors}/{max_consecutive_errors}): {e}')
-                if consecutive_errors >= max_consecutive_errors:
-                    raise RuntimeError(
-                        f'SID_Set streaming failed {max_consecutive_errors} times in a row — '
-                        f'this looks like a persistent problem (network connectivity, an expired '
-                        f'HF_TOKEN, or a gated-access issue), not a transient blip. Stopping '
-                        f'instead of retrying forever so this doesn\'t look like a silent hang.'
-                    ) from e
-                continue
-
-            if skipped < self.skip_first:
-                skipped += 1
-                continue
-
-            try:
-                img = item['image'].convert('RGB')
-                label = int(item['label'])
-            except Exception as e:
-                print(f'[warn] skipping a malformed SID_Set sample: {e}')
-                continue
-
-            if self.train and self.aug_in_loop:
-                img = apply_random_transform_stack(img)
-            rgb = _normalize(img)
-            freq = to_freq_tensor(img)
-            yield {
-                'rgb': rgb,
-                'freq': freq,
-                'label': torch.tensor(label, dtype=torch.float32),
-                'path': str(item.get('image_path', f'stream_{count}')),
-            }
-            count += 1
-
-
-class InterleavedIterableDataset(IterableDataset):
-    """
-    Interleaves multiple IterableDatasets by randomly picking which still-
-    active source to draw the next sample from, instead of ChainDataset's
-    behavior of fully exhausting one source before starting the next.
-
-    Without this, every single epoch sees a hard "regime switch" at the same
-    relative point (e.g. all of CIFAKE, then all of SID_Set) rather than a
-    well-mixed blend of sources — a real, if likely minor, training-dynamics
-    quirk that a plain ChainDataset can't avoid.
-    """
-    def __init__(self, datasets: list):
-        self.datasets = datasets
-
-    def __len__(self):
-        # Mirrors ChainDataset's own __len__: sums each source's length,
-        # propagating TypeError if any source's length is unknown (e.g. an
-        # uncapped HFStreamDataset) so callers fall back the same way.
-        return sum(len(d) for d in self.datasets)
-
-    def __iter__(self):
-        iterators = [iter(d) for d in self.datasets]
-        active = list(range(len(iterators)))
-        while active:
-            idx = random.choice(active)
-            try:
-                yield next(iterators[idx])
-            except StopIteration:
-                active.remove(idx)
-
+from data_pipeline import (
+    load_split_manifest, save_split_manifest, IMG_EXTS,
+    KaggleDirStreamDataset, HFStreamDataset, InterleavedIterableDataset,
+)
 
 print('Dataset wrappers defined. No images loaded yet.')
 
@@ -638,166 +321,19 @@ else:
 
 """## 2b. Dataset & transform pool
 
-Implements the exact transform table from the problem statement. `TRANSFORM_POOL` is reused in
-three places: training-time augmentation, the robustness eval, and the (optional) named-transform
-demo in your video.
+Implements the exact transform table from the problem statement. Moved to
+image_transforms.py (TRANSFORM_POOL, apply_random_transform_stack,
+to_freq_tensor, apply_named_transform, and the individual transform
+functions) — imported here under the same names so the rest of this script
+is unchanged.
 """
 
-def jpeg_compress(img: Image.Image, quality: int) -> Image.Image:
-    buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=quality)
-    buf.seek(0)
-    return Image.open(buf).convert("RGB")
-
-
-def gaussian_blur(img: Image.Image, sigma: float) -> Image.Image:
-    return img.filter(ImageFilter.GaussianBlur(radius=sigma))
-
-
-def resize_roundtrip(img: Image.Image, scale: float) -> Image.Image:
-    w, h = img.size
-    small = img.resize((max(1, int(w * scale)), max(1, int(h * scale))), Image.BICUBIC)
-    return small.resize((w, h), Image.BICUBIC)
-
-
-def gaussian_noise(img: Image.Image, sigma: float) -> Image.Image:
-    arr = np.asarray(img).astype(np.float32) / 255.0
-    noise = np.random.normal(0, sigma, arr.shape)
-    arr = np.clip(arr + noise, 0, 1) * 255.0
-    return Image.fromarray(arr.astype(np.uint8))
-
-
-def color_jitter(img: Image.Image, delta: float = 0.2) -> Image.Image:
-    for enhancer_cls in (ImageEnhance.Brightness, ImageEnhance.Contrast, ImageEnhance.Color):
-        factor = 1.0 + random.uniform(-delta, delta)
-        img = enhancer_cls(img).enhance(factor)
-    return img
-
-
-def center_crop_pct(img: Image.Image, pct: float = 0.8) -> Image.Image:
-    w, h = img.size
-    nw, nh = int(w * pct), int(h * pct)
-    left, top = (w - nw) // 2, (h - nh) // 2
-    return img.crop((left, top, left + nw, top + nh)).resize((w, h), Image.BICUBIC)
-
-
-TRANSFORM_POOL = {
-    "clean": lambda img: img,
-    "jpeg_90": lambda img: jpeg_compress(img, 90),
-    "jpeg_70": lambda img: jpeg_compress(img, 70),
-    "jpeg_50": lambda img: jpeg_compress(img, 50),
-    "jpeg_30": lambda img: jpeg_compress(img, 30),
-    "blur_0.5": lambda img: gaussian_blur(img, 0.5),
-    "blur_1.0": lambda img: gaussian_blur(img, 1.0),
-    "blur_2.0": lambda img: gaussian_blur(img, 2.0),
-    "resize_0.5": lambda img: resize_roundtrip(img, 0.5),
-    "resize_0.25": lambda img: resize_roundtrip(img, 0.25),
-    "noise_0.02": lambda img: gaussian_noise(img, 0.02),
-    "noise_0.05": lambda img: gaussian_noise(img, 0.05),
-    "noise_0.10": lambda img: gaussian_noise(img, 0.10),
-    "color_jitter": lambda img: color_jitter(img),
-    "center_crop_80": lambda img: center_crop_pct(img, 0.8),
-}
-
-# P_CLEAN and MAX_STACKED_TRANSFORMS are set in the SETTINGS block at the top
-# of the file. The remainder of samples (not left clean) get 1 or more
-# DISTINCT transforms stacked in sequence (e.g. blur THEN JPEG compression)
-# rather than exactly one — real-world images are often degraded by multiple
-# processes in a row (resized for a thumbnail, then re-compressed on
-# re-upload), and prior research on cross-generator generalization (Wang et
-# al., CVPR 2020) specifically credits this kind of combined augmentation
-# over single-transform augmentation.
-
-_STACKABLE_TRANSFORM_NAMES = [k for k in TRANSFORM_POOL if k != "clean"]
-_ROBUST_STACK_PRIORITY = [
-    "blur_0.5",
-    "blur_1.0",
-    "blur_2.0",
-    "resize_0.5",
-    "resize_0.25",
-]
-
-
-def _weighted_stack_start() -> str:
-    """Biases the first stacked transform toward the prompt's weak spots."""
-    names = list(_STACKABLE_TRANSFORM_NAMES)
-    weights = [2.5 if name in _ROBUST_STACK_PRIORITY else 1.0 for name in names]
-    return random.choices(names, weights=weights, k=1)[0]
-
-
-def apply_random_transform_stack(img: Image.Image) -> Image.Image:
-    """
-    With probability P_CLEAN, returns the image untouched. Otherwise applies
-    a random number (1 to MAX_STACKED_TRANSFORMS) of DISTINCT transforms
-    from TRANSFORM_POOL, in sequence — e.g. blur_1.0 then jpeg_50 then
-    center_crop_80 all applied to the same image, one after another.
-    random.sample (not random.choices) is used so the same transform is
-    never picked twice in one stack — applying "blur_1.0" then "blur_1.0"
-    again adds no realism, but "blur_1.0" then "jpeg_50" does.
-    """
-    if random.random() < P_CLEAN:
-        return img
-    k = random.randint(1, MAX_STACKED_TRANSFORMS)
-    first = _weighted_stack_start()
-    img = TRANSFORM_POOL[first](img)
-    if k == 1:
-        return img
-    remaining = [name for name in _STACKABLE_TRANSFORM_NAMES if name != first]
-    for name in random.sample(remaining, k=k - 1):
-        img = TRANSFORM_POOL[name](img)
-    return img
-
-# CLIP's own normalization stats — NOT ImageNet's. The RGB branch is a frozen
-# CLIP backbone; feeding it ImageNet-normalized input would silently mismatch
-# the distribution it was pretrained on and degrade feature quality.
-# These stats are shared by OpenAI's original CLIP and OpenCLIP/LAION's plain
-# (non-ImageNet-fine-tuned) CLIP encoders alike — e.g. both
-# "vit_large_patch14_clip_224.openai" and "vit_huge_patch14_clip_224.laion2b"
-# use these exact values. Note this does NOT hold for ImageNet-fine-tuned
-# variants (any name ending "_ft_in1k" / "_ft_in12k_in1k") — some of those
-# switch to different normalization during fine-tuning, so verify before
-# swapping to one of those specifically.
-CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
-CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
-
-_normalize = T.Compose([
-    T.Resize((IMG_SIZE, IMG_SIZE)),
-    T.ToTensor(),
-    T.Normalize(mean=CLIP_MEAN, std=CLIP_STD),
-])
-
-
-def to_freq_tensor(img: Image.Image) -> torch.Tensor:
-    """Grayscale log-magnitude FFT spectrum, resized to IMG_SIZE, single channel."""
-    gray = np.asarray(img.convert("L").resize((IMG_SIZE, IMG_SIZE)), dtype=np.float32)
-    f = np.fft.fftshift(np.fft.fft2(gray))
-    mag = np.log1p(np.abs(f))
-    mag = (mag - mag.min()) / (mag.max() - mag.min() + 1e-8)
-    return torch.from_numpy(mag).unsqueeze(0).float()
-
-
-def apply_named_transform(img: Image.Image, name: str) -> Image.Image:
-    """Used by the robustness eval to apply one specific named transform."""
-    return TRANSFORM_POOL[name](img)
-
-
-def get_hf_split_total(repo_id: str, split: str):
-    """
-    Looks up a HuggingFace dataset split's true sample count from its
-    metadata (dataset_infos.json / README YAML), without downloading or
-    streaming any actual data. Returns None — rather than raising — if this
-    isn't available for this dataset/split, so the caller can report exactly
-    which source couldn't be determined instead of crashing.
-    """
-    try:
-        from datasets import load_dataset_builder
-        builder = load_dataset_builder(repo_id)
-        if not builder.info.splits or split not in builder.info.splits:
-            return None
-        return builder.info.splits[split].num_examples  # may itself be None
-    except Exception as e:
-        print(f"[warn] could not fetch size metadata for {repo_id} split={split}: {e}")
-        return None
+from image_transforms import (
+    jpeg_compress, gaussian_blur, resize_roundtrip, gaussian_noise,
+    color_jitter, center_crop_pct, TRANSFORM_POOL, apply_random_transform_stack,
+    CLIP_MEAN, CLIP_STD, _normalize, to_freq_tensor, apply_named_transform,
+)
+from data_pipeline import get_hf_split_total
 
 
 """## 3. Train / validation split, DataLoaders
@@ -1137,123 +673,13 @@ else:
 
 """## 4. Model
 
-Two-branch design, upgraded from the EfficientNet-B0 baseline:
-
-- **RGB branch**: frozen CLIP ViT-H/14 (~632M params, `vit_huge_patch14_clip_224.laion2b`
-  — the plain OpenCLIP/LAION-2B image encoder, NOT an ImageNet-fine-tuned variant,
-  which would use different normalization and defeat the point of a general-purpose
-  frozen feature extractor). Per Ojha et al., CVPR 2023 ("Towards Universal Fake
-  Image Detectors that Generalize Across Generative Models"), a frozen large
-  pretrained backbone + linear probe generalizes to UNSEEN generators far better
-  than fine-tuning a smaller CNN end-to-end — directly relevant since WildFake is
-  your out-of-distribution benchmark. Frozen also means zero gradient/optimizer-
-  state memory cost for this branch, despite its size.
-- **Frequency branch**: trainable ConvNeXt-Base (~88M params) on the FFT
-  spectrum — this one DOES need to adapt to the FFT-magnitude input domain,
-  so it stays trainable, unlike the RGB branch.
-- **Fusion**: a small cross-modal attention block instead of naive
-  concatenation, so the model can learn interactions between pixel content
-  and frequency artifacts rather than treating them as independent evidence.
-
-Total ~721M params — still comfortably under the hackathon's 2B cap.
-Trainable ~91M of those (frequency branch + fusion + head).
+Two-branch design (RGB + frequency), moved to model.py — see that file's
+module docstring for the full architecture rationale. Imported here so the
+rest of this script (training loop, inference, eval) can keep using
+AIGCDetector/count_params/count_trainable_params exactly as before.
 """
 
-
-class CrossModalFusion(nn.Module):
-    """
-    Treats the RGB and frequency branch's pooled features as a 2-token
-    sequence and runs one self-attention + feed-forward block over them
-    (a lightweight transformer layer). This lets each modality's features
-    attend to and modulate the other before classification, rather than
-    just being concatenated side by side.
-    """
-
-    def __init__(self, rgb_dim: int, freq_dim: int, fusion_dim: int = FUSION_DIM, num_heads: int = 4):
-        super().__init__()
-        self.rgb_proj = nn.Linear(rgb_dim, fusion_dim)
-        self.freq_proj = nn.Linear(freq_dim, fusion_dim)
-        self.cross_attn = nn.MultiheadAttention(embed_dim=fusion_dim, num_heads=num_heads, batch_first=True)
-        self.norm1 = nn.LayerNorm(fusion_dim)
-        self.ffn = nn.Sequential(
-            nn.Linear(fusion_dim, fusion_dim * 2),
-            nn.GELU(),
-            nn.Linear(fusion_dim * 2, fusion_dim),
-        )
-        self.norm2 = nn.LayerNorm(fusion_dim)
-
-    def forward(self, rgb_feat: torch.Tensor, freq_feat: torch.Tensor) -> torch.Tensor:
-        rgb_tok = self.rgb_proj(rgb_feat).unsqueeze(1)    # [B, 1, D]
-        freq_tok = self.freq_proj(freq_feat).unsqueeze(1)  # [B, 1, D]
-        tokens = torch.cat([rgb_tok, freq_tok], dim=1)     # [B, 2, D]
-
-        attn_out, _ = self.cross_attn(tokens, tokens, tokens)
-        tokens = self.norm1(tokens + attn_out)
-        tokens = self.norm2(tokens + self.ffn(tokens))
-
-        return tokens.flatten(1)  # [B, 2*D]
-
-
-class AIGCDetector(nn.Module):
-    def __init__(self,
-                 rgb_backbone_name: str = RGB_BACKBONE_NAME,
-                 freq_backbone_name: str = FREQ_BACKBONE_NAME,
-                 fusion_dim: int = FUSION_DIM,
-                 pretrained: bool = True):
-        super().__init__()
-
-        self.rgb_backbone = timm.create_model(
-            rgb_backbone_name, pretrained=pretrained, num_classes=0
-        )
-        for p in self.rgb_backbone.parameters():
-            p.requires_grad = False
-        self.rgb_backbone.eval()  # frozen — never switches to train-mode behavior
-
-        self.freq_backbone = timm.create_model(
-            freq_backbone_name, pretrained=pretrained, num_classes=0, in_chans=1
-        )
-
-        self.fusion = CrossModalFusion(
-            rgb_dim=self.rgb_backbone.num_features,
-            freq_dim=self.freq_backbone.num_features,
-            fusion_dim=fusion_dim,
-        )
-
-        self.head = nn.Sequential(
-            nn.Linear(fusion_dim * 2, 256),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.3),
-            nn.Linear(256, 1),
-        )
-
-    def train(self, mode: bool = True):
-        # Override so calling model.train() never flips the frozen CLIP
-        # backbone's internal layers (e.g. dropout, if any) into training
-        # behavior — its weights never update, so its behavior shouldn't
-        # change between train/eval either.
-        super().train(mode)
-        self.rgb_backbone.eval()
-        return self
-
-    def forward_rgb_features(self, rgb: torch.Tensor) -> torch.Tensor:
-        with torch.no_grad():
-            return self.rgb_backbone(rgb)
-
-    def forward(self, rgb: torch.Tensor, freq: torch.Tensor) -> torch.Tensor:
-        rgb_feat = self.forward_rgb_features(rgb)
-        freq_feat = self.freq_backbone(freq)
-        fused = self.fusion(rgb_feat, freq_feat)
-        logit = self.head(fused).squeeze(1)
-        return logit  # apply sigmoid at inference / use BCEWithLogitsLoss for training
-
-
-def count_params(model: nn.Module) -> int:
-    return sum(p.numel() for p in model.parameters())
-
-
-def count_trainable_params(model: nn.Module) -> int:
-    return sum(p.numel() for p in model.parameters() if p.requires_grad)
-
+from model import CrossModalFusion, AIGCDetector, count_params, count_trainable_params
 
 if SKIP_TRAINING:
     print("(Parameter-count sanity check skipped — SKIP_TRAINING is True, "

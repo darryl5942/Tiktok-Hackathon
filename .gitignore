@@ -1,3 +1,5 @@
 checkpoints/*.pt
 __pycache__/
 *.pyc
+.cache/
+smoke_test_images/

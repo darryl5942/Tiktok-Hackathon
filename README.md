@@ -167,6 +167,8 @@ Darryl Lee
 - Added `.gitignore` for the checkpoint files
 - Wrote the checkpoint-download setup steps, robustness evaluation table, and error analysis note in the README
 - Drafted the Devpost written description
+- Split `aigc_detector_3.py` into `config.py`, `image_transforms.py`, `model.py`, and `data_pipeline.py` for better code structure
+- Fixed a bug where `techjam_cli.py infer --input-dir` was silently ignored (the script never read the `INFERENCE_INPUT_DIR` env var it set)
 Zacchaeus Tan
 - 
 

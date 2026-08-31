@@ -23,17 +23,21 @@ def env_flag(name: str, default: bool = False) -> bool:
 
 
 def portable_identifier(path: str | Path, anchor: str | Path | None = None) -> str:
-    """Creates a path label that avoids machine-specific absolute prefixes when possible."""
+    """Creates a path label that avoids machine-specific absolute prefixes when possible.
+
+    Always uses forward slashes, even on Windows, so identifiers are stable
+    across machines/OSes rather than depending on os.sep.
+    """
     p = Path(path)
     if anchor is not None:
         try:
-            return str(p.resolve().relative_to(Path(anchor).resolve()))
+            return p.resolve().relative_to(Path(anchor).resolve()).as_posix()
         except Exception:
             pass
     try:
-        return str(p.resolve().name)
+        return p.resolve().name
     except Exception:
-        return str(p.name)
+        return p.name
 
 
 def load_labeled_csv_rows(csv_path: str | Path) -> list[dict]:
