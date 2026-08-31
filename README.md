@@ -60,6 +60,13 @@ mkdir -p checkpoints
 python -c "from huggingface_hub import hf_hub_download; import shutil; p = hf_hub_download(repo_id='darrylljl/tiktok-techjam-aigc-detector', filename='best_model.pt'); shutil.copy(p, 'checkpoints/best_model.pt')"
 ```
 
+PowerShell equivalent:
+
+```powershell
+mkdir checkpoints
+python -c "from huggingface_hub import hf_hub_download; import shutil; p = hf_hub_download(repo_id='darrylljl/tiktok-techjam-aigc-detector', filename='best_model.pt'); shutil.copy(p, 'checkpoints/best_model.pt')"
+```
+
 Model card: https://huggingface.co/darrylljl/tiktok-techjam-aigc-detector
 
 ## Run Modes
@@ -69,13 +76,19 @@ The script reads `AIGC_SKIP_TRAINING` from the environment:
 - `AIGC_SKIP_TRAINING=1` - skip training and run inference/evaluation using `checkpoints/best_model.pt`
 - `AIGC_SKIP_TRAINING=0` - train or resume, then save checkpoints and run the evaluation flow
 
-Example:
+Example (bash):
 
 ```bash
 AIGC_SKIP_TRAINING=1 python aigc_detector_3.py
 ```
 
-There is also a small CLI wrapper for clearer entrypoints:
+PowerShell equivalent — inline `VAR=value` syntax doesn't work in PowerShell, use `$env:` instead:
+
+```powershell
+$env:AIGC_SKIP_TRAINING = "1"; python aigc_detector_3.py
+```
+
+There is also a small CLI wrapper for clearer entrypoints — these work identically in bash and PowerShell, since they take flags rather than env vars:
 
 ```bash
 python techjam_cli.py train
@@ -85,10 +98,16 @@ python techjam_cli.py eval --wildfake-labels-csv /path/to/wildfake_labels.csv
 
 ## Optional External Benchmark
 
-If you have a labeled CSV for WildFake or another OOD benchmark, set:
+If you have a labeled CSV for WildFake or another OOD benchmark, set the `WILDFAKE_LABELS_CSV` environment variable before running:
 
 ```bash
-WILDFAKE_LABELS_CSV=/path/to/wildfake_labels.csv
+export WILDFAKE_LABELS_CSV=/path/to/wildfake_labels.csv
+```
+
+PowerShell:
+
+```powershell
+$env:WILDFAKE_LABELS_CSV = "C:\path\to\wildfake_labels.csv"
 ```
 
 The CSV must contain:
@@ -114,6 +133,14 @@ The CSV is validated before evaluation, so missing columns or invalid labels fai
 ```bash
 AIGC_SKIP_TRAINING=1 python techjam_cli.py infer --input-dir inference_images
 ```
+
+PowerShell:
+
+```powershell
+python techjam_cli.py infer --input-dir inference_images
+```
+
+(No `$env:AIGC_SKIP_TRAINING` needed here — `techjam_cli.py infer` already sets it internally. The bash example above sets it explicitly too, which is redundant but harmless.)
 
 3. Output is written to `outputs/preds.json` as a JSON list, one entry per image:
 
