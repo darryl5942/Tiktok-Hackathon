@@ -6,6 +6,114 @@ _Copy/paste and adapt into the Devpost submission form._
 
 [Robust Detection of AI-Generated Images Under Real-World Transformations — Demo](https://youtu.be/7vnF9jSAB24)
 
+## Project Story (for Devpost's Inspiration / What it does / etc. fields)
+
+_Replace "[our project]" below with your actual project name once you've titled it on Devpost._
+
+### Inspiration
+
+Generative AI tools now produce images nearly indistinguishable from real
+photos, and on a platform at TikTok's scale that creates real risk:
+misinformation, impersonation, fraud, and erosion of trust in what people
+see. What got us was a simple observation: detecting AI-generated images in
+a lab isn't the hard part. Every image that reaches a real platform has
+already been re-compressed, resized, cropped, or lightly edited — a JPEG
+re-encode on upload, a thumbnail generated for a feed, a screenshot and
+repost. Most of the subtle pixel-level artifacts that make an image
+"obviously fake" to a classifier are exactly the artifacts that get
+destroyed first by that pipeline. We wanted to build something that answers
+a harder, more honest question than "can we classify AI images" — can the
+model still tell the difference after the image has been through what every
+real upload goes through.
+
+### What it does
+
+[Our project] takes a directory of images and outputs a confidence score
+(0-1) for how likely each one is AI-generated, as a simple JSON file
+(`image_path` + `pred`) designed to slot into a moderation queue rather than
+requiring a bespoke integration layer. Under the hood, it's a two-branch
+detector: a frozen CLIP ViT-H/14 encoder reads semantic/visual content,
+while a trainable ConvNeXt-Base reads the image's FFT frequency spectrum,
+where many generator artifacts show up as structured patterns even when
+they're invisible in raw pixels. The two signals are fused through a
+lightweight cross-modal attention layer before the final classification. On
+our held-out evaluation, it hits 97.5% clean accuracy (0.997 AUC) and holds
+up well after JPEG recompression, blur, resize, noise, color jitter, and
+center cropping — the exact kinds of post-processing real uploads go
+through.
+
+### How we built it
+
+We trained on CIFAKE and the AIGC Detection Dataset (Kaggle) — real photos
+paired against images from ADM, Stable Diffusion, and Midjourney — with
+every training image passed through 0 to 3 randomly-stacked real-world
+transforms before the model ever sees it, so it never gets to rely on cues
+that vanish once an image leaves the lab. We evaluate on three tiers
+instead of one accuracy number: in-distribution clean accuracy, accuracy
+after each individual transform, and accuracy on WildFake (COCO val2017 +
+DALL·E "Advanced" fakes), a completely held-out benchmark the model never
+trains on — separating "is it actually good" from "did it just memorize
+this dataset's generators" from "does it survive real-world post-
+processing." The trained checkpoint (~3.6GB) is hosted on the Hugging Face
+Hub since it's too large for git, and the codebase is split into readable
+modules (data pipeline, model architecture, transform pool, shared config)
+rather than one monolithic script.
+
+### Challenges we ran into
+
+The model itself came together more smoothly than the *infrastructure*
+around it. We hit a real, leaked-credential scare during setup and had to
+rotate Kaggle and Hugging Face API keys mid-hackathon. We ran into Windows'
+260-character path limit crashing mid-download on two separate machines,
+because our project folder lived deep inside a synced OneDrive path — fixed
+by making the dataset cache location configurable instead of forcing
+everyone to enable OS-level long-path support. We also caught a genuine
+cross-platform bug via our own test suite: a "portable" path identifier
+function was silently returning Windows backslash paths instead of portable
+forward slashes, which would have made error-analysis output inconsistent
+between team members on different OSes. And after a full verified re-run
+on real GPU hardware, we found our documented robustness numbers were
+stale relative to the actual checkpoint we were shipping — a good reminder
+that "the numbers in the README" and "what the model actually does right
+now" can silently drift apart if you don't re-verify.
+
+### Accomplishments that we're proud of
+
+Every number in our robustness table and error analysis came from an
+actual, verified, end-to-end run of our shipped checkpoint — not
+recycled or approximate figures. We're proud that our own test suite caught
+a real bug before it reached a teammate on a different OS, and that we
+were upfront about a real gap we found in our own evaluation design:
+training stacks multiple transforms per image, but our robustness
+evaluation currently only tests one transform at a time, meaning we haven't
+fully measured how the model holds up against the *combined* real-world
+degradation it was actually trained to handle. Catching and documenting our
+own blind spot felt more valuable than quietly leaving it out.
+
+### What we learned
+
+That frequency-domain signals are a genuinely strong, complementary cue to
+raw pixel content for this problem — but they're also the first thing to
+degrade under blur and aggressive resizing, which is exactly where our
+model's accuracy dips the most (92.4% on resize, still well above chance,
+but our clearest weak spot). We also relearned a very unglamorous but
+important lesson: reproducibility infrastructure (deterministic splits,
+seeded randomness, checkpoint versioning, credential hygiene, environment
+setup that actually works on a teammate's machine) takes real, deliberate
+effort, and skipping it is exactly how "it works on my machine" turns into
+a submission that doesn't reproduce for a judge.
+
+### What's next for [our project]
+
+Closing the resize/blur gap with a multi-scale frequency representation or
+an ensemble with a spatial-artifact detector; extending our robustness
+evaluation to cover stacked-transform combinations, not just single
+transforms, to match what training already does; adding an
+explainability layer (e.g. Grad-CAM-style saliency) so a human moderator
+gets evidence, not just a bare score; and decoupling pure inference from
+the training-dataset download so the script is faster and easier for a
+reviewer to run standalone.
+
 ## How our solution addresses the problem statement
 
 Generative AI tools now produce images nearly indistinguishable from real
