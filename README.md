@@ -2,6 +2,8 @@
 
 Robust image-level AIGC detector for the TikTok TechJam problem statement: classify whether an image is AI-generated and stay reliable under common real-world transformations such as JPEG recompression, blur, resize, noise, color jitter, and center crop.
 
+**Demo video**: [Robust Detection of AI-Generated Images Under Real-World Transformations — Demo](https://youtu.be/7vnF9jSAB24)
+
 ## What this project does
 
 - Trains a two-branch detector that combines:

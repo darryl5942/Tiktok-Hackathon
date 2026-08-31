@@ -2,6 +2,10 @@
 
 _Copy/paste and adapt into the Devpost submission form._
 
+## Demo Video
+
+[Robust Detection of AI-Generated Images Under Real-World Transformations — Demo](https://youtu.be/7vnF9jSAB24)
+
 ## How our solution addresses the problem statement
 
 Generative AI tools now produce images nearly indistinguishable from real
