@@ -181,6 +181,13 @@ artifacts the frequency branch relies on — but the degradation is modest
   supplied labeled CSV rather than an automated download.
 - SID_Set is disabled by default due to streaming reliability; enabling it
   (and other generator sources) would likely improve generalization further.
+- Training augmentation stacks 1-3 transforms per image (e.g. blur + JPEG +
+  noise applied together, simulating an image degraded through multiple
+  real-world processing steps), but the robustness evaluation only tests one
+  transform at a time — it doesn't measure how the model holds up against
+  the same kind of stacked/combined degradation it was actually trained on.
+  Extending the evaluation to cover stacked-transform combinations would
+  give a more complete, more realistic robustness picture.
 - Pure inference currently still requires Kaggle credentials and a one-time
   ~12GB dataset download, since the robustness-evaluation pipeline shares a
   run with inference — decoupling these would make the script easier for a

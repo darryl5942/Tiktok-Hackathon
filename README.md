@@ -190,6 +190,7 @@ Zacchaeus Tan
 - Pure inference is currently coupled to the training-dataset download/credential check — running `techjam_cli.py infer` still requires Kaggle credentials and a ~12GB one-time dataset download, even though the required inference deliverable itself doesn't need that data. Given more time, inference-only mode would skip this entirely.
 - External OOD evaluation depends on a local labeled CSV and is optional.
 - The model is robust, but resize and blur remain the biggest weak spots.
+- Training augmentation applies 1-3 stacked transforms per image (e.g. blur + JPEG + noise together, simulating an image degraded through multiple real-world processing steps), but the robustness evaluation only tests one transform at a time — it doesn't measure how the model holds up against the same kind of stacked/combined degradation it was actually trained on. Given more time, extending the evaluation to cover stacked-transform combinations (not just single transforms) would give a more complete, more realistic robustness picture.
 
 ## Notes
 
