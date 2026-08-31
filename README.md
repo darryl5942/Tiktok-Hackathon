@@ -177,6 +177,7 @@ Darren Mah
 - Implemented a persistent, hash-based train/validation split that stays leak-proof even if configuration changes later, with official test sets reserved exclusively for final one-time evaluation
 - Implemented a resumable training system that preserves exact training state across interruptions, and automatically detects and safely handles mid-project changes to data sources or configuration — recalibrating when safe, blocking with a clear warning when a change risks data leakage.
 - Trained the project's model
+- 
 Darryl Lee
 - Drafted the initial version of the AI detection pipeline
 - Set up Hugging Face Hub hosting and uploaded the trained checkpoint (`best_model.pt`) so the model is reproducible without bloating git
@@ -189,6 +190,7 @@ Darryl Lee
 - Made the dataset cache directory configurable via `AIGC_CACHE_DIR` to work around a Windows long-path crash during dataset extraction
 - Verified the full pipeline end-to-end on GPU across two machines, and refreshed the README's robustness table and error analysis with real numbers from that run (replacing stale/inconsistent figures)
 - Rotated leaked Kaggle/Hugging Face credentials found during setup and added `.cache/` to `.gitignore` to prevent future leaks
+- 
 Zacchaeus Tan
 - Added `techjam_utils.py`, a shared helper module for env-flag parsing, portable path identifiers, labeled-CSV validation, benchmark-row conversion, and decision-threshold search
 - Added `techjam_cli.py`, a CLI wrapper with explicit `train`/`infer`/`eval` modes
